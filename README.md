@@ -34,10 +34,10 @@ Work beginning in April 2025. Timeline Goals:
 ## Folder Structure (Coming Soon)
 
 > Will include:
-- 'Assets/': Game assets (sprites, 3D models, audio)
-- 'Scripts/': Unity C# scripts
-- 'Scenes/': Unity scenes
-- 'Docs/': Design docs, story outlines, etc.
+- `Assets/`: Game assets (sprites, 3D models, audio)
+- `Scripts/`: Unity C# scripts
+- `Scenes/`: Unity scenes
+- `Docs/`: Design docs, story outlines, etc.
 
 ## How to Play (Development Build Instructions)
 
