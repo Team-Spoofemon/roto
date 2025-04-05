@@ -34,10 +34,10 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 ## Development Timeline
 
 Work beginning in April 2025. Timeline Goals:
-- Milestone 1: Core Mechanics and Playtesting May 5, 2025
-- Milestone 2:
-- Milestone 3:
-- Milestone 4:
+- Milestone 1: Core Mechanics & Playtesting May 4, 2025
+- Milestone 2: Art Integration & Basic Animation - TBD
+- Milestone 3: Expanded Programming & Advanced Playtesting - TBD
+- Milestone 4: Debugging & Final Optimization - TBD
 
 ---
 
@@ -56,9 +56,9 @@ Work beginning in April 2025. Timeline Goals:
 Coming soon... Not yet playable.
 
 1. Clone the rep:
-   ''' bash
+   ``` bash
    git clone https://github.com/Team-Spoofemon/roto.git
-   '''
+   ```
 2. Open with Unity (latest version recommended)
 3. Load the 'MainScene' and hit Play
 
