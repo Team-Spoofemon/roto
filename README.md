@@ -2,13 +2,9 @@
 
 An action-adventure style game that is inspired by Greek mythology.
 
----
-
 ## Concept
 
 Rise of the Olympians is a 2.5 action-adventure game featuring a mythological storyline. Players will explore ancient environments, battle mythical foes, and unravel the fate of the Olympians.
-
----
 
 ## Features
 - Story-driven gamemplay
@@ -16,15 +12,11 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 - Pixelated characters
 - Still-image cutscenes with narrative and dialogue overlay
 
----
-
 ## Tech Stack
 - Game Engine: Unity
 - Language: C#
 - Tools: Github, Unity, GoogleDocs
 - Target Platform: PC/Mac, possibly mobile
-
----
 
 ## Development Team
 
@@ -39,8 +31,6 @@ Work beginning in April 2025. Timeline Goals:
 - Milestone 3: Expanded Programming & Advanced Playtesting - TBD
 - Milestone 4: Debugging & Final Optimization - TBD
 
----
-
 ## Folder Structure (Coming Soon)
 
 > Will include:
@@ -48,8 +38,6 @@ Work beginning in April 2025. Timeline Goals:
 - 'Scripts/': Unity C# scripts
 - 'Scenes/': Unity scenes
 - 'Docs/': Design docs, story outlines, etc.
-
----
 
 ## How to Play (Development Build Instructions)
 
@@ -66,8 +54,6 @@ Coming soon... Not yet playable.
 
 This project is protected by copyright.
 See [License](./LICENSE) for full details.
-
----
 
 ## Contributions
 
