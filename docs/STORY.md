@@ -125,7 +125,7 @@ Zeus trains with the Cyclops to learn his new divie powers. Corresponds to: `GAM
 
 Prepared, Zeus and his allies assemble for battle. Corresponds to: `GAMEPLAY.md` Level VI War for the Throne
 
-Zeus and Cronus battle for the throne. Corresponds to: `GAEMPLAY.md` Level VII The Final Battle
+Zeus and Cronus battle for the throne. Corresponds to: `GAMEPLAY.md` Level VII The Final Battle
 
 ***Begin Cutscene***
 
