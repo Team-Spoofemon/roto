@@ -2,7 +2,7 @@
 
 ## Act 1: The Beginning and Zeus's Training
 
-**The Birth of the World, Rise of the Titans, and the Birth of Zeus**
+***Begin Cutscene***
 
 **Description:** Chaos swirling, giving birth to the first primordial beings.
 
@@ -23,7 +23,7 @@
 **Narration:**
 > Gaia was devastated. She conspired with her son Cronus to dethrone his father.
 
-*Description:** Cronus striking Uranus with his sickle.
+**Description:** Cronus striking Uranus with his sickle.
 
 **Narration:**
 > Cronus dethroned his father, ending the primordial being rule over the land. His father warned him of a prophacy -- that Cronus would suffer the same fate by his children.
@@ -61,5 +61,27 @@
 **Description:** Close up of Rhea's face (same still)
 
 **Narration:**
-> "Zeus."
+> "He shall be called Zeus."
+
+**Description:** Rhea presenting Cronus with a rounded blanket containing a rock.
+
+**Narration:**
+> Rhea offered to Cronus a round rock, disguised as the newborn baby, wrapped in a blanket.
+
+**Description:** Cronus swallowing rock whole.
+
+**Narration:**
+> Cronus was none the wiser. He swallowed the rock whole, believing it to be his newborn baby.
+
+**Description:** Zeus as a young child, watched over by Amalthea.
+
+**Narration:**
+> In the shadows of the world, Zeus was raised in secret, fed on honey, and the milk of Amalthea.
+
+**Description:** Zeus, older, training in a lush valley.
+
+**Narration:**
+> Under the guidance of wise mentors, Zeus prepared for the war to come.
+
+*End Cutscene*
 
