@@ -115,13 +115,17 @@ Zeus quests to infiltrate Coronus's court. Corresponds to: `GAMEPLAY.md` Level I
 
 Zeus gathers allies. Corresponds to: `GAMEPLAY.md` Level III Gathering Divine Allies
 
+Zeus fights Campe in Tartarus dungeon. Corresponds to: `GAMEPLAY.md` Level IV Fighting Campe
+
+Zeus trains with the Cyclops to learn his new divie powers. Corresponds to: `GAMEPLAY.md` Level V Divine Powers Training
+
 ***End Cutscene***
 
 ## ACT III: The Final Battle
 
-Prepared, Zeus and his allies assemble for battle. Corresponds to: `GAMEPLAY.md` Level IV War for the Throne
+Prepared, Zeus and his allies assemble for battle. Corresponds to: `GAMEPLAY.md` Level VI War for the Throne
 
-Zeus and Cronus battle for the throne. Corresponds to: `GAEMPLAY.md` Level V The Final Battle
+Zeus and Cronus battle for the throne. Corresponds to: `GAEMPLAY.md` Level VII The Final Battle
 
 ***Begin Cutscene***
 
