@@ -33,5 +33,33 @@
 **Narration:**
 > Cronus had now seized control.
 
-**Description:** Rhea and Cornus holding their first newborn.
+**Description:** Rhea and Cronus holding their first newborn.
+
+**Narration:**
+> Fearing the prophecy of hid downfall foretold by his father...
+
+**Description:** Cronus swallowing a newborn god.
+
+**Narration:**
+> Cronus swallowed each of his newborn children, imprisoning them within himself.
+
+**Description:** Rhea pregnant with a god child.
+
+**Narration:**
+> Desparate to save her last child, Rhea tricked Cronus...
+
+**Description:** Rhea giving her child to a nymph in a cave.
+
+**Narration:**
+> and hid her child away in a distant cave on the island of Crete, to be cared for by the nymphs, Adrasteia and Ida, and the goat Amalthea, who would feed her milk to the child.
+
+**Description:** Close up of the Adrasteia's face (same still)
+
+**Narration:**
+> "And what shall the child be called?" asked Adrasteia?
+
+**Description:** Close up of Rhea's face (same still)
+
+**Narration:**
+> "Zeus."
 
