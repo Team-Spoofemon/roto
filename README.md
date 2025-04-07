@@ -12,6 +12,16 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 - Pixelated characters
 - Still-image cutscenes with narrative and dialogue overlay
 
+## Game Progression
+
+1. **Level I** – Tutorial: Zeus trains in Crete
+2. **Level II** – Infiltration: Poison Cronus
+3. **Level III** – Exploration: Find Tartarus
+4. **Level IV** – Boss Fight: Defeat Campe
+5. **Level V** – Training: Learn divine powers
+6. **Level VI** – War Begins
+7. **Level VII** – Final Battle: Cronus (multi-phase)
+
 ## Tech Stack
 - Game Engine: Unity
 - Language: C#
@@ -21,7 +31,27 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 ## Development Team
 
 - Artists: Hannah 2D Artist, Lee 3D Artist
-- Programmers: Chris, Christian, Leeann, Tim, Wendy
+- Programmers: Chris, Christian, Leeann, Tim, Wendy, ____
+
+## Programmer Breakdown
+
+| Programmer | Primary Focus                         |
+|------------|----------------------------------------|
+| Tim        | |
+| Chris      | |
+| Christian  | |
+| Leeann     | |
+| Wendy      | |
+| ______     | |
+
+## Artist Breakdown
+
+| Artist | Primary Focus                             |
+|--------|--------------------------------------------|
+| Hannah | 2D Sprite Sheets                           |
+| Lee    | 3D Environment                             |
+| _____  | 2D UI/UX Elements                          |
+| _____  |  |
 
 ## Development Timeline
 
@@ -31,13 +61,14 @@ Work beginning in April 2025. Timeline Goals:
 - Milestone 3: Expanded Programming & Advanced Playtesting - TBD
 - Milestone 4: Debugging & Final Optimization - TBD
 
-## Folder Structure (Coming Soon)
+## Design Docs
 
-> Will include:
-- `Assets/`: Game assets (sprites, 3D models, audio)
-- `Scripts/`: Unity C# scripts
-- `Scenes/`: Unity scenes
-- `Docs/`: Design docs, story outlines, etc.
+- [Gameplay Overview](./GAMEPLAY.md)
+- [Story Cutscenes](./STORY.md)
+- [Settings & Locations](./SETTINGS.md)
+- [Core Mechanics](./GAME_MECHANICS.md)
+- [Characters](./CHARACTERS.md)
+- [Art Tracker](./ART_TRACKER.md)
 
 ## How to Play (Development Build Instructions)
 
