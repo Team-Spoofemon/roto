@@ -16,10 +16,10 @@ See `STORY.md` for ACT II narration.
 
 ## Level II Infiltrating Cronus's Court
 
-**Setting** Mount Othrys
+**Setting:** Mount Othrys
 
 **Quests:**
-- Zeus pretends to be a servent in Cronus's palace.
+- Zeus pretends to be a servant in Cronus's palace.
 - Must avoid detection while gathering intel.
 - Poisoning Cronus: Zeus tricks Cronus into drinking a potion that makes him vomit up his siblings.
 - Poseidon, Hades, Hera, Demeter, and Hestia are freed from Cronus.
@@ -65,10 +65,10 @@ See `STORY.md` for ACT III narration.
 
 ## Level VI The Final Battle
 
-**Setting:** Mount Othryrs battlefield (interior)
+**Setting:** Mount Othrys battlefield (interior)
 
 **Quests:**
-- Cronus transforms into multiple phases
+- Cronus transforms into multiple phases.
 - Each phase, Zeus must use his abilities to defeat Cronus.
 
 End
