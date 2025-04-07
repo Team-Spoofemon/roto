@@ -83,5 +83,73 @@
 **Narration:**
 > Under the guidance of wise mentors, Zeus prepared for the war to come.
 
-*End Cutscene*
+***End Cutscene***
 
+Zeus trains in secret. Corresponds to: `GAMEPLAY.md` Level I Tutorial Level - Crete Valley
+
+Zeus quests to infiltrate Coronus's court. Corresponds to: `GAMEPLAY.md` Level II Inflitrating Cronus's Court
+
+## Act II: The War Begins
+
+***Begin Cutscene***
+
+**Description:** Zeus, disguised as a servant, gives Cronus a chalice.
+
+**Narration:** 
+> Cronus was given the chalice to drink from, mistaking it for water.
+
+**Description:** Cronus vomitting up his children.
+
+**Narration:**
+> One by one, the gods had returned, each fully grown and ready for vengeance.
+
+**Description:** Zeus and his freed siblings, standing ready.
+
+**Narration:**
+> With his family beside him, the Olympians were ready to take on their father, but not alone.
+
+**Description:** Zeus and his siblings fleeing, Cronus angry.
+
+**Narration:**
+> They escape, setting to build their team to soon face the powerful Titans. Though, the war has still begun.
+
+Zeus gathers allies. Corresponds to: `GAMEPLAY.md` Level III Gathering Divine Allies
+
+***End Cutscene***
+
+## ACT III: The Final Battle
+
+Prepared, Zeus and his allies assemble for battle. Corresponds to: `GAMEPLAY.md` Level IV War for the Throne
+
+Zeus and Cronus battle for the throne. Corresponds to: `GAEMPLAY.md` Level V The Final Battle
+
+***Begin Cutscene***
+
+**Description:** Zeus standing victorious over Cronus.
+
+**Narration:**
+> The war was over. The Titans had fallen.
+
+**Description:** Titans being cast into Tartarus.
+
+**Narration:**
+> Bound by chains, the Titans were to be sealed away forever.
+
+**Description:** Zeus standing atop mountains.
+
+**Narration:**
+> A new kingdom would be built, towering above all others...
+
+**Description:** Zooming in above to the highest peak (same still).
+
+**Narration:**
+> ...Mount Olympus.
+
+**Description:** Zooming out from Zeus's face to reveal all Olympians standing with Zeus.
+
+**Narration:** (same narration as previous frame)
+> ...Mount Olympus.
+
+***End Cutscene***
+
+Credit Roll
