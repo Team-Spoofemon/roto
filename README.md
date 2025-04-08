@@ -50,7 +50,7 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 |--------|--------------------------------------------|
 | Hannah | 2D Sprite Sheets                           |
 | Lee    | 3D Environment                             |
-| _____  | 2D UI/UX Elements                          |
+| Elizabeth  | 2D UI/UX Elements                          |
 | _____  |  |
 
 ## Development Timeline
