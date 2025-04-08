@@ -63,12 +63,12 @@ Work beginning in April 2025. Timeline Goals:
 
 ## Design Docs
 
-- [Gameplay Overview](./GAMEPLAY.md)
-- [Story Cutscenes](./STORY.md)
-- [Settings & Locations](./SETTINGS.md)
-- [Core Mechanics](./GAME_MECHANICS.md)
-- [Characters](./CHARACTERS.md)
-- [Art Tracker](./ART_TRACKER.md)
+- [Gameplay Overview](./docs/GAMEPLAY.md)
+- [Story Cutscenes](./docs/STORY.md)
+- [Settings & Locations](./docs/SETTINGS.md)
+- [Core Mechanics](./docs/GAME_MECHANICS.md)
+- [Characters](./docs/CHARACTERS.md)
+- [Art Tracker](./docs/ART_TRACKER.md)
 
 ## How to Play (Development Build Instructions)
 
