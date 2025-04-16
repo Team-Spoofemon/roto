@@ -12,34 +12,32 @@ Track all core assets across disciplines. Use status tags:
 
 | Asset Name                   | Description / Use                                   | Assigned To | Status | Notes |
 |-----------------------------|------------------------------------------------------|-------------|--------|-------|
-| Zeus – Child Sprite         | Level I and cutscenes                                |             | [ ]    | Tutorial only                 |
-| Zeus – Combat Sprite        | Gameplay sprite for post-training levels             |             | [ ]    | Needs melee + ability anims  |
-| Nymphs – Adrasteia & Ida    | Appear in Level I, teach movement/combat             |             | [ ]    |                               |
-| Amalthea                    | Divine goat for cutscene                             |             | [ ]    | Idle frame may suffice       |
+| Zeus – Combat Sprite        | Gameplay sprite for post-training levels             | Hannah      | [~]    | Needs melee + ability anims  |
+| Nymphs – Adrasteia & Ida    | Appear in Level I, teach movement/combat             | Elizabeth   | [~]    |                              |
+| Amalthea                    | Divine goat for cutscene                             | Elizabeth   | [~]    | Idle frame may suffice       |
 | Rhea                        | Cutscene visuals                                     |             | [ ]    | Rock-swapping scene          |
 | Metis                       | Provides disguise in Level I                         |             | [ ]    | Dialogue sprite only         |
 | Cronus – Throne Variant     | Appears in Level II and cutscenes                    |             | [ ]    | Vomiting frame needed        |
 | Olympian Siblings           | Allies in cutscenes and final war                    |             | [ ]    | Battle-ready poses           |
 | Titan Minions               | Basic enemies in tutorial                            |             | [ ]    | Single variant fine          |
-| Campe                      | Mini-boss in Tartarus                                |             | [ ]    | Custom design                |
-| Cyclops Trio                | Appear in cutscene and forge                         |             | [ ]    |                               |
-| Centimanes                  | Final war allies                                     |             | [ ]    |                               |
+| Campe                       | Mini-boss in Tartarus                                |             | [ ]    | Custom design                |
+| Cyclops Trio                | Appear in cutscene and forge                         |             | [ ]    |                              |
+| Centimanes                  | Final war allies                                     |             | [ ]    |                              |
 | Cutscene Stills (Act I–III) | Cinematic narrative visuals                          |             | [ ]    | Match to narration timing    |
 | Final Olympus Frame         | Epilogue scene, Olympus reveal                       |             | [ ]    | Wide format                  |
-
+| Zeus – Combat Model         | 2.5D in-game sprite base                             |             | [ ]    | Needs animator + collider    |
+| Cronus – Final Boss Model   | Multi-phase battle model                             |             | [ ]    | Animations required          |
+| Divine Armor (Zeus)         | Received from Cyclops forge                          |             | [ ]    | Visual power-up effect       |
+| Trident & Helmet            | Poseidon's and Hades's weapons                       |             | [ ]    | Cyclops-crafted              |
+| Thunderbolt (Weapon)        | Zeus’s divine weapon                                 |             | [ ]    | Add particle FX              |
+| Chalice (Poison)            | Used in Level II                                     |             | [ ]    | Glowing shader?              |
 ---
 
 ## 3D Models & Environments
 
 | Asset Name                 | Description / Use                                 | Assigned To | Status | Notes |
 |---------------------------|----------------------------------------------------|-------------|--------|-------|
-| Zeus – Combat Model       | 2.5D in-game sprite base                           |             | [ ]    | Needs animator + collider    |
-| Cronus – Final Boss Model | Multi-phase battle model                           |             | [ ]    | Animations required          |
-| Divine Armor (Zeus)       | Received from Cyclops forge                        |             | [ ]    | Visual power-up effect       |
-| Trident & Helmet          | Poseidon's and Hades's weapons                     |             | [ ]    | Cyclops-crafted              |
-| Thunderbolt (Weapon)      | Zeus’s divine weapon                               |             | [ ]    | Add particle FX              |
-| Chalice (Poison)          | Used in Level II                                   |             | [ ]    | Glowing shader?              |
-| Crete Valley              | Level I terrain                                    |             | [ ]    | Cave + forest                |
+| Crete Valley              | Level I terrain                                    |   Lee       | [~]    | Cave + forest                |
 | Amalthea's Cave Interior  | Zeus’s early home                                  |             | [ ]    | Cutscene/tutor space         |
 | Mount Othrys – Exterior   | Final battle battlefield                           |             | [ ]    | War layout                   |
 | Mount Othrys – Interior   | Cronus’s throne room + dungeon                     |             | [ ]    | Cutscene and boss arena      |
@@ -53,11 +51,11 @@ Track all core assets across disciplines. Use status tags:
 
 | Asset Name           | Description / Use                          | Assigned To | Status | Notes |
 |----------------------|---------------------------------------------|-------------|--------|-------|
-| Main Menu UI         | Start, Load, Settings, Exit                |             | [ ]    | Early wireframe needed       |
-| In-Game HUD          | Health bar, cooldowns, quest marker        |             | [ ]    | Use placeholder shapes first |
-| Quest Tracker        | Mini log of current objectives             |             | [ ]    | Toggleable overlay           |
-| Pause Menu UI        | Resume, Restart, Exit to Menu              |             | [ ]    | Standard layout              |
-| Subtitle Box         | For cutscene narration/dialogue            |             | [ ]    | Optional skip button         |
+| Main Menu UI         | Start, Load, Settings, Exit                 |             | [ ]    | Early wireframe needed       |
+| In-Game HUD          | Health bar, cooldowns, quest marker         |             | [ ]    | Use placeholder shapes first |
+| Quest Tracker        | Mini log of current objectives              |             | [ ]    | Toggleable overlay           |
+| Pause Menu UI        | Resume, Restart, Exit to Menu               |             | [ ]    | Standard layout              |
+| Subtitle Box         | For cutscene narration/dialogue             |             | [ ]    | Optional skip button         |
 
 ---
 
@@ -65,11 +63,11 @@ Track all core assets across disciplines. Use status tags:
 
 | Asset Name             | Description / Use                         | Assigned To | Status | Notes |
 |------------------------|--------------------------------------------|-------------|--------|-------|
-|                        |                                           |             | [ ]    |        |
-|                        |                                           |             | [ ]    |        |
-|                        |                                           |             | [ ]    |        |
-|                        |                                           |             | [ ]    |        |
-|                        |                                           |             | [ ]    |        |
+| Main Menu Audio        | Main Menu                                  |   Tim       | [~]    |45-50 sec loop|
+| Crete Valley           | Tutorial I - Crete Valley                  |   Tim       | [ ]    |        |
+|                        |                                            |   Tim       | [ ]    |        |
+|                        |                                            |   Tim       | [ ]    |        |
+|                        |                                            |   Tim       | [ ]    |        |
 
 ---
 
