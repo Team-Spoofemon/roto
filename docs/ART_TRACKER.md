@@ -8,10 +8,16 @@ Refer to `CHARACTERS.md` for character attributes.
 ## 2D Art
 
 **Sprite Sheets:**
-- [ ] Zeus – Child (Training)
-- [ ] Zeus – Teen/Young Adult (Combat-ready)
-- [ ] Nymphs – Adrasteia and Ida
-- [ ] Goat Amalthea
+- [ ] Zeus – Teen/Young Adult (Combat-ready) [4 Sheets] Size: 1024x1024; 16 Frames each
+  - [ ] Sheet 1: Idle/Walking
+  - [ ] Sheet 2: Running
+  - [ ] Sheet 3: Combat - melee w/ hit anmiation
+  - [ ] Sheet 4: Combat - special w/ ranged attack
+- [ ] Nymphs – Adrasteia and Ida [2 Sheets] Size: 512x512; 16 frames each
+  - [ ] Sheet 1: Adrasteia idle/walking
+  - [ ] Sheet 2: Ida idle/walking
+- [ ] Goat Amalthea [1 sheet] Size: 512x512; 16 frames each
+  - [ ] idle/walking
 - [ ] Cronus – Throne Room Variant
 - [ ] Rhea – Cutscene Poses
 - [ ] Metis – Disguise Giver
