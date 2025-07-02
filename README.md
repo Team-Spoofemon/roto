@@ -55,11 +55,16 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 
 ## Development Timeline
 
-Work beginning in April 2025. Timeline Goals:
-- Milestone 1: Core Mechanics & Playtesting May 4, 2025
-- Milestone 2: Art Integration & Basic Animation - TBD
-- Milestone 3: Expanded Programming & Advanced Playtesting - TBD
-- Milestone 4: Debugging & Final Optimization - TBD
+Timeline begins April 2025. Timeline Goals:
+- Phase 1: Planning April 2025 - June 2025
+- Phase 2: Pre Production June 2025 - September 2025
+- Phase 3: Production September 2025 - February 2026
+- Phase 4: Gameplay Testing and Bug Fixing February 2026 - April 2026
+- Phase 5: Game Launch May 2026
+
+## Unity Version
+
+Unity 2022.3.30f1
 
 ## Design Docs
 
