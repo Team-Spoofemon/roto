@@ -10,5 +10,8 @@ EditorBuildSettings:
     guid: 64a3df52da2a14793897ca0bda33dd24
   - enabled: 1
     path: Assets/Scenes/Crete Valley.unity
+    guid: 7769f33fb4fa2e5458344a36556ad760
+  - enabled: 1
+    path: Assets/Scenes/Crete Valley.unity
     guid: 9f2f9b97be3cc49fa960aca2d610d95b
   m_configObjects: {}
