@@ -20,8 +20,8 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 
 ## Development Team
 
-- Artists: Hannah 2D Artist, Lee 3D Artist
-- Programmers: Chris, Christian, Leeann, Tim, Wendy
+- Artists:  Elizabeth 2D/3D Artist, Hannah 2D Artist, Lee 3D Artist,
+- Programmers: Chris, Christian, Leeann, Mita, Tim, Wendy
 
 ## Development Timeline
 
@@ -47,7 +47,7 @@ Coming soon... Not yet playable.
    ``` bash
    git clone https://github.com/Team-Spoofemon/roto.git
    ```
-2. Open with Unity (latest version recommended)
+2. Open with Unity (version 2022.3.62f1)
 3. Load the 'MainScene' and hit Play
 
 ## License
