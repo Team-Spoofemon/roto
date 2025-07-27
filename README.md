@@ -1,6 +1,6 @@
 # Rise of the Olympians (ROTO)
 
-An action-adventure style game that is inspired by Greek mythology.
+An action-adventure style RPG that is inspired by early Greek mythology.
 
 ## Concept
 
@@ -26,18 +26,26 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 ## Development Timeline
 
 Work beginning in April 2025. Timeline Goals:
-- Milestone 1: Core Mechanics & Playtesting May 4, 2025
-- Milestone 2: Art Integration & Basic Animation - TBD
-- Milestone 3: Expanded Programming & Advanced Playtesting - TBD
-- Milestone 4: Debugging & Final Optimization - TBD
+- Phase I: Pre-production
+- Phase IIA: Production Phase I
+- Phase IIB: Production Phase II
+- Phase III: Post-production
+- Phase IV: Release
 
 ## Folder Structure (Coming Soon)
 
-> Will include:
-- `Assets/`: Game assets (sprites, 3D models, audio)
-- `Scripts/`: Unity C# scripts
-- `Scenes/`: Unity scenes
-- `Docs/`: Design docs, story outlines, etc.
+- Assets (Main Folder)
+   - Resources
+   - Scenes
+   - Scripts
+- Packages
+- ProjectSettings
+- Temp
+- Library
+- Logs
+- obj
+- UserSettings
+
 
 ## How to Play (Development Build Instructions)
 
