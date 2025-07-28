@@ -2,15 +2,18 @@
 
 ## Design
 
-[Transforming]
+[Transforming](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Transform.html)
+- Move, action, scale
 
-[Rigidbodies]
+[Rigidbodies](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Rigidbody.html)
+- Motion for 3D characters
 
-[CharacterController]
+[Collider](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Collider.html)
+- Base ckass for all colliders
+- To be used for interactions and terrain
 
-[Collider]
-
-[Physics]
+[Physics](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Physics.html)
+- Raycasts, overlap checks, general physics logic
 
 Using Unity's Input System 1.14.1
 
@@ -43,53 +46,61 @@ Using Unity's Input System 1.14.1
 
 ## Scene Management & Flow
 
-[SceneManager]
+[SceneManager](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/SceneManagement.EditorSceneManager.html)
+- Load and unload scenes
 
-[AsyncOperation]
+[AsyncOperation](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/AsyncOperation.html)
+- Used with LoadSceneAsync for smooth transitions
 
 [DontDestroyOnLoad]
+- Keep important objects across scenes
 
 ## Game State & Saving
 
-[PlayerPrefs]
+[PlayerPrefs](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/PlayerPrefs.html)
+- Save system for things like settings, quest flags, etc.
 
-[ScriptableObject]
+[ScriptableObject](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/ScriptableObject.html)
+- Reusable data containers
 
-[Time]
+[Time](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Time.html)
+- Useful for timers, cooldowns, deltaTime calculations
 
 ## UI & Input Helpers
 
-[Canvas]
-
-[Button]
-
-[EventSystem]
-
-[TextMeshProUGUI]
+[Canvas](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Canvas.html)
+- UI systems
 
 ## VFX & Animation
 
-[ParticleSystem]
+[ParticleSystem](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/ParticleSystem.html)
+- Use for things like fire bursts, effects, etc.
 
-[Animator]
-
-[Animation]
+[Animator](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Animator.html)
+- Used for animations, including transitions and triggers
 
 ## Audio
 
-[AudioSource]
+[AudioSource](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/AudioSource.html)
+- Play sounds on events
 
-[AudioClip]
+[AudioClip](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/AudioClip.html)
+- Reference to actual sound file
 
 ## Utility & Scripting Essentials
 
-[Monobehaviour]
+[Monobehaviour](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/MonoBehaviour.html)
+- Scrips inherit from this base class
 
-[GameObject]
+[GameObject](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/GameObject.html)
+- Used to spawn, find and manipulate objects
 
-[Instantiate]
+[Instantiate](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Object.Instantiate.html)
+- Spawn enemies, effects, pickups
 
-[Destroy]
+[Destroy](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/Object.Destroy.html)
+- Remove objects
 
-[Tag]
+[Tag](https://docs.unity3d.com/2022.3/Documentation/ScriptReference/GameObject-tag.html)
+- Allows us to compare objects in logic
 
