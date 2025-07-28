@@ -1,0 +1,39 @@
+# Unity Resource Guide
+
+## Input
+
+### Core APIs
+
+[InputAction](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputAction.html)
+- Represents a single action like jump, move, or attacke
+
+[InputActionMap](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputActionMap.html)
+- A grouping of InputActions
+- Useful for switching control schemes based on game state (menu vs gameplay)
+
+[PlayerInput](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.PlayerInput.html)
+- Simplifies integrating iput with Unity events or message based systems
+
+[InputValue](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputValue.html)
+- Wrapper used in UnityEvents for getting input values
+
+[InputControlScheme](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputControlScheme.html)
+- Represents a control scheme like gamepad, keyboard & mouse
+
+[InputSystem](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputSystem.html)
+- Entry point for querying connected devices
+- Can be useful for debugging device handling at runtime
+
+## Useful APIs
+
+[InputDevice](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.InputDevice.html)
+- Base class for input hardware
+
+[Gamepadhttps://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.Gamepad.html
+- Has helpers for checking inputs manually
+
+[Keyboard](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.Keyboard.html)
+- For querying key presses
+
+[Mouse](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/api/UnityEngine.InputSystem.Mouse.html)
+ - For querying mouse clicks
