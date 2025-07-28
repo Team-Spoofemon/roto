@@ -1,5 +1,17 @@
 # Unity Resource Guide v2.0
 
+##Design
+
+[Transforming]
+
+[Rigidbodies]
+
+[CharacterController]
+
+[Collider]
+
+[Physics]
+
 Using Unity's Input System 1.14.1
 
 ## Input
@@ -28,3 +40,56 @@ Using Unity's Input System 1.14.1
 [Supported Input Devices](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.14/manual/SupportedDevices.html)
 - Covers keyboard, gamepad, touch, etc. Just gonna be good to think about
 - Can be used to plan for controller support
+
+## Scene Management & Flow
+
+[SceneManager]
+
+[AsyncOperation]
+
+[DontDestroyOnLoad]
+
+## Game State & Saving
+
+[PlayerPrefs]
+
+[ScriptableObject]
+
+[Time]
+
+## UI & Input Helpers
+
+[Canvas]
+
+[Button]
+
+[EventSystem]
+
+[TextMeshProUGUI]
+
+## VFX & Animation
+
+[ParticleSystem]
+
+[Animator]
+
+[Animation]
+
+## Audio
+
+[AudioSource]
+
+[AudioClip]
+
+## Utility & Scripting Essentials
+
+[Monobehaviour]
+
+[GameObject]
+
+[Instantiate]
+
+[Destroy]
+
+[Tag]
+
