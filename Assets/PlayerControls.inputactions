@@ -6,7 +6,7 @@
             "id": "3b15ae63-e3ae-4862-8bba-bbac731eab64",
             "actions": [
                 {
-                    "name": "Fire",
+                    "name": "Melee Attack",
                     "type": "Button",
                     "id": "dc1c1208-ff46-487e-a8f0-cd55de497398",
                     "expectedControlType": "",
@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "a3169614-4a0c-4344-b65a-46b8b8c63980",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -32,7 +41,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Fire",
+                    "action": "Melee Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -101,6 +110,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "12e36067-dca4-4cbc-b9a9-24a334a8adb7",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
