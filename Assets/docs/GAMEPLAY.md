@@ -6,8 +6,10 @@ See `STORY.md` for ACT I narration.
 
 **Setting:** The cave of Amalthea, where Zeus was raised in secrecy.
 
+**Size:** 30 x 10
+
 **Quests:**
-- Movement and combat training with nymphs and spirits (?).
+- Movement and combat training with nymphs and spirits.
 - First fight against minor Titan minions as a test.
 - Learn the prophecy and the need to overthrow Cronus.
 - Metis gives Zeus a disguise to infiltrate Cronus's palace.
@@ -18,19 +20,25 @@ See `STORY.md` for ACT II narration.
 
 **Setting:** Mount Othrys
 
+**Size:** 30 x 
+
 **Quests:**
 - Zeus pretends to be a servant in Cronus's palace.
 - Must avoid detection while gathering intel.
 - Poisoning Cronus: Zeus tricks Cronus into drinking a potion that makes him vomit up his siblings.
 - Poseidon, Hades, Hera, Demeter, and Hestia are freed from Cronus.
 
-## Level III Gathering Divine Allies
+## Level III Gathering Allies
 
 **Setting:** Earth before open war.
 
 **Quests:**
-- Find clues to locating Tartarus.
-- Use collected coins to purchase armor upgrades (?).
+- Find clues to locating Tartarus through helping allies.
+	- Balance of Power: Solve Themis's balance of power puzzle. Receive Themis's Sigil, which gives resistance to status effects.
+	- Kindle the Spark: Help Prometheus fight hostile fire spirits including a boss fight. Receive flame burst ability (area of effect).
+	- Echoes of the Past: Zeus helps Mnemosyne fight Memory Wraiths. Receive Sight Beyond Sight ability that allows Zeus to see hidden traps and detect ambushes.
+	- Safe Haven: Zeus helps Leto and the Titan Scouts with a stealth escort mission. Receive Blessing of Artemis (increases movement speed and enhances dodge movements).
+- Locate Nemeus on the Coastal Cliffs to receive a boat to travel to Tartarus.
 - Locate Tartarus.
 
 ## Level IV Fighting Campe
@@ -38,15 +46,15 @@ See `STORY.md` for ACT II narration.
 **Setting:** Tartarus Battleground
 
 **Quest:**
-- Use new armor and strength purchased in previous level to defeat Campe.
+- Use new armor and strength received in previous level to defeat Campe.
 - Once Campe is defeated, use the key to let free the Cyclops and the Centimanes.
 - The Cyclops and the Centimanes devote themselves to fight with the Olympians.
 
-Screen cut to Cyclops workshop that magically already exists.
-
-Zeus receives his thunderbolts, Poseidon his trident, and Hades his helmet of invisibility.
+Zeus receives his thunderbolt.
 
 ## Level V Divine Powers Training
+
+**Setting:** Olympian Camp
 
 **Quests:**
 - Introduce new power abilities.

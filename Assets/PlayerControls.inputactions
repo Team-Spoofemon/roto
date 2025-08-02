@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Gameplay",
+            "name": "Keyboard",
             "id": "3b15ae63-e3ae-4862-8bba-bbac731eab64",
             "actions": [
                 {

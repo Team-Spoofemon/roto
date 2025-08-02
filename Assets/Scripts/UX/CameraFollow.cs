@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-
     public GameObject player;
-    private Vector3 cameraOffset = new Vector3(0, 0, -12);
+    public Vector3 offset = new Vector3(0, 2, -6); // Offset behind and above the player
+    public float rotationDamping = 5f;             // How quickly camera rotates to match player
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void LateUpdate()
     {
-        transform.position = player.transform.position + cameraOffset;
+        if (!player) return;
+
+        // Desired rotation to match player's Y rotation
+        float desiredYAngle = player.transform.eulerAngles.y;
+        float currentYAngle = transform.eulerAngles.y;
+
+        // Smoothly interpolate Y rotation
+        float smoothYAngle = Mathf.LerpAngle(currentYAngle, desiredYAngle, rotationDamping * Time.deltaTime);
+        Quaternion rotation = Quaternion.Euler(0, smoothYAngle, 0);
+
+        // Calculate new position based on the offset and rotation
+        Vector3 desiredPosition = player.transform.position + rotation * offset;
+
+        transform.position = desiredPosition;
+        transform.LookAt(player.transform); // Always look at the player
     }
 }

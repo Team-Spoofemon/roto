@@ -13,19 +13,19 @@ Track all core assets across disciplines. Use status tags:
 | Asset Name                   | Description / Use                                   | Assigned To | Status | Notes |
 |-----------------------------|------------------------------------------------------|-------------|--------|-------|
 | Zeus – Child Sprite         | Level I and cutscenes                                |             | [ ]    | Tutorial only                 |
-| Zeus – Combat Sprite        | Gameplay sprite for post-training levels             |             | [ ]    | Needs melee + ability anims  |
+| Zeus – Combat Sprite        | Gameplay sprite for post-training levels             |             | [ ]    | Needs melee + ability anims   |
 | Nymphs – Adrasteia & Ida    | Appear in Level I, teach movement/combat             |             | [ ]    |                               |
-| Amalthea                    | Divine goat for cutscene                             |             | [ ]    | Idle frame may suffice       |
-| Rhea                        | Cutscene visuals                                     |             | [ ]    | Rock-swapping scene          |
-| Metis                       | Provides disguise in Level I                         |             | [ ]    | Dialogue sprite only         |
-| Cronus – Throne Variant     | Appears in Level II and cutscenes                    |             | [ ]    | Vomiting frame needed        |
-| Olympian Siblings           | Allies in cutscenes and final war                    |             | [ ]    | Battle-ready poses           |
-| Titan Minions               | Basic enemies in tutorial                            |             | [ ]    | Single variant fine          |
-| Campe                      | Mini-boss in Tartarus                                |             | [ ]    | Custom design                |
+| Amalthea                    | Divine goat for cutscene                             |             | [ ]    | Idle frame may suffice        |
+| Rhea                        | Cutscene visuals                                     |             | [ ]    | Rock-swapping scene           |
+| Metis                       | Provides disguise in Level I                         |             | [ ]    | Dialogue sprite only          |
+| Cronus – Throne Variant     | Appears in Level II and cutscenes                    |             | [ ]    | Vomiting frame needed         |
+| Olympian Siblings           | Allies in cutscenes and final war                    |             | [ ]    | Battle-ready poses            |
+| Titan Minions               | Basic enemies in tutorial                            |             | [ ]    | Single variant fine           |
+| Campe                       | Mini-boss in Tartarus                                |             | [ ]    | Custom design                 |
 | Cyclops Trio                | Appear in cutscene and forge                         |             | [ ]    |                               |
 | Centimanes                  | Final war allies                                     |             | [ ]    |                               |
-| Cutscene Stills (Act I–III) | Cinematic narrative visuals                          |             | [ ]    | Match to narration timing    |
-| Final Olympus Frame         | Epilogue scene, Olympus reveal                       |             | [ ]    | Wide format                  |
+| Cutscene Stills (Act I–III) | Cinematic narrative visuals                          |             | [ ]    | Match to narration timing     |
+| Final Olympus Frame         | Epilogue scene, Olympus reveal                       |             | [ ]    | Wide format                   |
 
 ---
 
@@ -65,11 +65,26 @@ Track all core assets across disciplines. Use status tags:
 
 | Asset Name             | Description / Use                         | Assigned To | Status | Notes |
 |------------------------|--------------------------------------------|-------------|--------|-------|
-| Tutorial Music Track   | Background music for Level I              |             | [ ]    | Loopable (45–60 sec)         |
-| Battle Ambience Loop   | Generic combat sound bed                  |             | [ ]    | Level II and beyond          |
-| Cutscene Narration VO  | Voiceover lines for Act I–III             |             | [ ]    | May use placeholder VO       |
-| UI SFX                 | Clicks, transitions, level complete tone  |             | [ ]    |                                |
-| Weapon Activation SFX  | Divine power sounds (thunder, trident)    |             | [ ]    | Use with FX sync             |
+| 01 Main 				 | Main title track 						  |				| [X]    |       |
+| 02 ??? 				 | Cutscene 01		 						  |				| [ ]    |       |
+| 03 Crete Valley		 | Level 01 Crete Valley (Field)			  |				| [X]    |       |
+| 04 Bladed Spirits		 | Level 01 Crete Valley (Tutorial) 		  |				| [X]    |       |
+| 05 ??? 				 | Cutscene 02		 						  |				| [ ]    |       |
+| 06 Mt. Othrys - Field	 | Level 02 Mt. Othrys (Field) 				  |				| [X]    |       |
+| 07 Infiltration		 | Level 02 Mt. Othrys (Infiltration) 		  |				| [X]    |       |
+| 08 ??? 				 | Cutscene 03		 						  |				| [ ]    |       |
+| 09 Before the Olive Tree| Level 03 Greece (field) 				  |				| [X]    |       |
+| 10	 				 | 					 						  |				| [ ]    |       |
+| 11	 				 | 					 						  |				| [ ]    |       |
+| 12	 				 | 					 						  |				| [ ]    |       |
+| 13	 				 | 					 						  |				| [ ]    |       |
+| 14	 				 | 					 						  |				| [ ]    |       |
+| 15	 				 | 					 						  |				| [ ]    |       |
+| 16	 				 | 					 						  |				| [ ]    |       |
+| 17	 				 | 					 						  |				| [ ]    |       |
+| 18	 				 | 					 						  |				| [ ]    |       |
+| 19	 				 | 					 						  |				| [ ]    |       |
+| 20	 				 | 					 						  |				| [ ]    |       |
 
 ---
 

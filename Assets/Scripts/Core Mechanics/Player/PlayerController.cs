@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
         jump.action.Enable();
         fire.action.Enable();
 
+
         //jump input callback
         jump.action.performed += ctx => OnJump();
         jump.action.canceled += ctx => jumpPressed = false;
