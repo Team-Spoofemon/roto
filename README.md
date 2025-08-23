@@ -20,7 +20,7 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 
 ## Development Team
 
-- Artists:  Elizabeth 3D Artist, Lee 3D Artist
+- Artists:  Elizabeth 3D Artist, Lee 2D Artist
 - Programmers: Chris, Christian, Leeann, Mita, Tim, Wendy, Minh
 
 ## Development Timeline
