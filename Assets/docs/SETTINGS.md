@@ -10,20 +10,29 @@ A lush valley on the island of Crete. The cave of Amalthea protected by the nymp
 
 **Notable Features:**  
 - Nurturing environment for Zeus’s upbringing  
-- Combat and movement training with nymphs and/or spirits  
+- Combat and movement training with nymphs and/or spirits.
 
-## Mount Othrys – Cronus's Palace
+## Mount Othrys - Battlefield
+**Acts/Levels:**
+- Act I / Act II Cutscene  
+- Level II: Infiltrating Cronus's Court  
+- Level VI & VII: War for the Throne / Final Battle
+
+**Description:**
+Palace sits atop mountains. The fild itself is is just barren, dirt. Enemy spawns occur in chosen areas.
+
+## Mount Othrys – Cronus's Palace & Throne Room
 **Acts/Levels:**  
 - Act I / Act II Cutscene  
 - Level II: Infiltrating Cronus's Court  
 - Level VI & VII: War for the Throne / Final Battle  
 
 **Description:**  
-The stronghold of the Titans. Dark, imposing, and full of ancient power. Cronus’s palace sits atop Mount Othrys and serves as both the narrative heart of the conflict and the final battleground.
+Interior of the palace on the mountain. 
 
 **Notable Features:**  
 - Zeus infiltrates disguised as a servant  
-- Interior includes throne room and dungeons  
+- Interior includes throne room and dungeons (maybe unseen)
 - Later becomes the site of massive Titan vs. Olympian battles  
 - Interior transforms for multi-phase boss battle with Cronus  
 
@@ -35,18 +44,23 @@ The stronghold of the Titans. Dark, imposing, and full of ancient power. Cronus�
 **Description:**  
 The world between Mount Othrys and Tartarus. This is the midgame exploration hub where players seek divine allies and uncover ancient clues.
 
-**Notable Features:**  
-- Scattered clues and coin collection  
-- Side quests involving armor upgrades  
-- Foreshadowing of Tartarus location  
+**Notable Features:**    
+- Side quests involving ability upgrades  
+- Foreshadowing of Tartarus location
 
-## Tartarus – The Abyssal Prison
+**Locations tie to Divine Quests:**
+- Themis's Grove (East)
+- Prometheus's  Cavern (Northeast Cliffs)
+- Valley of Memory (South)
+- River Asphodel (East Woodland Foothill)
+
+## Tartarus
 **Acts/Levels:**  
 - Act II Cutscene  
 - Level IV: Fighting Campe  
 
 **Description:**  
-A deep, terrifying dungeon beneath the earth. Once the prison for Uranus’s children, now the battleground for freeing ancient allies.
+A deep, terrifying dungeon beneath the earth. Once the prison for Uranus’s children (until Act II), now the battleground for freeing ancient allies (Act III).
 
 **Notable Features:**  
 - Dark and hostile dungeon setting  
@@ -64,15 +78,3 @@ A magical forge that appears after the liberation of Tartarus. The Cyclopes craf
 - Weapon upgrades: Thunderbolt, Trident, Helmet  
 - Power training tutorials  
 - Mythical atmosphere with industrial divine elements  
-
-## Mount Olympus (Epilogue Only)
-**Acts/Levels:**  
-- Act III Cutscene  
-
-**Description:**  
-The shining, heavenly domain of the Olympians. Symbol of a new era after the fall of the Titans.
-
-**Notable Features:**  
-- Revealed in final cutscene  
-- Peak of Zeus’s rise to power  
-- Home of the gods in the postwar world
