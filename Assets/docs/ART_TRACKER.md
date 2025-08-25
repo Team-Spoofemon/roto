@@ -31,9 +31,19 @@ Refer to `CHARACTERS.md` for character attributes.
 ## UI Elements
 
 **Priority 1:**
-- [ ] Health bar (player and enemy)
+- [ ] Main Menu
 - [ ] Pause menu
-- [ ] Main menu
+- [ ] Player health bar
+- [ ] Enemey health bar
+- [ ] Player dead screen
 
 **Priority 2:**
 - [ ] Game map (interactive)
+- [ ] Mini-map or compass
+- [ ] Ability cooldown indicator
+- [ ] Quest arrows
+
+**Priority 2:**
+- [ ] Quest objective tracker
+- [ ] Loading screen
+- [ ] Level complete screen?
