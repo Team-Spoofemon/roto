@@ -6,8 +6,6 @@ See `STORY.md` for ACT I narration.
 
 **Setting:** The cave of Amalthea, where Zeus was raised in secrecy.
 
-**Size:** 30 x 10
-
 **Quests:**
 - Movement and combat training with nymphs and spirits.
 - First fight against minor Titan minions as a test.
@@ -19,8 +17,6 @@ See `STORY.md` for ACT II narration.
 ## Level II Infiltrating Cronus's Court
 
 **Setting:** Mount Othrys
-
-**Size:** 30 x 
 
 **Quests:**
 - Zeus pretends to be a servant in Cronus's palace.

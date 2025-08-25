@@ -7,7 +7,7 @@ An action-adventure style RPG that is inspired by early Greek mythology.
 Rise of the Olympians is a 2.5 action-adventure game featuring a mythological storyline. Players will explore ancient environments, battle mythical foes, and unravel the fate of the Olympians.
 
 ## Features
-- Story-driven gamemplay
+- Story-driven, quest-driven gamemplay with RPG aspects
 - Character movement in 3D space with 2.5D visuals
 - Pixelated characters
 - Still-image cutscenes with narrative and dialogue overlay
@@ -20,8 +20,8 @@ Rise of the Olympians is a 2.5 action-adventure game featuring a mythological st
 
 ## Development Team
 
-- Artists:  Elizabeth 2D/3D Artist, Hannah 2D Artist, Lee 3D Artist,
-- Programmers: Chris, Christian, Leeann, Mita, Tim, Wendy
+- Artists:  Elizabeth 3D Artist, Lee 2D Artist
+- Programmers: Chris, Christian, Leeann, Mita, Tim, Wendy, Minh
 
 ## Development Timeline
 
@@ -38,13 +38,8 @@ Work beginning in April 2025. Timeline Goals:
    - Resources
    - Scenes
    - Scripts
+   - Docs
 - Packages
-- ProjectSettings
-- Temp
-- Library
-- Logs
-- obj
-- UserSettings
 
 
 ## How to Play (Development Build Instructions)

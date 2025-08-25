@@ -5,36 +5,45 @@ Refer to `CHARACTERS.md` for character attributes.
 
 # Art Asset Tracker
 
-## 2D Art
+## Sprite Sheets
 
-**Sprite Sheets:**
-- [ ] Zeus – Child (Training)
+**Priority 1:**
 - [ ] Zeus – Teen/Young Adult (Combat-ready)
-- [ ] Nymphs – Adrasteia and Ida
-- [ ] Goat Amalthea
-- [ ] Cronus – Throne Room Variant
-- [ ] Rhea – Cutscene Poses
-- [ ] Metis – Disguise Giver
-- [ ] Olympian Siblings (Poseidon, Hades, Hera, Demeter, Hestia)
 - [ ] Titan Minions (Tutorial Enemies)
+
+**Priority 2:**
+- [ ] Cronus – Throne Room Variant
+- [ ] Nymphs – Adrasteia and Ida
+- [ ] Rhea
+- [ ] Goat Amalthea
+
+**Priority 3:**
+- [ ] Metis
+- [ ] Prometheus
+- [ ] Mnemosyne
+- [ ] Leto
+- [ ] Olympian Siblings (Poseidon, Hades, Hera, Demeter, Hestia)
 - [ ] Campe – Boss Sprite
 - [ ] Cyclops Trio
 - [ ] Centimanes
 - [ ] Cronus – Final Boss (Multi-phase)
-- [ ] Cutscene Illustrations
-- [ ] UI elements for quests, dialogue overlays, and cutscenes
 
-## 3D Art
+## UI Elements
 
-- [ ] Level I – Crete Valley Environment
-- [ ] Amalthea's Cave Interior
-- [ ] Mount Othrys Palace – Interior & Exterior
-- [ ] Level II – Cronus's Court Props (chalice, throne, disguises)
-- [ ] Level III – Earth World Exploration Terrain
-- [ ] Level IV – Tartarus Dungeon
-- [ ] Campe Boss Arena
-- [ ] Cyclops Workshop Forge
-- [ ] Divine Weapon Models (Thunderbolt, Trident, Helmet)
-- [ ] Divine Armor Variants for Zeus
-- [ ] Level V – Training Grounds (Power Arena)
-- [ ] Final Battle Arena – Cronus Multi-Phase Transformation
+**Priority 1:**
+- [ ] Main Menu
+- [ ] Pause menu
+- [ ] Player health bar
+- [ ] Enemey health bar
+- [ ] Player dead screen
+
+**Priority 2:**
+- [ ] Game map (interactive)
+- [ ] Mini-map or compass
+- [ ] Ability cooldown indicator
+- [ ] Quest arrows
+
+**Priority 2:**
+- [ ] Quest objective tracker
+- [ ] Loading screen
+- [ ] Level complete screen?
