@@ -8,8 +8,19 @@ Refer to `CHARACTERS.md` for character attributes.
 ## Sprite Sheets
 
 **Priority 1:**
-- [ ] Zeus – Teen/Young Adult (Combat-ready)
+- [ ] Zeus – Teen/Young Adult (Combat-ready) (He will always be pictured with a sword during first half of game)
+    - [ ] Walking
+    - [ ] Running (I know I said no, but thinking about it, it sounds weird if we don't differentiate running from walking)
+    - [ ] Sword Attacks
+    - [ ] Hit Animations
+    - [ ] Idle
+    - [ ] Dead animations
 - [ ] Titan Minions (Tutorial Enemies)
+    - [ ] Walking
+    - [ ] Melee Attacks
+    - [ ] Hit Animations
+    - [ ] Idle
+    - [ ] Dead animations
 
 **Priority 2:**
 - [ ] Cronus – Throne Room Variant

@@ -1,4 +1,4 @@
-# SETTINGS.md
+# SCENES.md
 
 ## Crete Valley – The Cave of Amalthea
 **Acts/Levels:**  
