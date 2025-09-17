@@ -6,8 +6,6 @@ using UnityEngine.InputSystem;
 public class PlayerCombat : MonoBehaviour
 {
 
-    public PlayerInputAction PlayerControls;
-
 
 
     // Start is called before the first frame update
@@ -28,7 +26,6 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnMelee() 
     {
-        PlayerControls.melee.Enable();
     }
 
     /*function to dodge?
