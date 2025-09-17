@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
+
+    public PlayerInputAction PlayerControls;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +28,10 @@ public class PlayerCombat : MonoBehaviour
 
     public void OnMelee() 
     {
-
+        PlayerControls.melee.Enable();
     }
 
-    /*function to dodge
+    /*function to dodge?
     player will press the following:
     A + left arrow to dodge left
     S + down arrow to dodge down
