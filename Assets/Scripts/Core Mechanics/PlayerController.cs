@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
 
     //public variables
     public Rigidbody rb;
-    public float moveSpeed = 5f;
+    public float moveSpeed = 6f;
     public float jumpForce = 5f;
     public Transform groundCheck;
     public float groundDistance = 0.2f;
