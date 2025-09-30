@@ -1,4 +1,5 @@
 {
+    "version": 1,
     "name": "PlayerControls",
     "maps": [
         {
@@ -6,7 +7,7 @@
             "id": "3b15ae63-e3ae-4862-8bba-bbac731eab64",
             "actions": [
                 {
-                    "name": "Melee Attack",
+                    "name": "Melee",
                     "type": "Button",
                     "id": "dc1c1208-ff46-487e-a8f0-cd55de497398",
                     "expectedControlType": "",
@@ -41,7 +42,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Melee Attack",
+                    "action": "Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

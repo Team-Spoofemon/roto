@@ -5,8 +5,26 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public InputActionMap PlayerControls;
 
+    public InputAction melee;
+    //public InputAction SpecialAttack;
+    
+    void Awake(){
+        //melee.performed += OnMelee;
+        //SpecialAttack.performed += OnSpecialAttack;
+    }
 
+    void OnEnable(){
+        melee.Enable();
+        //SpecialAttack.Enable()
+
+    }
+
+    void OnDisable(){
+        melee.Disable();
+        //SpecialAttack.Disable()
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +37,8 @@ public class PlayerCombat : MonoBehaviour
     {
         
     }
+
+    
 
     /*function to melee
     player will press J to melee
