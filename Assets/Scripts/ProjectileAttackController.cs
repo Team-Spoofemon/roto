@@ -6,7 +6,9 @@ public class ProjectileAttackController : MonoBehaviour
     public GameObject Projectile;
     public Transform ShotPoint;
     private KeyCode fireKey;
-
+    [SerializeField] private Animator animator;
+    [SerializeField] private string fireTrigger = "Shoot";
+    public void SetAnimator(Animator a) => animator = a;
     private bool fireRequested;
 
     public void Attack()

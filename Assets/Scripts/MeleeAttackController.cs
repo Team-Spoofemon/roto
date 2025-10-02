@@ -4,6 +4,8 @@ public class MeleeWeaponController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private string swingTrigger = "Melee";
 
+    public void SetAnimator(Animator a) => animator = a; 
+
     private bool busy;
 
     public void Attack()
