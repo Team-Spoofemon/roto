@@ -144,13 +144,13 @@ Crete Valley, Mt. Othrys Field, Mt. Othrys Castle Interior, Gaia, Island of Fire
 ## Development Timeline
 
 **Milestones & Phases:**  
-[x] GDD Mar 16, 2025
-  [x] Updated Oct 2, 2025  
-[x] Research Mar 20, 2025
-[] Core Game Mechanics & Initial Art Integration Oct 10, 2025
-  [] Initial art integration
-  [] Initial programming branch testing
-  [] Initial bug fixing
+- [x] GDD Mar 16, 2025
+  - [x] Updated Oct 2, 2025  
+- [x] Research Mar 20, 2025
+- [] Core Game Mechanics & Initial Art Integration Oct 10, 2025
+  - [] Initial art integration
+  - [] Initial programming branch testing
+  - [] Initial bug fixing
 - ACT 1 Demo Dec 4, 2025 (est.)
   - World Building
   - Tutorial Sequence
