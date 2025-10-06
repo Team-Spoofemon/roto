@@ -1,4 +1,4 @@
-name: GameCI Unity
+name: GameCI Unity Build & Test
 
 on:
   push:
@@ -6,15 +6,16 @@ on:
 
 jobs:
   test_and_build:
+    name: Test and Build Project
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
 
-      # Speed up runs by caching the Unity Library folder
+      # Cache the Library folder for faster builds
       - name: Cache Library
         uses: actions/cache@v4
         with:
@@ -23,30 +24,36 @@ jobs:
           restore-keys: |
             Library-
 
-      # Run Unity tests (editmode + playmode by default)
+      # (Optional) Debug environment keys - safe to remove later
+      - name: Debug env keys
+        run: printenv | grep UNITY || true
+
+      # Run Unity tests
       - name: Run tests
         uses: game-ci/unity-test-runner@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL:   ${{ secrets.UNITY_EMAIL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          # projectPath: .   # uncomment and set if your project is in a subfolder
+          unityVersion: auto
+          testMode: all
 
-      # Build the project
+      # Build the Unity project
       - name: Build project
         uses: game-ci/unity-builder@v4
         env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-          UNITY_EMAIL:   ${{ secrets.UNITY_EMAIL }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_SERIAL: ${{ secrets.UNITY_SERIAL }}
         with:
-          targetPlatform: WebGL   # change to StandaloneWindows64, StandaloneOSX, Android, iOS, etc.
-          # projectPath: .        # set if your project lives in a subfolder
-          # unityVersion: auto    # default is auto; it reads ProjectSettings/ProjectVersion.txt
+          targetPlatform: WebGL            # change to StandaloneWindows64, Android, etc.
+          unityVersion: auto               # or set explicitly, e.g. 2022.3.18f1
+          buildName: GameBuild
+          buildPath: build
 
-      # Upload the build as an artifact
+      # Upload build artifacts
       - name: Upload build
         uses: actions/upload-artifact@v4
         with:
