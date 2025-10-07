@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rise of the Olympians – Playtesting Portal</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Rise of the Olympians</h1>
+    <p class="subtitle">Initial Mechanics Playtest</p>
+  </header>
+
+  <main>
+    <!-- BUILD SECTION -->
+    <section id="builds">
+      <h2>Current Playtest Build</h2>
+      <div class="build-grid">
+        <div class="build-card">
+          <h3>Initial Mechanics Playtest</h3>
+          <p><strong>Version:</strong> v0.1.0</p>
+          <p><strong>Updated:</strong> October 5, 2025</p>
+          <p><strong>Focus:</strong> Core player movement, combat feel, hit detection, and environment interaction.</p>
+          <p><strong>Location:</strong> Crete Valley (Training Grounds)</p>
+          <a href="build/index.html" class="btn" target="_blank">Play Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATCH NOTES -->
+    <section id="notes">
+      <h2>Patch Notes</h2>
+      <div class="notes-box">
+        <p><strong>v0.1.0 – Initial Mechanics Playtest</strong></p>
+        <ul style="margin-left:1.5rem; line-height:1.7;">
+          <li>Implemented player movement with Rigidbody-based control.</li>
+          <li>Added basic melee combat and hitbox detection.</li>
+          <li>Introduced Titan Minion training enemies (Level I – Crete Valley).</li>
+          <li>Enabled camera follow and damage feedback systems.</li>
+          <li>Preliminary lighting and terrain setup for Crete Valley.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- FEEDBACK FORM -->
+    <section id="feedback">
+      <h2>Submit Feedback</h2>
+      <form action="https://formspree.io/f/yourformid" method="POST">
+        <label for="name">Name (optional)</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+
+        <label for="feedback">Your Feedback</label>
+        <textarea id="feedback" name="feedback" rows="6" placeholder="Share how the movement and combat feel. Mention bugs, control issues, or ideas."></textarea>
+
+        <button type="submit" class="btn">Submit Feedback</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Rise of the Olympians Team</p>
+  </footer>
+</body>
+</html>
