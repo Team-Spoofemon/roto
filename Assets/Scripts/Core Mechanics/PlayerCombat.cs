@@ -5,22 +5,49 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
-    //public EnemyHealth enemyHealth; <-- Remove comment once EnemyHealth.cs created
-    //public SpecialAbilities specialAbilities; <-- Remove comment once SpecialAbilties.cs created
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    /*function to melee
+    player will press J to melee
+    */
 
     public void OnMelee() 
     {
-        
-        //enemyHealth.TakeDamage();
-        //insert sound effect
-        //insert animation randomizer
-        Debug.Log("Sword Sound Effect");
-        Debug.Log("Sword Animation");
     }
+
+    /*function to dodge?
+    player will press the following:
+    A + left arrow to dodge left
+    S + down arrow to dodge down
+    D + right arrow to dodge right
+    */
+
+    public void OnDodge() 
+    {
+
+    }
+
+    /*function to reference special abilities class
+    player will use j to activate special abilities controller
+    SpecialAbilities.cs will handle this
+    */
 
     public void OnSpecialAbilityController()
     {
-        //specialAbilities.areaOfEffect();
+        //reference special abilities class
     }
 
 
