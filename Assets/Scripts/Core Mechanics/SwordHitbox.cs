@@ -8,6 +8,12 @@ public class SwordHitbox : MonoBehaviour
     private PlayerCombat playerCombat;
     //private EnemyHealth enemyHealth;
 
+    private void Start()
+    {
+        playerCombat = GetComponentInParent<PlayerCombat>();
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
