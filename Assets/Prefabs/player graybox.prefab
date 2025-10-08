@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8774918374273268950}
   - component: {fileID: 9040897017777285472}
   - component: {fileID: 1452401226260157670}
+  - component: {fileID: 4263694745241545843}
   m_Layer: 0
   m_Name: player graybox
   m_TagString: Untagged
@@ -159,3 +160,17 @@ MonoBehaviour:
   move: {fileID: 5864235432400495919, guid: 346b8d2dc2beb476c90fe0bc792dae5b, type: 3}
   jump: {fileID: 2379279377379857265, guid: 346b8d2dc2beb476c90fe0bc792dae5b, type: 3}
   fire: {fileID: 7910597378379892277, guid: 346b8d2dc2beb476c90fe0bc792dae5b, type: 3}
+--- !u!114 &4263694745241545843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5638838819554582725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04fc4c30c115548b6b3e5467512138e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  attack: 10

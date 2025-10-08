@@ -1,30 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : Entity, IDamages
 {
-
-
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     /*function to melee
     player will press J to melee
     */
 
-    public void OnMelee() 
+    public void OnMelee()
     {
     }
 
@@ -35,7 +32,7 @@ public class PlayerCombat : MonoBehaviour
     D + right arrow to dodge right
     */
 
-    public void OnDodge() 
+    public void OnDodge()
     {
 
     }
@@ -50,5 +47,9 @@ public class PlayerCombat : MonoBehaviour
         //reference special abilities class
     }
 
-
+    public override void Die()
+    {
+        // optional: disable input, play death animation, etc.
+        SceneManager.LoadScene(0);
+    }
 }

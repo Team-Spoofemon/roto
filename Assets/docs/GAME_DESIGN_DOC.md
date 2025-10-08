@@ -131,7 +131,7 @@ Crete Valley, Mt. Othrys Field, Mt. Othrys Castle Interior, Gaia, Island of Fire
 **Engine & Tools:**  
 - **Engine:** Unity  
 - **GitHub:** Architecture and collaboration  
-- **Physics & AI:** Characters will move in a 3D space as 2D sprites. Enemies will spawn out of character view and seek the player during attack. Enemies will follow an EnemyAI script to achieve this.  
+- **Physics & AI:** Characters will move in a 3D space as 2D sprites. Enemies will spawn out of character view and seek the player during attack. Enemies will follow an Enemy script to achieve this.  
 
 **Multiplayer (if applicable):** NA  
 

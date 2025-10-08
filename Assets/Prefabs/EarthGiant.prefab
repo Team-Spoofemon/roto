@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5047508843927834216}
   - component: {fileID: 5615368041343546441}
   - component: {fileID: 1060459570514242527}
+  - component: {fileID: 225524790181209970}
   m_Layer: 0
   m_Name: EarthGiant
   m_TagString: Untagged
@@ -194,6 +195,20 @@ MonoBehaviour:
   m_IgnoreFromBuild: 1
   m_ApplyToChildren: 1
   m_AffectedAgents: ffffffff
+--- !u!114 &225524790181209970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675735241240236720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04fc4c30c115548b6b3e5467512138e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  attack: 5
 --- !u!1 &8953021173353797664
 GameObject:
   m_ObjectHideFlags: 0
