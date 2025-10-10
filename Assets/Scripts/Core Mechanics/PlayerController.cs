@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [SerializeField] private Animator playerAnim;
 
     //public variables
     public Rigidbody rb;
@@ -59,6 +62,15 @@ public class PlayerController : MonoBehaviour
         moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (moveInput.x != 0 || moveInput.y != 0)
+        {
+            playerAnim.SetBool("isWalking", true);
+        }
+        else
+        {
+            playerAnim.SetBool("isWalking", false);
+        }
     }
 
     void FixedUpdate()
