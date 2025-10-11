@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ffc09aa214f1b44f79d020b76578f315
+guid: 42e1de31faedb28468666d27520dad7c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,22 +110,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: earthgiant_0
+      name: zeus_attack_diagonal_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 256
+        x: 29
+        y: 3
+        width: 98
+        height: 132
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e58cc2e832db7ee419b5d84d1d65db14
-      internalID: 99826209
+      spriteID: 45ce099e85370a7439c6a7911e59bef2
+      internalID: 1733555858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeus_attack_diagonal_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 3
+        width: 104
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22cc7c859d72c2644adaee66eb4f7988
+      internalID: -1736499207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeus_attack_diagonal_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 5
+        width: 113
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 897cc7eb4e33bbd4fa5efb60fe11de62
+      internalID: -241498296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeus_attack_diagonal_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 2
+        width: 140
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1825be33054a01f4dbf788fd0df55853
+      internalID: -261228956
       vertices: []
       indices: 
       edges: []
@@ -133,7 +196,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 31d17b365e0238640bde97397fbcba59
+    spriteID: 8d7e956181be2c840b2e8dca0aa422bd
     internalID: 0
     vertices: []
     indices: 
@@ -141,7 +204,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      earthgiant_0: 99826209
+      zeus_attack_diagonal_spritesheet_0: 1733555858
+      zeus_attack_diagonal_spritesheet_1: -1736499207
+      zeus_attack_diagonal_spritesheet_2: -241498296
+      zeus_attack_diagonal_spritesheet_3: -349391304
+      zeus_attack_diagonal_spritesheet_4: 2094229496
+      zeus_attack_diagonal_spritesheet_5: -261228956
+      zeus_attack_diagonal_spritesheet_6: -213655861
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

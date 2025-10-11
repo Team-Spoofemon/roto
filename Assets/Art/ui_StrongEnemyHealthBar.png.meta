@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,27 +34,27 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,18 +108,260 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_0
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 580
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdfa3592a91d06d439ac444bf85075ba
+      internalID: 1361507553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_1
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 527
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54b971b1108cf1c468a686ac2e3e5dce
+      internalID: 2002033708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_2
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 475
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e06f06d8f088b924f8f1f8de3c6bb8d7
+      internalID: 2007083169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_3
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 422
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55f43e433e330564ba7a3af5b189a838
+      internalID: -685170634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_4
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 373
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f873ee50afdee344815a179bedf344d
+      internalID: 223190875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_5
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 319
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f759bee53923b2747a8b1ed14c88110a
+      internalID: 1794077151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_6
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 268
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1572f82ffa9150347b6dbc1598627b18
+      internalID: -657097712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_7
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 215
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5396e24336bd3fd4b99b92619410b0c2
+      internalID: 605248820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_8
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 165
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e10e427d570241847a4f370d9c33381e
+      internalID: -1862718343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_9
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 112
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 466f43dbfb78a9448b356424d1eddd73
+      internalID: -1003861962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_StrongEnemyHealthBar_10
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 60
+        width: 170
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57848f390645c974a8a0592af33e3662
+      internalID: -628626092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 94395de1fd5899e44a1bfae2d6baca30
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ui_StrongEnemyHealthBar_0: 1361507553
+      ui_StrongEnemyHealthBar_1: 2002033708
+      ui_StrongEnemyHealthBar_10: -628626092
+      ui_StrongEnemyHealthBar_2: 2007083169
+      ui_StrongEnemyHealthBar_3: -685170634
+      ui_StrongEnemyHealthBar_4: 223190875
+      ui_StrongEnemyHealthBar_5: 1794077151
+      ui_StrongEnemyHealthBar_6: -657097712
+      ui_StrongEnemyHealthBar_7: 605248820
+      ui_StrongEnemyHealthBar_8: -1862718343
+      ui_StrongEnemyHealthBar_9: -1003861962
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

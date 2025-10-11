@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,27 +34,27 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,18 +108,260 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_0
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 562
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf780b371437bd0458c15c7070f2763b
+      internalID: 49713979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_1
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 516
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76562df009b258b44b1bb4885cbd269b
+      internalID: 1207398938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_2
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 468
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10ff879e4df90e94daaa0b2a084b8b22
+      internalID: -1641017592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_3
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 422
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eea54e5328dd9184f95abfe09a2be3ff
+      internalID: -1608454794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_4
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 369
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41de59cc777522141acf4a3843398d45
+      internalID: -342585014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_5
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 323
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 808ed23df68898845be89e69dc60154b
+      internalID: -1971813285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_6
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 275
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb824c742faf5ef47918c604defbc5ce
+      internalID: 1395906379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_7
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 229
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dfcf6001acd88f4ab8c0be08357274a
+      internalID: 1147027886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_8
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 181
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d26f0bcd51df834bb9de9f71d50d1eb
+      internalID: 889755643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_9
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 135
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a48060196eeb8b4cb21ddb02b0fbf28
+      internalID: 1362226697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_WeakEnemyHealthBar_10
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 87
+        width: 84
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca163f4fa378cd0498ce16176f084ff9
+      internalID: 1019504109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b55122ab1e546d547ba4c1857244b00d
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ui_WeakEnemyHealthBar_0: 49713979
+      ui_WeakEnemyHealthBar_1: 1207398938
+      ui_WeakEnemyHealthBar_10: 1019504109
+      ui_WeakEnemyHealthBar_2: -1641017592
+      ui_WeakEnemyHealthBar_3: -1608454794
+      ui_WeakEnemyHealthBar_4: -342585014
+      ui_WeakEnemyHealthBar_5: -1971813285
+      ui_WeakEnemyHealthBar_6: 1395906379
+      ui_WeakEnemyHealthBar_7: 1147027886
+      ui_WeakEnemyHealthBar_8: 889755643
+      ui_WeakEnemyHealthBar_9: 1362226697
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
