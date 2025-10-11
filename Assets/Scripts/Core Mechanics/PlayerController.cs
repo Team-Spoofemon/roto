@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +12,15 @@ public class PlayerController : MonoBehaviour
     private InputAction moveAction;
     private InputAction sprintAction;
 
-    private Vector2 moveAmt;
+    [SerializeField] private Animator playerAnim;
+
+    //public variables
+    public Rigidbody rb;
+    public float moveSpeed = 5f;
+    public float jumpForce = 5f;
+    public Transform groundCheck;
+    public float groundDistance = 0.2f;
+    public LayerMask groundMask;
 
     private float walkSpeed = 5f;
     private float jumpSpeed = 5f;
@@ -51,13 +60,19 @@ public class PlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        // Calls Move every physics step (50x/sec)
-        Move();
-    }
-    public void Jump()
-    {
-        // Instant force upward (0, 1, 0)
-        rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+        Vector2 moveInput = move.action.ReadValue<Vector2>();
+        moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
+
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (moveInput.x != 0 || moveInput.y != 0)
+        {
+            playerAnim.SetBool("isWalking", true);
+        }
+        else
+        {
+            playerAnim.SetBool("isWalking", false);
+        }
     }
 
     public void Move()
