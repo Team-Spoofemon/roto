@@ -1,92 +1,125 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody rb;
-    private PlayerInput PlayerInput;
-    private InputAction jumpAction;
-    private InputAction moveAction;
-    private InputAction sprintAction;
-
+    [Header("Components")]
     [SerializeField] private Animator playerAnim;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private PlayerInput playerInput;
 
-    //public variables
-    public Rigidbody rb;
-    public float moveSpeed = 5f;
-    public float jumpForce = 5f;
-    public Transform groundCheck;
-    public float groundDistance = 0.2f;
-    public LayerMask groundMask;
+    // Flip ONLY this transform (child that holds sprites/animators)
+    [Header("Visuals")]
+    [SerializeField] private Transform spriteHolder; // assign the child that renders Zeus+sword
 
-    private float walkSpeed = 5f;
-    private float jumpSpeed = 5f;
-    private float sprintSpeed = 10f;
+    [Header("Input Actions")]
+    [SerializeField] private InputAction moveAction;
+    [SerializeField] private InputAction jumpAction;
+    [SerializeField] private InputAction sprintAction;
 
+    [Header("Movement Settings")]
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 10f;
+    [SerializeField] private float jumpForce = 5f;
 
-    public void Awake()
+    [Header("Ground Check")]
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
+
+    private Vector2 moveAmt;
+    private Vector3 moveDirection;
+    private bool isGrounded;
+    private bool facingRight = true;
+
+    private void Awake()
     {
-        // Gets Components
-        PlayerInput = GetComponent<PlayerInput>();
-        rb = GetComponent<Rigidbody>();
+        if (!playerInput) playerInput = GetComponent<PlayerInput>();
+        if (!rb) rb = GetComponent<Rigidbody>();
 
-        // Looks inside input action map
-        moveAction = PlayerInput.actions["Move"];
-        jumpAction = PlayerInput.actions["Jump"];
-        sprintAction = PlayerInput.actions["Sprint"];
+        moveAction   = playerInput.actions["Move"];
+        jumpAction   = playerInput.actions["Jump"];
+        sprintAction = playerInput.actions["Sprint"];
 
+        // Safety: if not assigned, flip the root (not ideal, but works)
+        if (!spriteHolder) spriteHolder = transform;
     }
 
-    public void Start()
+    private void OnEnable()
     {
-        Debug.Log("Game Started!");
+        moveAction.Enable();
+        jumpAction.Enable();
+        sprintAction.Enable();
     }
 
-    // Updates every frame
-    public void Update()
+    private void OnDisable()
     {
-        // Reads the "move" input
+        moveAction.Disable();
+        jumpAction.Disable();
+        sprintAction.Disable();
+    }
+
+    private void Update()
+    {
         moveAmt = moveAction.ReadValue<Vector2>();
 
-        // Jump if jump was pressed in this frame
-        if (jumpAction.WasPressedThisFrame())
-        {
+        if (jumpAction.WasPressedThisFrame() && isGrounded)
             Jump();
-        }
+
+        HandleFlip(moveAmt.x);
+        AnimateMovement();
     }
 
-    public void FixedUpdate()
+    private void FixedUpdate()
     {
-        Vector2 moveInput = move.action.ReadValue<Vector2>();
-        moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
-
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (moveInput.x != 0 || moveInput.y != 0)
-        {
-            playerAnim.SetBool("isWalking", true);
-        }
-        else
-        {
-            playerAnim.SetBool("isWalking", false);
-        }
+        GroundCheck();
+        Move();
     }
 
-    public void Move()
+    private void Move()
     {
-        // Check if sprint is held
         bool isSprinting = sprintAction.IsPressed();
-
-        // if/else for sprinting or walking
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
-        
-        //Creates movement direction vector and multiplies by speed and delta time
-        Vector3 move = (transform.forward * moveAmt.y + transform.right * moveAmt.x) * moveSpeed * Time.deltaTime;
-        rb.MovePosition(rb.position + move);
+
+        moveDirection = new Vector3(moveAmt.x, 0f, moveAmt.y).normalized;
+        Vector3 delta = moveDirection * moveSpeed * Time.fixedDeltaTime;
+
+        rb.MovePosition(rb.position + delta);
     }
 
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
 
+    private void GroundCheck()
+    {
+        isGrounded = groundCheck
+            ? Physics.CheckSphere(groundCheck.position, groundDistance, groundMask)
+            : true; // fallback if not assigned
+    }
+
+    private void AnimateMovement()
+    {
+        if (playerAnim)
+        {
+            bool isMoving = moveAmt.sqrMagnitude > 0.01f;
+            playerAnim.SetBool("isWalking", isMoving);
+        }
+    }
+
+    private void HandleFlip(float xInput)
+    {
+        if (xInput > 0.01f && !facingRight) Flip();
+        else if (xInput < -0.01f && facingRight) Flip();
+    }
+
+    private void Flip()
+    {
+        facingRight = !facingRight;
+        float y = facingRight ? 0f : 180f;
+        // rotate ONLY the visual child so colliders/rigidbody stay stable
+        spriteHolder.localRotation = Quaternion.Euler(0f, y, 0f);
+    }
 }

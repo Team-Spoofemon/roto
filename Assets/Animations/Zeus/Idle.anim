@@ -35,23 +35,6 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
-  - serializedVersion: 2
-    curve:
-    - time: 0
-      value: {fileID: 540151043, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - time: 0.13333334
-      value: {fileID: -118566045, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - time: 0.26666668
-      value: {fileID: -1510290571, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - time: 0.38333333
-      value: {fileID: 684069385, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - time: 0.53333336
-      value: {fileID: 540151043, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    attribute: m_Sprite
-    path: Zeus Sword
-    classID: 212
-    script: {fileID: 0}
-    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -68,26 +51,12 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
-    - serializedVersion: 2
-      path: 4174574974
-      attribute: 0
-      script: {fileID: 0}
-      typeID: 212
-      customType: 23
-      isPPtrCurve: 1
-      isIntCurve: 0
-      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: -1495937234, guid: 9568de582cb7a4808b651a370dd54c13, type: 3}
     - {fileID: -1775221350, guid: 9568de582cb7a4808b651a370dd54c13, type: 3}
     - {fileID: -1500430772, guid: 9568de582cb7a4808b651a370dd54c13, type: 3}
     - {fileID: 74690257, guid: 9568de582cb7a4808b651a370dd54c13, type: 3}
     - {fileID: -1495937234, guid: 9568de582cb7a4808b651a370dd54c13, type: 3}
-    - {fileID: 540151043, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - {fileID: -118566045, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - {fileID: -1510290571, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - {fileID: 684069385, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
-    - {fileID: 540151043, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
