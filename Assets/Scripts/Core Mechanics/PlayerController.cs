@@ -3,30 +3,22 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [Header("Components")]
     [SerializeField] private Animator playerAnim;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerInput playerInput;
-
-    // Flip ONLY this transform (child that holds sprites/animators)
-    [Header("Visuals")]
-    [SerializeField] private Transform spriteHolder; // assign the child that renders Zeus+sword
-
-    [Header("Input Actions")]
+    [SerializeField] private Transform spriteHolder;
     [SerializeField] private InputAction moveAction;
     [SerializeField] private InputAction jumpAction;
     [SerializeField] private InputAction sprintAction;
-
-    [Header("Movement Settings")]
+    [SerializeField] private InputAction meleeAction;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private float jumpForce = 5f;
-
-    [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
-
+    
+    private PlayerCombat playerCombat;
     private Vector2 moveAmt;
     private Vector3 moveDirection;
     private bool isGrounded;
@@ -40,8 +32,8 @@ public class PlayerController : MonoBehaviour
         moveAction   = playerInput.actions["Move"];
         jumpAction   = playerInput.actions["Jump"];
         sprintAction = playerInput.actions["Sprint"];
+        meleeAction = playerInput.actions["Melee"];
 
-        // Safety: if not assigned, flip the root (not ideal, but works)
         if (!spriteHolder) spriteHolder = transform;
     }
 
@@ -50,6 +42,8 @@ public class PlayerController : MonoBehaviour
         moveAction.Enable();
         jumpAction.Enable();
         sprintAction.Enable();
+        meleeAction.Enable();
+        meleeAction.performed += _ => Melee();
     }
 
     private void OnDisable()
@@ -57,6 +51,8 @@ public class PlayerController : MonoBehaviour
         moveAction.Disable();
         jumpAction.Disable();
         sprintAction.Disable();
+        meleeAction.Disable();
+        meleeAction.performed -= _ => Melee();
     }
 
     private void Update()
@@ -121,5 +117,10 @@ public class PlayerController : MonoBehaviour
         float y = facingRight ? 0f : 180f;
         // rotate ONLY the visual child so colliders/rigidbody stay stable
         spriteHolder.localRotation = Quaternion.Euler(0f, y, 0f);
+    }
+
+    private void Melee()
+    {
+        playerCombat.OnMelee();
     }
 }
