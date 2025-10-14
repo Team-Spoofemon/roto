@@ -298,16 +298,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAnim: {fileID: 0}
   rb: {fileID: 8774918374273268950}
-  moveSpeed: 10
+  playerInput: {fileID: 0}
+  spriteHolder: {fileID: 0}
+  moveAction:
+    m_Name: Move
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: fffd158a-6270-424c-9614-a0803dc6758d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  jumpAction:
+    m_Name: Jump
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7b85ca11-5d77-4baa-98ba-7372ffe6fc22
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  sprintAction:
+    m_Name: Sprint
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: dfed8b02-d2f8-4859-935d-d745f18b5814
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  meleeAction:
+    m_Name: Melee
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 6a82541c-f6a6-43db-b4b6-b72d197c92b8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  walkSpeed: 5
+  sprintSpeed: 10
   jumpForce: 5
   groundCheck: {fileID: 0}
   groundDistance: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  move: {fileID: 5864235432400495919, guid: 346b8d2dc2beb476c90fe0bc792dae5b, type: 3}
-  jump: {fileID: 2379279377379857265, guid: 346b8d2dc2beb476c90fe0bc792dae5b, type: 3}
-  fire: {fileID: 7910597378379892277, guid: 346b8d2dc2beb476c90fe0bc792dae5b, type: 3}
 --- !u!114 &2490624537413267581
 MonoBehaviour:
   m_ObjectHideFlags: 0
