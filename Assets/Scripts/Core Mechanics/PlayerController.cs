@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!playerInput) playerInput = GetComponent<PlayerInput>();
         if (!rb) rb = GetComponent<Rigidbody>();
+        if (!playerCombat) playerCombat = GetComponent<PlayerCombat>();
 
         moveAction   = playerInput.actions["Move"];
         jumpAction   = playerInput.actions["Jump"];

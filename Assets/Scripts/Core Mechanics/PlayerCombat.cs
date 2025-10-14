@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerCombat : MonoBehaviour
 {
     [SerializeField] private Animator playerAnim;
+    [SerializeField] private Animator swordAnim;
     [SerializeField] private Collider swordHitbox;
     [SerializeField] private LayerMask enemyLayer;
     [SerializeField] private AudioSource sword;
@@ -23,10 +24,9 @@ public class PlayerCombat : MonoBehaviour
         AudioClip swordClip = swordSwingSounds[swordIndex];
         sword.PlayOneShot(swordClip);
         swordHitbox.enabled = true;
-        Debug.Log("Sword Swinging");
         playerAnim.SetTrigger("Melee");
+        swordAnim.SetTrigger("Melee");
         swordHitbox.enabled = false;
-        Debug.Log("Sword Swung");
 
     }
 
