@@ -1,90 +1,127 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-
     [SerializeField] private Animator playerAnim;
-
-    //public variables
-    public Rigidbody rb;
-    public float moveSpeed = 5f;
-    public float jumpForce = 5f;
-    public Transform groundCheck;
-    public float groundDistance = 0.2f;
-    public LayerMask groundMask;
-
-    // input action items
-    public InputActionReference move;
-    public InputActionReference jump;
-    public InputActionReference fire;
-
-    // private variables
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Transform spriteHolder;
+    [SerializeField] private InputAction moveAction;
+    [SerializeField] private InputAction jumpAction;
+    [SerializeField] private InputAction sprintAction;
+    [SerializeField] private InputAction meleeAction;
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float sprintSpeed = 10f;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
+    
+    private PlayerCombat playerCombat;
+    private Vector2 moveAmt;
     private Vector3 moveDirection;
     private bool isGrounded;
-    private bool jumpPressed;
+    private bool facingRight = true;
 
-    void Start()
+    private void Awake()
     {
+        if (!playerInput) playerInput = GetComponent<PlayerInput>();
+        if (!rb) rb = GetComponent<Rigidbody>();
+        if (!playerCombat) playerCombat = GetComponent<PlayerCombat>();
 
-        //input enablers
-        move.action.Enable();
-        jump.action.Enable();
-        fire.action.Enable();
+        moveAction   = playerInput.actions["Move"];
+        jumpAction   = playerInput.actions["Jump"];
+        sprintAction = playerInput.actions["Sprint"];
+        meleeAction = playerInput.actions["Melee"];
 
-
-        //jump input callback
-        jump.action.performed += ctx => OnJump();
-        jump.action.canceled += ctx => jumpPressed = false;
+        if (!spriteHolder) spriteHolder = transform;
     }
 
-    private void OnDestroy()
+    private void OnEnable()
     {
-        jump.action.performed -= ctx => OnJump();
-        jump.action.canceled -= ctx => jumpPressed = false;
+        moveAction.Enable();
+        jumpAction.Enable();
+        sprintAction.Enable();
+        meleeAction.Enable();
+        meleeAction.performed += _ => Melee();
     }
 
-    void OnJump()
+    private void OnDisable()
     {
-        //checks if player is on ground
-        if (isGrounded)
+        moveAction.Disable();
+        jumpAction.Disable();
+        sprintAction.Disable();
+        meleeAction.Disable();
+        meleeAction.performed -= _ => Melee();
+    }
+
+    private void Update()
+    {
+        moveAmt = moveAction.ReadValue<Vector2>();
+
+        if (jumpAction.WasPressedThisFrame() && isGrounded)
+            Jump();
+
+        HandleFlip(moveAmt.x);
+        AnimateMovement();
+    }
+
+    private void FixedUpdate()
+    {
+        GroundCheck();
+        Move();
+    }
+
+    private void Move()
+    {
+        bool isSprinting = sprintAction.IsPressed();
+        float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
+
+        moveDirection = new Vector3(moveAmt.x, 0f, moveAmt.y).normalized;
+        Vector3 delta = moveDirection * moveSpeed * Time.fixedDeltaTime;
+
+        rb.MovePosition(rb.position + delta);
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void GroundCheck()
+    {
+        isGrounded = groundCheck
+            ? Physics.CheckSphere(groundCheck.position, groundDistance, groundMask)
+            : true; // fallback if not assigned
+    }
+
+    private void AnimateMovement()
+    {
+        if (playerAnim)
         {
-            jumpPressed = true;
+            bool isMoving = moveAmt.sqrMagnitude > 0.01f;
+            playerAnim.SetBool("isWalking", isMoving);
         }
     }
 
-    void Update()
+    private void HandleFlip(float xInput)
     {
-        Vector2 moveInput = move.action.ReadValue<Vector2>();
-        moveDirection = new Vector3(moveInput.x, 0f, moveInput.y);
-
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (moveInput.x != 0 || moveInput.y != 0)
-        {
-            playerAnim.SetBool("isWalking", true);
-        }
-        else
-        {
-            playerAnim.SetBool("isWalking", false);
-        }
+        if (xInput > 0.01f && !facingRight) Flip();
+        else if (xInput < -0.01f && facingRight) Flip();
     }
 
-    void FixedUpdate()
+    private void Flip()
     {
-        rb.velocity = new Vector3(
-            moveDirection.x * moveSpeed,
-            rb.velocity.y,
-            moveDirection.z * moveSpeed
-        );
+        facingRight = !facingRight;
+        float y = facingRight ? 0f : 180f;
+        // rotate ONLY the visual child so colliders/rigidbody stay stable
+        spriteHolder.localRotation = Quaternion.Euler(0f, y, 0f);
+    }
 
-        if (jumpPressed)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            jumpPressed = false;
-        }
+    private void Melee()
+    {
+        playerCombat.OnMelee();
     }
 }
