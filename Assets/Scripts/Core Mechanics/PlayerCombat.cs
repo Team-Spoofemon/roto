@@ -5,49 +5,34 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour
 {
+    [SerializeField] private Animator playerAnim;
+    [SerializeField] private Collider swordHitbox;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private AudioSource sword;
+    [SerializeField] private AudioClip[] swordSwingSounds;
+    [SerializeField] public float attackDamage = 5.0f;
 
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    /*function to melee
-    player will press J to melee
-    */
+    //Following comments can be executed after implementation of the SpecialAbilityController
+    //and AudioManager classes
+    //[SerializeField] SpecialAbilityController specialAbilityController;
+    //[SerializeField] AudioManager audioManager;
 
     public void OnMelee() 
     {
-    }
-
-    /*function to dodge?
-    player will press the following:
-    A + left arrow to dodge left
-    S + down arrow to dodge down
-    D + right arrow to dodge right
-    */
-
-    public void OnDodge() 
-    {
+        int swordIndex = Random.Range(0, swordSwingSounds.Length);
+        AudioClip swordClip = swordSwingSounds[swordIndex];
+        sword.PlayOneShot(swordClip);
+        swordHitbox.enabled = true;
+        Debug.Log("Sword Swinging");
+        playerAnim.SetTrigger("Melee");
+        swordHitbox.enabled = false;
+        Debug.Log("Sword Swung");
 
     }
-
-    /*function to reference special abilities class
-    player will use j to activate special abilities controller
-    SpecialAbilities.cs will handle this
-    */
 
     public void OnSpecialAbilityController()
     {
-        //reference special abilities class
+        //specialAbilityController.AreaOfEffect();
     }
 
 

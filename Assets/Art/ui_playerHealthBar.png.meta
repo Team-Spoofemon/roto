@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -34,27 +34,27 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,18 +108,261 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ui_playerHealthBar_0
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 788
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f249e6e4b5a2e364c98059312da2e177
+      internalID: -384254938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 718
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d2a16f57a8b2e47aef6eb691fcddc1
+      internalID: 1356607860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_2
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 650
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a5b3bb4ef41b554785307f21d307d6d
+      internalID: -883123044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 582
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ced6314a56ec6934e8c376b6c99029a2
+      internalID: -1939810733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_4
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 510
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc742cb439efa20408d2a988fb936d24
+      internalID: 1069604655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_5
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 438
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45e3f6abd46e4f342a2245bf769e8148
+      internalID: -178562420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_6
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 361
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e3c41ffde87b9d4ba8ea9d0f26eaf7b
+      internalID: 789018099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_7
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 286
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f51c77f9593d24d9740f0d65bfff51
+      internalID: -1713257790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_8
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 215
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e9b6a6c12aef4c44b1314bf92c38c49
+      internalID: -225297780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_9
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 143
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32d234e106935764e97d0a08cab55066
+      internalID: -2052487283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_playerHealthBar_10
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 64
+        width: 199
+        height: 48
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688d260b082e3b544850e383aff2a5af
+      internalID: 2096952112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 06259a7f4dff8a14c8b3168fc96a6e8c
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ui_playerHealthBar_0: -384254938
+      ui_playerHealthBar_1: 1356607860
+      ui_playerHealthBar_10: 2096952112
+      ui_playerHealthBar_11: 1330296341
+      ui_playerHealthBar_2: -883123044
+      ui_playerHealthBar_3: -1939810733
+      ui_playerHealthBar_4: 1069604655
+      ui_playerHealthBar_5: -178562420
+      ui_playerHealthBar_6: 789018099
+      ui_playerHealthBar_7: -1713257790
+      ui_playerHealthBar_8: -225297780
+      ui_playerHealthBar_9: -2052487283
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
