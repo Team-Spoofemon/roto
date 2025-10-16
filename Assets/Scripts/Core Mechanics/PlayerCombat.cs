@@ -23,10 +23,8 @@ public class PlayerCombat : MonoBehaviour
         AudioClip swordClip = swordSwingSounds[swordIndex];
         sword.PlayOneShot(swordClip);
         swordHitbox.enabled = true;
-        Debug.Log("Sword Swinging");
         playerAnim.SetTrigger("Melee");
         swordHitbox.enabled = false;
-        Debug.Log("Sword Swung");
 
     }
 
