@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    
+    [SerializeField] private Animator enemyAnim;
     public NavMeshAgent agent;
     public Transform player;
     public float attackDistance;
@@ -12,7 +15,7 @@ public class EnemyAI : MonoBehaviour
     private Vector3 origin;
     private bool sights = true;
 
-    void Start()
+    void Awake()
     {
         //Check for agent component on enemy at the start
         agent = GetComponent<NavMeshAgent>();
@@ -29,6 +32,7 @@ public class EnemyAI : MonoBehaviour
         {
             //If player is in range of enemy attack, enemy will stop moving
             agent.isStopped = true;
+            enemyAnim.SetBool("isWalking", false);
         }
         else
         {
@@ -39,12 +43,15 @@ public class EnemyAI : MonoBehaviour
             {
                 //If enemy is off path and has sights on player, then enemy will move back to original point and sights set to false
                 agent.SetDestination(origin);
+                enemyAnim.SetBool("isWalking", true);
                 sights = false;
+                enemyAnim.SetBool("isWalking", false);
             }
             else
             {
                 //If player is far from range of enemy attack, enemy moves to the player's position
                 agent.SetDestination(player.position);
+                enemyAnim.SetBool("isWalking", true);
                 sights = true;
             }
         }
