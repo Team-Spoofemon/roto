@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 78cd20269de1a486d883346d257ba5d6
+guid: acd38094d3bc241ca9be05559dc49397
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-      spritePixelsToUnits: 32
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,85 +110,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: zeus_sword_attack_diagonal_spritesheet_0
+      name: earthgiant_idle_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 114
-        y: 33
-        width: 69
-        height: 84
-      alignment: 9
-      pivot: {x: 0.061966494, y: 0.06822423}
+        x: 18
+        y: 6
+        width: 221
+        height: 250
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34be121c0124642e6b7f6d9029e928d3
-      internalID: 1299519371
+      spriteID: 6101cd90505204ba8827aaeaba993391
+      internalID: -819483328
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_sword_attack_diagonal_spritesheet_1
+      name: earthgiant_idle_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 370
-        y: 42
-        width: 56
-        height: 92
+        x: 274
+        y: 6
+        width: 219
+        height: 250
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a020920ae100415b9a6c923336426c9
-      internalID: 2070602931
+      spriteID: 4c8b0ac18a9204d8fa1a43bf5f8b64a1
+      internalID: -180929198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_sword_attack_diagonal_spritesheet_2
+      name: earthgiant_idle_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 631
-        y: 66
-        width: 41
-        height: 97
+        x: 530
+        y: 4
+        width: 220
+        height: 252
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2661e5d1ef1ff4edab3546caab97334a
-      internalID: -881653620
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: zeus_sword_attack_diagonal_spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 913
-        y: 2
-        width: 95
-        height: 49
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1f207bd357da949ecaa98534d46d5608
-      internalID: -811468551
+      spriteID: de817a0988d924b3db9a9297a02ed82c
+      internalID: 852311674
       vertices: []
       indices: 
       edges: []
@@ -196,7 +175,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 4da9a2a1c7c684576bb14b51fc2670cf
+    spriteID: ebe4dd0e1a5d44223ab68dd81671f756
     internalID: 0
     vertices: []
     indices: 
@@ -204,10 +183,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      zeus_sword_attack_diagonal_spritesheet_0: 1299519371
-      zeus_sword_attack_diagonal_spritesheet_1: 2070602931
-      zeus_sword_attack_diagonal_spritesheet_2: -881653620
-      zeus_sword_attack_diagonal_spritesheet_3: -811468551
+      earthgiant_idle_spritesheet_0: -819483328
+      earthgiant_idle_spritesheet_1: -180929198
+      earthgiant_idle_spritesheet_2: 852311674
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
