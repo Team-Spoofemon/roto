@@ -5,17 +5,17 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
 [Header("Health Settings")]
-public int maxHealth = 100;
-public int currentHealth;
-public float regenRate = 5f; // HP per second
-public float regenCooldown = 3f; // Time after hit before regen starts
-private float timeSinceLastHit = 0f;
+[SerializeField] private int maxHealth = 100;
+[SerializeField] private int currentHealth;
+[SerializeField] private float regenRate = 5f; // HP per second
+[SerializeField] private float regenCooldown = 3f; // Time after hit before regen starts
+[SerializeField] private float timeSinceLastHit = 0f;
 
-private bool isDead = false;
+[SerializeField] private bool isDead = false;
 
 [Header("Attack Cooldowns")]
-public float specialAttackCooldown = 2f;
-private float specialAttackTimer = 0f;
+[SerializeField] private float specialAttackCooldown = 2f;
+[SerializeField] private float specialAttackTimer = 0f;
 
 // Start is called before the first frame update
 void Start()
