@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class DamageTester : MonoBehaviour
 {
-    public PlayerCombat player;
-    public Entity enemy;
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            player.DealDamage(enemy.gameObject);
-        }
+    // public PlayerHealth playerHealth;
+    // public PlayerCombat playerCombat;
+    // public Entity enemy;
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            enemy.DealDamage(player.gameObject);
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         playerCombat.DealDamage(enemy.gameObject);
+    //     }
+
+    //     if (Input.GetKeyDown(KeyCode.Return))
+    //     {
+    //         enemy.DealDamage(playerHealth.gameObject);
+    //     }
+    // }
 }

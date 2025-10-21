@@ -34,7 +34,8 @@ public class Player : MonoBehaviour
     {
         // simplest trigger: left click or J — or call Attack() from your sword animation event
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.J))
-            Attack();
+            UnityEngine.Debug.Log("PLAYER HITS");
+        Attack();
     }
 
     public void Attack()
