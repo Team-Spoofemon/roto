@@ -17,25 +17,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.4f;
     [SerializeField] private LayerMask groundMask;
-    
+
     private PlayerCombat playerCombat;
     private Vector2 moveAmt;
     private Vector3 moveDirection;
     private bool isGrounded;
     private bool facingRight = true;
+    private System.Action<InputAction.CallbackContext> meleeCallback;
 
     private void Awake()
     {
         if (!playerInput) playerInput = GetComponent<PlayerInput>();
         if (!rb) rb = GetComponent<Rigidbody>();
         if (!playerCombat) playerCombat = GetComponent<PlayerCombat>();
+        if (!spriteHolder) spriteHolder = transform;
 
-        moveAction   = playerInput.actions["Move"];
-        jumpAction   = playerInput.actions["Jump"];
+        moveAction = playerInput.actions["Move"];
+        jumpAction = playerInput.actions["Jump"];
         sprintAction = playerInput.actions["Sprint"];
         meleeAction = playerInput.actions["Melee"];
-
-        if (!spriteHolder) spriteHolder = transform;
+        meleeCallback = ctx => Melee();
     }
 
     private void OnEnable()
@@ -44,25 +45,23 @@ public class PlayerController : MonoBehaviour
         jumpAction.Enable();
         sprintAction.Enable();
         meleeAction.Enable();
-        meleeAction.performed += _ => Melee();
+        meleeAction.performed += meleeCallback;
     }
 
     private void OnDisable()
     {
+        meleeAction.performed -= meleeCallback;
         moveAction.Disable();
         jumpAction.Disable();
         sprintAction.Disable();
         meleeAction.Disable();
-        meleeAction.performed -= _ => Melee();
     }
 
     private void Update()
     {
         moveAmt = moveAction.ReadValue<Vector2>();
-
         if (jumpAction.WasPressedThisFrame() && isGrounded)
             Jump();
-
         HandleFlip(moveAmt.x);
         AnimateMovement();
     }
@@ -77,10 +76,8 @@ public class PlayerController : MonoBehaviour
     {
         bool isSprinting = sprintAction.IsPressed();
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
-
         moveDirection = new Vector3(moveAmt.x, 0f, moveAmt.y).normalized;
         Vector3 delta = moveDirection * moveSpeed * Time.fixedDeltaTime;
-
         rb.MovePosition(rb.position + delta);
     }
 
@@ -94,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = groundCheck
             ? Physics.CheckSphere(groundCheck.position, groundDistance, groundMask)
-            : true; // fallback if not assigned
+            : true;
     }
 
     private void AnimateMovement()
@@ -116,7 +113,6 @@ public class PlayerController : MonoBehaviour
     {
         facingRight = !facingRight;
         float y = facingRight ? 0f : 180f;
-        // rotate ONLY the visual child so colliders/rigidbody stay stable
         spriteHolder.localRotation = Quaternion.Euler(0f, y, 0f);
     }
 

@@ -25,7 +25,7 @@ public class PlayerRespawn : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void Respawn(Transform respawnable)
