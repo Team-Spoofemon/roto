@@ -12,21 +12,21 @@ public class EarthGiantOLD : Entity
     private Vector3 origin;
     private bool sights = true;
 
-    [Header("Knockback")]
-    [SerializeField]
-    float knockbackForce = 30f;
+    // [Header("Knockback")]
+    // [SerializeField]
+    // float knockbackForce = 30f;
 
-    [SerializeField]
-    float knockbackUpward = 0.2f;
+    // [SerializeField]
+    // float knockbackUpward = 0.2f;
 
-    [SerializeField]
-    float knockbackDuration = 0.12f;
+    // [SerializeField]
+    // float knockbackDuration = 0.12f;
 
-    [SerializeField]
-    float knockbackSpeed = 6f;
+    // [SerializeField]
+    // float knockbackSpeed = 6f;
 
-    [SerializeField]
-    float fallbackNudge = 0.35f;
+    // [SerializeField]
+    // float fallbackNudge = 0.35f;
 
     void Start()
     {
