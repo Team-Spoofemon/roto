@@ -1,12 +1,50 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EarthGiant : MonoBehaviour
 {
-    public void OnSigDestroyed()
+    public NavMeshAgent agent;
+    public Transform player;
+    public float attackDistance = 3f;
+    private float distance;
+    private Vector3 origin;
+    private bool sights = true;
+
+    private void Update()
     {
-        Destroy(gameObject);
+        MoveTowardPlayer();
+    }
+
+    private void MoveTowardPlayer()
+    {
+        //Stores the current distance between the enemy and the player
+        distance = Vector2.Distance(agent.transform.position, player.position);
+
+        if (distance < attackDistance)
+        {
+            //If player is in range of enemy attack, enemy will stop moving
+            agent.isStopped = true;
+        }
+        else
+        {
+            //Set enemy as moving
+            agent.isStopped = false;
+
+            if (!agent.hasPath && sights)
+            {
+                //If enemy is off path and has sights on player, then enemy will move back to original point and sights set to false
+                agent.SetDestination(origin);
+                sights = false;
+            }
+            else
+            {
+                //If player is far from range of enemy attack, enemy moves to the player's position
+                agent.SetDestination(player.position);
+                sights = true;
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ public class DamageManager : MonoBehaviour
     private bool __takingDamage = false;
     private bool __damageable = true;
 
-    // [Header("Health Bar Components")]
+    // Health Bar Components
     private DamageBar __damageBar;
     private Canvas __barContainer;
     private Slider __healthBar;
