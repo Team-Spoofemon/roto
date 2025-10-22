@@ -11,23 +11,20 @@ public class DamageManager : MonoBehaviour
 {
     [Header("Entity Instance Stat Modification")]
     // Entity stats must be attached separately to the same Game Object
-    private EntityStats __baseStats;
+    private EntityStats _baseStats;
 
     // Dynamically pulled stat variables
-    private float __totalHealth;
-    private float __totalDefense;
-    public float __currentHealth;
-    private float __currentDefense;
+    private float _totalHealth;
+    private float _totalDefense;
+    public float _currentHealth;
+    private float _currentDefense;
 
     // Damage logic variables
-    private bool __takingDamage = false;
-    private bool __damageable = true;
+    // private bool _takingDamage = false;
+    private bool _damageable = true;
 
     // Health Bar Components
-    private DamageBar __damageBar;
-    private Canvas __barContainer;
-    private Slider __healthBar;
-    private Slider __flashBar;
+    private DamageBar _damageBar;
 
     [Header("Damage System Overrides")]
     public bool showHealthBar = true;
@@ -49,41 +46,29 @@ public class DamageManager : MonoBehaviour
     private void Start()
     {
         // Set Stats during runtime
-        __baseStats = gameObject.GetComponent<EntityStats>();
-        __totalHealth = __baseStats.baseHealth;
-        __totalDefense = __baseStats.baseDefense;
-        __currentHealth = __totalHealth;
+        _baseStats = gameObject.GetComponent<EntityStats>();
+        _totalHealth = _baseStats.baseHealth;
+        _totalDefense = _baseStats.baseDefense;
+        _currentHealth = _totalHealth;
 
-        __damageBar = GetComponentInChildren<DamageBar>();
+        _damageBar = GetComponentInChildren<DamageBar>();
 
         // Progress bar to be toggle
-        if (__damageBar)
+        if (_damageBar)
         {
-            __healthBar = __damageBar.healthBar;
-            __flashBar = __damageBar.flashBar;
-            __barContainer = __damageBar.barContainer;
-            __barContainer.gameObject.SetActive(showHealthBar);
-            UpdateSlider();
+            _damageBar.SetActiveStatus(showHealthBar);
+            _damageBar.UpdateHealthSlider(_currentHealth, _totalHealth);
         }
     }
 
     private void Update()
     {
-        if (__damageBar)
-            UpdateSlider();
-
-        if (__currentHealth <= 0)
-            HandleDestory();
-    }
-
-    public void UpdateSlider()
-    {
-        if (__healthBar)
+        if (_damageBar)
         {
-            // Verify modfier is w/in (0,100]% and bar is within [0,100]
-            if (__healthBar.value >= 0 && __healthBar.value <= 100)
-                __healthBar.value = __currentHealth / __totalHealth;
+            _damageBar.UpdateHealthSlider(_currentHealth, _totalHealth);
         }
+        if (_currentHealth <= 0 && _damageable)
+            HandleDestory();
     }
 
     public void TakeDamage(float takenDamage)
@@ -99,25 +84,26 @@ public class DamageManager : MonoBehaviour
 
     private void TakeDamageInternal(float takenDamage)
     {
-        if (!__damageable)
+        if (!_damageable)
             return;
-        float actualDamage = takenDamage - __totalDefense;
+        float actualDamage = takenDamage - _totalDefense;
         if (actualDamage <= 0)
             return;
 
         // Actual damaging
-        __currentHealth -= actualDamage;
-        __takingDamage = true;
+        _currentHealth -= actualDamage;
+        // _takingDamage = true;
 
-        if (__healthBar && __baseStats.baseHealth > 0f)
-            UpdateSlider();
+        if (_damageBar && _baseStats.baseHealth > 0f)
+            _damageBar.UpdateHealthSlider(_currentHealth, _totalHealth);
 
-        if (__currentHealth <= 0)
+        if (_currentHealth <= 0)
             HandleDestory();
     }
 
     public void HandleDestory()
     {
+        _damageable = false;
         if (hasDeathOverride)
         {
             sig_DestroyedOverride.Invoke();
@@ -128,16 +114,15 @@ public class DamageManager : MonoBehaviour
 
     private async void HandleDestoryInternal()
     {
-        __damageable = false;
-        if (__barContainer)
-            __barContainer.gameObject.SetActive(false);
+        if (_damageBar)
+            _damageBar.SetActiveStatus(false);
 
         if (hasDeathAnimation)
         {
             if (hasDeathAnimationOverride)
                 sig_DeathAnimationOverride.Invoke();
             else
-                await DeathAnimationAsync(0.8f, 0.9f);
+                await DeathAnimationAsync(0.5f, 0.9f);
         }
 
         Destroy(this.gameObject);
@@ -146,12 +131,37 @@ public class DamageManager : MonoBehaviour
     // Zelda-like death animation where they shrink, turn red, and spin down.
     private async Task DeathAnimationAsync(float sec, float spinSpeed)
     {
+        if (this == null)
+            return;
         Transform tr = transform;
+        if (tr == null)
+            return;
+
+        // Cache renderers once
+        var renderers = GetComponentsInChildren<Renderer>();
+
+        // Compute initial combined bounds and remember the original ground Y (min.y)
+        Bounds initialBounds = default;
+        bool hasInitial = false;
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            var r = renderers[i];
+            if (r == null)
+                continue;
+            if (!hasInitial)
+            {
+                initialBounds = r.bounds;
+                hasInitial = true;
+            }
+            else
+                initialBounds.Encapsulate(r.bounds);
+        }
+        float groundY = hasInitial ? initialBounds.min.y : tr.position.y;
+
         Vector3 startScale = tr.localScale;
         Quaternion startRot = tr.rotation;
 
         // Turn the whole object (and children) red
-        var renderers = GetComponentsInChildren<Renderer>();
         for (int i = 0; i < renderers.Length; i++)
         {
             var r = renderers[i];
@@ -165,24 +175,78 @@ public class DamageManager : MonoBehaviour
 
         while (elapsed < duration)
         {
+            if (this == null || tr == null)
+                return;
+
             elapsed += Time.deltaTime;
             float t01 = Mathf.Clamp01(elapsed / duration);
 
-            // Shrink to zero over the duration
+            // Shrink
             tr.localScale = Vector3.Lerp(startScale, Vector3.zero, t01);
 
-            // Spin continuously around local up axis
+            // Spin
             spinAccum += Mathf.Max(0f, spinSpeed) * 360f * Time.deltaTime;
             tr.rotation = startRot * Quaternion.Euler(0f, spinAccum, 0f);
 
-            await Task.Yield(); // wait until next frame (non-blocking)
+            // Keep the bottom glued to original ground Y by adjusting Y position
+            if (hasInitial)
+            {
+                Bounds now = default;
+                bool hasNow = false;
+                for (int i = 0; i < renderers.Length; i++)
+                {
+                    var r = renderers[i];
+                    if (r == null)
+                        continue;
+                    if (!hasNow)
+                    {
+                        now = r.bounds;
+                        hasNow = true;
+                    }
+                    else
+                        now.Encapsulate(r.bounds);
+                }
+                if (hasNow)
+                {
+                    float dy = groundY - now.min.y; // raise/lower so min.y stays constant
+                    tr.position += new Vector3(0f, dy, 0f);
+                }
+            }
+
+            await Task.Yield();
         }
 
-        // Ensure final state
+        if (this == null || tr == null)
+            return;
+
+        // Ensure final state and final ground clamp
         tr.localScale = Vector3.zero;
         tr.rotation = startRot * Quaternion.Euler(0f, spinAccum, 0f);
 
-        // Notify listeners that death has completed
+        if (hasInitial)
+        {
+            Bounds now = default;
+            bool hasNow = false;
+            for (int i = 0; i < renderers.Length; i++)
+            {
+                var r = renderers[i];
+                if (r == null)
+                    continue;
+                if (!hasNow)
+                {
+                    now = r.bounds;
+                    hasNow = true;
+                }
+                else
+                    now.Encapsulate(r.bounds);
+            }
+            if (hasNow)
+            {
+                float dy = groundY - now.min.y;
+                tr.position += new Vector3(0f, dy, 0f);
+            }
+        }
+
         sig_Death?.Invoke();
     }
 }

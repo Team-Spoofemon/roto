@@ -489,7 +489,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &804823138671853384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -519,9 +519,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86563466b0a234f07b590c7f79c90f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barContainer: {fileID: 850496830465205827}
-  healthBar: {fileID: 4628887600076928771}
-  flashBar: {fileID: 6844555219075464176}
+  _barContainer: {fileID: 850496830465205827}
+  _healthBar: {fileID: 4628887600076928771}
+  _flashBar: {fileID: 6844555219075464176}
 --- !u!1 &8221665471617082099
 GameObject:
   m_ObjectHideFlags: 0
