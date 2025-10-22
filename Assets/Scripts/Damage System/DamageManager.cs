@@ -73,6 +73,7 @@ public class DamageManager : MonoBehaviour
 
     public void TakeDamage(float takenDamage)
     {
+        Debug.Log("HAS BEEN DAMAGED");
         if (hasDamageOverride)
         {
             // Alert override function

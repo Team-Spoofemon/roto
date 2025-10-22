@@ -6,12 +6,18 @@ using UnityEngine.AI;
 
 public class EarthGiant : MonoBehaviour
 {
+    private EntityStats _baseStats;
     public NavMeshAgent agent;
     public Transform player;
     public float attackDistance = 3f;
     private float distance;
     private Vector3 origin;
     private bool sights = true;
+
+    private void start()
+    {
+        _baseStats = gameObject.GetComponent<EntityStats>();
+    }
 
     private void Update()
     {
@@ -45,6 +51,16 @@ public class EarthGiant : MonoBehaviour
                 agent.SetDestination(player.position);
                 sights = true;
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            Debug.Log("Hit player!");
+            DamageManager target = other.GetComponent<DamageManager>();
+            CombatManager.Instance.SingleAttack(target, _baseStats.baseDamage);
         }
     }
 }
