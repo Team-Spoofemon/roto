@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    private static CombatManager instance;
-    public static CombatManager Instance
+    public static CombatManager Instance { get; private set; }
+
+    private void Start()
     {
-        // Here we use the ?? operator, to return 'instance' if 'instance' does not equal null
-        // otherwise we assign instance to a new component and return that
-        get
+        if (Instance != null && Instance != this)
         {
-            return instance
-                ?? (instance = new GameObject("CombatManager").AddComponent<CombatManager>());
+            Debug.Log("CombatManager duplicate created!");
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("CombatManager created!");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
