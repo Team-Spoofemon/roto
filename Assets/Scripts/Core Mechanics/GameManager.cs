@@ -4,7 +4,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    private CombatManager combatManager = new CombatManager();
+    private CombatManager combatManager;
 
     private void Awake()
     {
@@ -16,19 +16,20 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-            GenerateManagers();
+            GenerateManager<CombatManager>(ref combatManager);
             DontDestroyOnLoad(this.gameObject);
             Debug.Log("GameManager created!");
         }
     }
 
-    private void GenerateManagers()
+    private void GenerateManager<T>(ref T comp)
+        where T : Component
     {
-        combatManager = GetComponent<CombatManager>();
-        if (combatManager == null)
+        comp = GetComponent<T>();
+        if (comp == null)
         {
-            combatManager = gameObject.AddComponent<CombatManager>();
-            Debug.Log("CombatManager created in the GameManager!");
+            comp = gameObject.AddComponent<T>();
+            Debug.Log($"{typeof(T).Name} created in the GameManager!");
         }
     }
 }
