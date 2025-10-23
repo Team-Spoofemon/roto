@@ -5,13 +5,21 @@ public class EarthGiant : MonoBehaviour, IHitHandler
 {
     public NavMeshAgent agent;
     public Transform player;
-    public float attackDistance = 3f;
-    private float distance;
-    private Vector3 origin;
-    private bool sights = true;
+
+    [SerializeField]
+    private Rigidbody rb;
+
+    // public float attackDistance = 3f;
+    // private float distance;
+
+    // private Vector3 origin;
+    // private bool sights = true;
 
     [SerializeField]
     private float damage;
+
+    [SerializeField]
+    private float damageKnockback;
 
     private void Update()
     {
@@ -50,6 +58,6 @@ public class EarthGiant : MonoBehaviour, IHitHandler
 
     public void OnHit(HealthManager targetHealth)
     {
-        CombatManager.Instance.SingleAttack(targetHealth, damage);
+        CombatManager.Instance.SingleAttack(targetHealth, damage, transform, damageKnockback);
     }
 }

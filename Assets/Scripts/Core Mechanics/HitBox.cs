@@ -23,9 +23,8 @@ public class HitBox : MonoBehaviour
         if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
         {
             HealthManager targetHealth = other.GetComponent<HealthManager>();
-            if (targetHealth)
+            if ((targetHealth != null) && (damageSource != null))
             {
-                Debug.Log("Hit: " + other.gameObject.name + "!");
                 damageSource.OnHit(targetHealth);
             }
             else

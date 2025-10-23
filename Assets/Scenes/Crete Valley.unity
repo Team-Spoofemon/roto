@@ -1272,6 +1272,76 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8377151309574368355, guid: 2554008d6447a2540b44e55f0c0b576e, type: 3}
   m_PrefabInstance: {fileID: 368595308}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &372859281
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 372859282}
+  - component: {fileID: 372859284}
+  - component: {fileID: 372859283}
+  m_Layer: 0
+  m_Name: Giant Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &372859282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372859281}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.14, y: -1.17, z: -0.13333385}
+  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 0.6666667}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8700173479916497849}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &372859283
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372859281}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.75, y: 10.7, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0}
+--- !u!114 &372859284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 372859281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9cb2f1a3cfd479ba203da064acf4b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  damageSourceBehaviour: {fileID: 1777065010}
 --- !u!1001 &446099444
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6325,7 +6395,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 80
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1777065008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6378,7 +6448,7 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  walkSpeed: 50
+  walkSpeed: 15
   sprintSpeed: 15
   jumpForce: 10
   groundCheck: {fileID: 1472091113}
@@ -6433,6 +6503,7 @@ MonoBehaviour:
   sword: {fileID: 0}
   swordSwingSounds: []
   damage: 10
+  damageKnockback: 3
 --- !u!82 &1777065011
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6543,6 +6614,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHealth: 100
   totalDefense: 0
+  damageInvulnerabilityTime: 2
   currentHealth: 0
   showHealthBar: 0
   hasDeathOverride: 0
@@ -6558,6 +6630,7 @@ MonoBehaviour:
       m_Calls: []
   hasDeathAnimation: 0
   hasDeathAnimationOverride: 0
+  flashOnInvulnerable: 1
   sig_DeathAnimationOverride:
     m_PersistentCalls:
       m_Calls: []
@@ -8175,8 +8248,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 0}
   player: {fileID: 1777065004}
-  attackDistance: 3
+  rb: {fileID: 0}
   damage: 20
+  damageKnockback: 20
 --- !u!1 &5670179368441920038
 GameObject:
   m_ObjectHideFlags: 0
@@ -8188,8 +8262,8 @@ GameObject:
   - component: {fileID: 8700173479916497849}
   - component: {fileID: 8394514922732711162}
   - component: {fileID: 780339810645398189}
+  - component: {fileID: 8700173479916497854}
   - component: {fileID: 8700173479916497852}
-  - component: {fileID: 7754430921541905506}
   - component: {fileID: 2204926531975486229}
   - component: {fileID: 8700173479916497853}
   - component: {fileID: 8700173479916497850}
@@ -8200,27 +8274,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &7754430921541905506
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5670179368441920038}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 7.65, y: 8.1, z: 1}
-  m_Center: {x: 0, y: 0.14, z: 0}
 --- !u!95 &8394514922732711162
 Animator:
   serializedVersion: 5
@@ -8256,6 +8309,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2051581947}
+  - {fileID: 372859282}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8700173479916497850
@@ -8272,6 +8326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHealth: 120
   totalDefense: 0
+  damageInvulnerabilityTime: 0.7
   currentHealth: 0
   showHealthBar: 1
   hasDeathOverride: 0
@@ -8287,6 +8342,7 @@ MonoBehaviour:
       m_Calls: []
   hasDeathAnimation: 1
   hasDeathAnimationOverride: 0
+  flashOnInvulnerable: 1
   sig_DeathAnimationOverride:
     m_PersistentCalls:
       m_Calls: []
@@ -8307,10 +8363,10 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.45, y: 7.9, z: 0.6}
-  m_Center: {x: 0, y: 0.011063337, z: 0}
+  m_Size: {x: 5.39, y: 6.98, z: 0.6}
+  m_Center: {x: 0.21, y: -0.36, z: 0}
 --- !u!114 &8700173479916497853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8327,6 +8383,33 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   damageSourceBehaviour: {fileID: 2204926531975486229}
+--- !u!54 &8700173479916497854
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5670179368441920038}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

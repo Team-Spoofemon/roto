@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -20,6 +19,10 @@ public class PlayerCombat : MonoBehaviour, IHitHandler
     [SerializeField]
     private float damage;
 
+    [SerializeField]
+    private float damageKnockback;
+    private bool attackLockStatus;
+
     //Following comments can be executed after implementation of the SpecialAbilityController
     //and AudioManager classes
     //[SerializeField] SpecialAbilityController specialAbilityController;
@@ -27,17 +30,27 @@ public class PlayerCombat : MonoBehaviour, IHitHandler
 
     public void OnMelee()
     {
+        if (attackLockStatus)
+            return;
+
         int swordIndex = Random.Range(0, swordSwingSounds.Length);
         // AudioClip swordClip = swordSwingSounds[swordIndex];
         // sword.PlayOneShot(swordClip);
-        swordHitbox.enabled = true;
-        playerAnim.SetTrigger("Melee");
-        swordHitbox.enabled = false;
+        StartCoroutine(MeleeRoutine());
+    }
+
+    private IEnumerator MeleeRoutine()
+    {
+        attackLockStatus = true;
+        yield return StartCoroutine(
+            CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "Melee")
+        );
+        attackLockStatus = false;
     }
 
     public void OnHit(HealthManager targetHealth)
     {
-        CombatManager.Instance.SingleAttack(targetHealth, damage);
+        CombatManager.Instance.SingleAttack(targetHealth, damage, transform, damageKnockback);
     }
 
     public void OnSpecialAbilityController()
