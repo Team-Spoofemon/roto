@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerCombat : MonoBehaviour
+public class PlayerCombat : MonoBehaviour, IHitHandler
 {
     [SerializeField]
     private Animator playerAnim;
@@ -12,16 +12,13 @@ public class PlayerCombat : MonoBehaviour
     private Collider swordHitbox;
 
     [SerializeField]
-    private LayerMask enemyLayer;
-
-    [SerializeField]
     private AudioSource sword;
 
     [SerializeField]
     private AudioClip[] swordSwingSounds;
 
     [SerializeField]
-    public float attackDamage = 5.0f;
+    private float damage;
 
     //Following comments can be executed after implementation of the SpecialAbilityController
     //and AudioManager classes
@@ -36,6 +33,11 @@ public class PlayerCombat : MonoBehaviour
         swordHitbox.enabled = true;
         playerAnim.SetTrigger("Melee");
         swordHitbox.enabled = false;
+    }
+
+    public void OnHit(HealthManager targetHealth)
+    {
+        CombatManager.Instance.SingleAttack(targetHealth, damage);
     }
 
     public void OnSpecialAbilityController()

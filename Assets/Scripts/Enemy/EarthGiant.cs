@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EarthGiant : MonoBehaviour
+public class EarthGiant : MonoBehaviour, IHitHandler
 {
-    public EntityStats _baseStats;
     public NavMeshAgent agent;
     public Transform player;
     public float attackDistance = 3f;
@@ -14,14 +10,8 @@ public class EarthGiant : MonoBehaviour
     private Vector3 origin;
     private bool sights = true;
 
-    private void Start()
-    {
-        _baseStats = GetComponent<EntityStats>();
-        if (_baseStats == null)
-            Debug.LogError("EarthGiant is missing EntityStats on the same GameObject.");
-        else
-            Debug.Log(gameObject.name + " damage stats acquired!");
-    }
+    [SerializeField]
+    private float damage;
 
     private void Update()
     {
@@ -58,14 +48,8 @@ public class EarthGiant : MonoBehaviour
         // }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnHit(HealthManager targetHealth)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
-        {
-            Debug.Log("Hit: " + other.gameObject.name + "!");
-            DamageManager target = other.GetComponent<DamageManager>();
-            Debug.Log("(" + other.gameObject.name + ") DM Status: " + target.GetType().Name);
-            CombatManager.Instance.SingleAttack(target, _baseStats.baseDamage);
-        }
+        CombatManager.Instance.SingleAttack(targetHealth, damage);
     }
 }

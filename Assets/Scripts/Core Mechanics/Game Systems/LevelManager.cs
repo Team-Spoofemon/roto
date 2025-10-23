@@ -5,20 +5,20 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
-    private PlayerHealth playerHealth;
-    private PlayerRespawn playerRespawn;
-    private Vector3 checkpointPosition = Vector3.zero;
+    private CombatManager combatManager;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
-            return;
         }
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+        else
+        {
+            Instance = this;
+            GenerateManager<CombatManager>(ref combatManager);
+            DontDestroyOnLoad(this.gameObject);
+        }
     }
 
     private IEnumerator Start()
@@ -26,6 +26,22 @@ public class LevelManager : MonoBehaviour
         yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
         BindPlayer();
     }
+
+    private void GenerateManager<T>(ref T comp)
+        where T : Component
+    {
+        comp = GetComponent<T>();
+        if (comp == null)
+        {
+            comp = gameObject.AddComponent<T>();
+            Debug.Log($"{typeof(T).Name} created in the GameManager!");
+        }
+    }
+
+    // redesign the below code to event based
+    private PlayerHealth playerHealth;
+    private PlayerRespawn playerRespawn;
+    private Vector3 checkpointPosition = Vector3.zero;
 
     private void BindPlayer()
     {

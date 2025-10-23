@@ -16,7 +16,7 @@ public class KnockbackEffect
     /// Direction should be the actual attack direction (e.g., swing velocity, projectile velocity,
     /// or contact-point vector from attacker to target).
     /// </summary>
-    public static void RecordHit(DamageManager target, Vector3 direction)
+    public static void RecordHit(HealthManager target, Vector3 direction)
     {
         if (target == null)
             return;
@@ -29,7 +29,7 @@ public class KnockbackEffect
     /// Applies knockback to the target using the most recently recorded hit direction.
     /// If no direction was recorded for this target, does nothing.
     /// </summary>
-    public void Apply(DamageManager target)
+    public void Apply(HealthManager target)
     {
         if (target == null)
             return;

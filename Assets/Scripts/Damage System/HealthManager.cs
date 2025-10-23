@@ -7,17 +7,22 @@ using UnityEngine.UI;
 /// This class is responsible for managing the damage handeling of a the GameObject it is placed on.
 /// This should be used in tandum with some Entity Script (Enemy/DamagableObject/Player), anything that can be damaged.
 /// </summary>
-public class DamageManager : MonoBehaviour
+public class HealthManager : MonoBehaviour
 {
     [Header("Entity Instance Stat Modification")]
     // Entity stats must be attached separately to the same Game Object
-    private EntityStats _baseStats;
 
-    // Dynamically pulled stat variables
-    private float _totalHealth;
-    private float _totalDefense;
-    public float _currentHealth;
-    private float _currentDefense;
+    // Default stats
+    [SerializeField]
+    private float totalHealth;
+
+    [SerializeField]
+    private float totalDefense;
+
+    // Current stats
+    [SerializeField]
+    private float currentHealth;
+    public float currentDefense { get; private set; }
 
     // Damage logic variables
     // private bool _takingDamage = false;
@@ -46,10 +51,7 @@ public class DamageManager : MonoBehaviour
     private void Start()
     {
         // Set Stats during runtime
-        _baseStats = gameObject.GetComponent<EntityStats>();
-        _totalHealth = _baseStats.baseHealth;
-        _totalDefense = _baseStats.baseDefense;
-        _currentHealth = _totalHealth;
+        currentHealth = totalHealth;
 
         _damageBar = GetComponentInChildren<DamageBar>();
 
@@ -57,7 +59,7 @@ public class DamageManager : MonoBehaviour
         if (_damageBar)
         {
             _damageBar.SetActiveStatus(showHealthBar);
-            _damageBar.UpdateHealthSlider(_currentHealth, _totalHealth);
+            _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
         }
     }
 
@@ -65,40 +67,40 @@ public class DamageManager : MonoBehaviour
     {
         if (_damageBar)
         {
-            _damageBar.UpdateHealthSlider(_currentHealth, _totalHealth);
+            _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
         }
-        if (_currentHealth <= 0 && _damageable)
+        if (currentHealth <= 0 && _damageable)
             HandleDestory();
     }
 
-    public void TakeDamage(float takenDamage)
+    public void TakeDamage(float damage)
     {
-        Debug.Log("HAS BEEN DAMAGED");
+        Debug.Log(gameObject.name + " has been damaged by " + damage + " dmg!");
         if (hasDamageOverride)
         {
             // Alert override function
-            sig_TakeDamageOverride.Invoke(takenDamage);
+            sig_TakeDamageOverride.Invoke(damage);
             return;
         }
-        TakeDamageInternal(takenDamage);
+        TakeDamageInternal(damage);
     }
 
-    private void TakeDamageInternal(float takenDamage)
+    private void TakeDamageInternal(float damage)
     {
         if (!_damageable)
             return;
-        float actualDamage = takenDamage - _totalDefense;
+        float actualDamage = damage - totalDefense;
         if (actualDamage <= 0)
             return;
 
         // Actual damaging
-        _currentHealth -= actualDamage;
+        currentHealth -= actualDamage;
         // _takingDamage = true;
 
-        if (_damageBar && _baseStats.baseHealth > 0f)
-            _damageBar.UpdateHealthSlider(_currentHealth, _totalHealth);
+        if (_damageBar && totalHealth > 0f)
+            _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
 
-        if (_currentHealth <= 0)
+        if (currentHealth <= 0)
             HandleDestory();
     }
 

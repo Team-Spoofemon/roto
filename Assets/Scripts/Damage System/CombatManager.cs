@@ -19,9 +19,8 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    public void SingleAttack(DamageManager target, float damage)
+    public void SingleAttack(HealthManager target, float damage)
     {
-        Debug.Log("SINGLE ATTACK");
         target.TakeDamage(damage);
         new KnockbackEffect
         {
@@ -31,20 +30,20 @@ public class CombatManager : MonoBehaviour
         }.Apply(target);
     }
 
-    public void SingleAttack(DamageManager target, float damage, KnockbackEffect knockback)
+    public void SingleAttack(HealthManager target, float damage, KnockbackEffect knockback)
     {
         target.TakeDamage(damage);
         knockback.Apply(target);
     }
 
-    public void DOTAttack(DamageManager target, float damage, float sec, DOTType dot)
+    public void DOTAttack(HealthManager target, float damage, float sec, DOTType dot)
     {
         // implement later?
     }
 
-    public void ProjectileAttack(DamageManager target, Projectile projectile) { }
+    public void ProjectileAttack(HealthManager target, Projectile projectile) { }
 
-    public void AreaAttack(DamageManager target, float damage, float radius)
+    public void AreaAttack(HealthManager target, float damage, float radius)
     {
         // implement later?
     }
