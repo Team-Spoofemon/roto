@@ -9,11 +9,14 @@ public class RespawnPoint : MonoBehaviour
     {
         TransformPosition,
         ColliderPosition,
-        Vector3Variable
+        Vector3Variable,
     }
 
-    [SerializeField] private CoordinateSource coordinateSource;
-    [SerializeField] private Vector3 respawnCoordinates;
+    [SerializeField]
+    private CoordinateSource coordinateSource;
+
+    [SerializeField]
+    private Vector3 respawnCoordinates;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,7 +30,9 @@ public class RespawnPoint : MonoBehaviour
                 PlayerRespawn.Instance.SetRespawnPoint(transform.position);
                 break;
             case CoordinateSource.ColliderPosition:
-                PlayerRespawn.Instance.SetRespawnPoint(transform.position + GetComponent<Collider>().bounds.center);
+                PlayerRespawn.Instance.SetRespawnPoint(
+                    transform.position + GetComponent<Collider>().bounds.center
+                );
                 break;
             case CoordinateSource.Vector3Variable:
                 PlayerRespawn.Instance.SetRespawnPoint(respawnCoordinates);

@@ -5,16 +5,30 @@ using UnityEngine;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
-    [SerializeField] private float regenRate = 5f;
-    [SerializeField] private float regenCooldown = 3f;
-    [SerializeField] private float timeSinceLastHit = 0f;
-    [SerializeField] private bool isDead = false;
+    [SerializeField]
+    private int maxHealth = 100;
+
+    [SerializeField]
+    private int currentHealth;
+
+    [SerializeField]
+    private float regenRate = 5f;
+
+    [SerializeField]
+    private float regenCooldown = 3f;
+
+    [SerializeField]
+    private float timeSinceLastHit = 0f;
+
+    [SerializeField]
+    private bool isDead = false;
 
     [Header("Attack Cooldowns")]
-    [SerializeField] private float specialAttackCooldown = 2f;
-    [SerializeField] private float specialAttackTimer = 0f;
+    [SerializeField]
+    private float specialAttackCooldown = 2f;
+
+    [SerializeField]
+    private float specialAttackTimer = 0f;
 
     void Start()
     {
@@ -60,7 +74,8 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Debug.Log($"TakeDamage called for {damage} damage");
-        if (isDead) return;
+        if (isDead)
+            return;
         currentHealth -= damage;
         timeSinceLastHit = 0f;
         if (currentHealth <= 0)
@@ -69,7 +84,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void HealFromHeart()
     {
-        if (isDead) return;
+        if (isDead)
+            return;
         int healAmount = Mathf.FloorToInt(maxHealth * 0.25f);
         currentHealth += healAmount;
         currentHealth = Mathf.Min(currentHealth, maxHealth);

@@ -3,20 +3,47 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private Animator playerAnim;
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private Transform spriteHolder;
-    [SerializeField] private InputAction moveAction;
-    [SerializeField] private InputAction jumpAction;
-    [SerializeField] private InputAction sprintAction;
-    [SerializeField] private InputAction meleeAction;
-    [SerializeField] private float walkSpeed = 5f;
-    [SerializeField] private float sprintSpeed = 10f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private Transform groundCheck;
-    [SerializeField] private float groundDistance = 0.4f;
-    [SerializeField] private LayerMask groundMask;
+    [SerializeField]
+    private Animator playerAnim;
+
+    [SerializeField]
+    private Rigidbody rb;
+
+    [SerializeField]
+    private PlayerInput playerInput;
+
+    [SerializeField]
+    private Transform spriteHolder;
+
+    [SerializeField]
+    private InputAction moveAction;
+
+    [SerializeField]
+    private InputAction jumpAction;
+
+    [SerializeField]
+    private InputAction sprintAction;
+
+    [SerializeField]
+    private InputAction meleeAction;
+
+    [SerializeField]
+    private float walkSpeed = 5f;
+
+    [SerializeField]
+    private float sprintSpeed = 10f;
+
+    [SerializeField]
+    private float jumpForce = 5f;
+
+    [SerializeField]
+    private Transform groundCheck;
+
+    [SerializeField]
+    private float groundDistance = 0.4f;
+
+    [SerializeField]
+    private LayerMask groundMask;
 
     private PlayerCombat playerCombat;
     private Vector2 moveAmt;
@@ -27,10 +54,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        if (!playerInput) playerInput = GetComponent<PlayerInput>();
-        if (!rb) rb = GetComponent<Rigidbody>();
-        if (!playerCombat) playerCombat = GetComponent<PlayerCombat>();
-        if (!spriteHolder) spriteHolder = transform;
+        if (!playerInput)
+            playerInput = GetComponent<PlayerInput>();
+        if (!rb)
+            rb = GetComponent<Rigidbody>();
+        if (!playerCombat)
+            playerCombat = GetComponent<PlayerCombat>();
+        if (!spriteHolder)
+            spriteHolder = transform;
 
         moveAction = playerInput.actions["Move"];
         jumpAction = playerInput.actions["Jump"];
@@ -105,8 +136,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFlip(float xInput)
     {
-        if (xInput > 0.01f && !facingRight) Flip();
-        else if (xInput < -0.01f && facingRight) Flip();
+        if (xInput > 0.01f && !facingRight)
+            Flip();
+        else if (xInput < -0.01f && facingRight)
+            Flip();
     }
 
     private void Flip()
