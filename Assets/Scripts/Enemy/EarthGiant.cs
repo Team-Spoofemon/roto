@@ -9,11 +9,11 @@ public class EarthGiant : MonoBehaviour, IHitHandler
     [SerializeField]
     private Rigidbody rb;
 
-    // public float attackDistance = 3f;
-    // private float distance;
+    public float attackDistance = 3f;
+    private float distance;
 
-    // private Vector3 origin;
-    // private bool sights = true;
+    private Vector3 origin;
+    private bool sights = true;
 
     [SerializeField]
     private float damage;
@@ -28,32 +28,32 @@ public class EarthGiant : MonoBehaviour, IHitHandler
 
     private void MoveTowardPlayer()
     {
-        // //Stores the current distance between the enemy and the player
-        // distance = Vector2.Distance(agent.transform.position, player.position);
+        //Stores the current distance between the enemy and the player
+        distance = Vector2.Distance(agent.transform.position, player.position);
 
-        // if (distance < attackDistance)
-        // {
-        //     //If player is in range of enemy attack, enemy will stop moving
-        //     agent.isStopped = true;
-        // }
-        // else
-        // {
-        //     //Set enemy as moving
-        //     agent.isStopped = false;
+        if (distance < attackDistance)
+        {
+            //If player is in range of enemy attack, enemy will stop moving
+            agent.isStopped = true;
+        }
+        else
+        {
+            //Set enemy as moving
+            agent.isStopped = false;
 
-        //     if (!agent.hasPath && sights)
-        //     {
-        //         //If enemy is off path and has sights on player, then enemy will move back to original point and sights set to false
-        //         agent.SetDestination(origin);
-        //         sights = false;
-        //     }
-        //     else
-        //     {
-        //         //If player is far from range of enemy attack, enemy moves to the player's position
-        //         agent.SetDestination(player.position);
-        //         sights = true;
-        //     }
-        // }
+            if (!agent.hasPath && sights)
+            {
+                //If enemy is off path and has sights on player, then enemy will move back to original point and sights set to false
+                agent.SetDestination(origin);
+                sights = false;
+            }
+            else
+            {
+                //If player is far from range of enemy attack, enemy moves to the player's position
+                agent.SetDestination(player.position);
+                sights = true;
+            }
+        }
     }
 
     public void OnHit(HealthManager targetHealth)
