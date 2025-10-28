@@ -1,85 +1,113 @@
 using UnityEngine;
+using System.Collections;
 
 public class CameraFlyoverPath : MonoBehaviour
 {
-    [Header("Path Settings")]
+    [Header("Camera Path")]
     public Transform[] waypoints;
-    public float moveSpeed = 5f;
-    public float rotationSpeed = 2f;
-    public float arrivalThreshold = 0.05f;
+    public float moveSpeed = 2f;
+    public float rotationSpeed = 1f;
+    public float pauseDuration = 2f;
+    [Range(0.001f, 0.5f)] public float arrivalThreshold = 0.05f;
 
-    [Header("Ease In-Out")]
+    [Header("Ease In Out")]
     public AnimationCurve speedCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     [Header("Behavior")]
     public bool playOnStart = true;
     public bool loop = false;
 
-    private int currentIndex = 0;
-    private Vector3 startPos;
-    private Quaternion startRot;
-    private float journeyLength;
-    private float startTime;
+    [Header("Storybook Animation")]
+    public Animator storybookAnimator;
+    public string openBookTrigger = "OpenBook";
+
+    private int currentIndex = 1;
+    private float t = 0f;
     private bool isFlying = false;
+    private bool hasTriggeredBook = false;
 
     void Start()
     {
-        if (waypoints.Length == 0)
+        if (waypoints == null || waypoints.Length < 2)
         {
-            Debug.LogWarning("CameraFlyoverPath: No waypoints assigned!");
+            Debug.LogWarning("Ensure there are at least two waypoints assigned bro.");
             return;
         }
 
-        if (playOnStart) StartFlyover();
+        if (playOnStart)
+            StartFlyover();
     }
 
     public void StartFlyover()
     {
+        currentIndex = 1;
+        t = 0f;
+        isFlying = true;
+        hasTriggeredBook = false;
         transform.position = waypoints[0].position;
         transform.rotation = waypoints[0].rotation;
-        currentIndex = 1;
-        BeginNextSegment();
-    }
-
-    void BeginNextSegment()
-    {
-        if (currentIndex >= waypoints.Length)
-        {
-            if (loop)
-            {
-                currentIndex = 0;
-                BeginNextSegment();
-            }
-            else
-            {
-                isFlying = false;
-                return;
-            }
-        }
-
-        startPos = transform.position;
-        startRot = transform.rotation;
-        journeyLength = Vector3.Distance(startPos, waypoints[currentIndex].position);
-        startTime = Time.time;
-        isFlying = true;
     }
 
     void Update()
     {
-        if (!isFlying || waypoints.Length == 0) return;
+        if (!isFlying || waypoints.Length < 2) return;
 
-        Transform target = waypoints[currentIndex];
-        float distCovered = (Time.time - startTime) * moveSpeed;
-        float fracJourney = Mathf.Clamp01(distCovered / journeyLength);
-        float easedT = speedCurve.Evaluate(fracJourney);
+        t += Time.deltaTime * moveSpeed /
+             Vector3.Distance(waypoints[currentIndex - 1].position, waypoints[currentIndex].position);
 
-        transform.position = Vector3.Lerp(startPos, target.position, easedT);
-        transform.rotation = Quaternion.Slerp(startRot, target.rotation, easedT * rotationSpeed);
+        float easedT = speedCurve.Evaluate(Mathf.Clamp01(t));
 
-        if (Vector3.Distance(transform.position, target.position) < arrivalThreshold)
+        Vector3 newPos = GetSplinePosition(currentIndex, easedT);
+        Quaternion newRot = Quaternion.Slerp(
+            waypoints[currentIndex - 1].rotation,
+            waypoints[currentIndex].rotation,
+            easedT * rotationSpeed);
+
+        transform.position = newPos;
+        transform.rotation = newRot;
+
+        if (!hasTriggeredBook && currentIndex == waypoints.Length - 1 && t >= 0.9f && storybookAnimator != null)
+        {
+            storybookAnimator.SetTrigger(openBookTrigger);
+            hasTriggeredBook = true;
+        }
+
+        if (t >= 1f)
         {
             currentIndex++;
-            BeginNextSegment();
+            moveSpeed *= 0.9f;
+            t = 0f;
+
+            if (currentIndex >= waypoints.Length)
+            {
+                if (loop)
+                    currentIndex = 1;
+                else
+                {
+                    isFlying = false;
+                    return;
+                }
+            }
         }
+    }
+
+    Vector3 GetSplinePosition(int i, float t)
+    {
+        int i0 = Mathf.Clamp(i - 2, 0, waypoints.Length - 1);
+        int i1 = Mathf.Clamp(i - 1, 0, waypoints.Length - 1);
+        int i2 = Mathf.Clamp(i, 0, waypoints.Length - 1);
+        int i3 = Mathf.Clamp(i + 1, 0, waypoints.Length - 1);
+
+        Vector3 p0 = waypoints[i0].position;
+        Vector3 p1 = waypoints[i1].position;
+        Vector3 p2 = waypoints[i2].position;
+        Vector3 p3 = waypoints[i3].position;
+
+        return 0.5f * (
+            (2f * p1) +
+            (-p0 + p2) * t +
+            (2f * p0 - 5f * p1 + 4f * p2 - p3) * (t * t) +
+            (-p0 + 3f * p1 - 3f * p2 + p3) * (t * t * t)
+        );
     }
 }
