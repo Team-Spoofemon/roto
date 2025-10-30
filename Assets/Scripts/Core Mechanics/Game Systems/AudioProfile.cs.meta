@@ -3,7 +3,10 @@ guid: d4f5b39df6b174d9e8df870c75aa8121
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - mainTheme: {fileID: 8300000, guid: 91bb73e5306ce465ea837935068b9a37, type: 3}
+  - maternaLamenta: {instanceID: 0}
+  - creteValley: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

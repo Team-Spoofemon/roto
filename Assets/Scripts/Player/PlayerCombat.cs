@@ -33,9 +33,8 @@ public class PlayerCombat : MonoBehaviour, IHitHandler
         if (attackLockStatus)
             return;
 
-        int swordIndex = Random.Range(0, swordSwingSounds.Length);
-        // AudioClip swordClip = swordSwingSounds[swordIndex];
-        // sword.PlayOneShot(swordClip);
+        //Access AudioManager.PlaySwordSounds()
+
         StartCoroutine(MeleeRoutine());
     }
 

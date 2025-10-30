@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f5b39df6b174d9e8df870c75aa8121, type: 3}
   m_Name: AudioProfile
   m_EditorClassIdentifier: 
-  mainTheme: {fileID: 0}
-  maternaLamenta: {fileID: 0}
-  creteValley: {fileID: 0}
-  bladedspirits: []
+  mainTheme: {fileID: 8300000, guid: 91bb73e5306ce465ea837935068b9a37, type: 3}
   swordSounds: []
   ambienceSounds: []
+  maternaLamenta: {fileID: 0}
+  creteValley: {fileID: 0}
+  bladedSpirits: []
   musicVolume: 1
   sfxVolume: 1
