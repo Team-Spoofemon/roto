@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f5b39df6b174d9e8df870c75aa8121, type: 3}
+  m_Name: AudioProfile
+  m_EditorClassIdentifier: 
+  mainTheme: {fileID: 8300000, guid: 91bb73e5306ce465ea837935068b9a37, type: 3}
+  swordSounds:
+  - {fileID: 8300000, guid: 7e331ac71692d48729397023a26eb23f, type: 3}
+  - {fileID: 8300000, guid: 5a34a7c631f3a4ccd84f2b576c9ba79f, type: 3}
+  - {fileID: 8300000, guid: 8d5558ff0887b4ecb8b70d6128921a97, type: 3}
+  - {fileID: 8300000, guid: 91584be7d12ff459d972b1565a431041, type: 3}
+  - {fileID: 8300000, guid: d422b7aba8ff94414819c02613620e6e, type: 3}
+  ambienceSounds: []
+  enemySpawnCalls: []
+  maternaLamenta: {fileID: 0}
+  creteValley: {fileID: 8300000, guid: 319d2f413eb2c42ba9f48c44be3f37dc, type: 3}
+  genesis:
+  - {fileID: 8300000, guid: ae6c2f7cf6c9b435083b6c70460dcf5e, type: 3}
+  - {fileID: 8300000, guid: 0513e6e5bf4834c06975a718febd8441, type: 3}
+  - {fileID: 8300000, guid: 826b26b1371194055a788ce18e5e574d, type: 3}
+  - {fileID: 8300000, guid: 0c1523617bd004577bbfa4b627151df8, type: 3}
+  - {fileID: 8300000, guid: a260200b9a418476b894329d5b800fd9, type: 3}
+  musicVolume: 1
+  sfxVolume: 1
