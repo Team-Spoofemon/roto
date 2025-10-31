@@ -15,8 +15,14 @@ MonoBehaviour:
   mainTheme: {fileID: 8300000, guid: 91bb73e5306ce465ea837935068b9a37, type: 3}
   swordSounds: []
   ambienceSounds: []
+  enemySpawnCalls: []
   maternaLamenta: {fileID: 0}
   creteValley: {fileID: 0}
-  genesis: []
+  genesis:
+  - {fileID: 8300000, guid: ae6c2f7cf6c9b435083b6c70460dcf5e, type: 3}
+  - {fileID: 8300000, guid: 0513e6e5bf4834c06975a718febd8441, type: 3}
+  - {fileID: 8300000, guid: 826b26b1371194055a788ce18e5e574d, type: 3}
+  - {fileID: 8300000, guid: 0c1523617bd004577bbfa4b627151df8, type: 3}
+  - {fileID: 8300000, guid: a260200b9a418476b894329d5b800fd9, type: 3}
   musicVolume: 1
   sfxVolume: 1
