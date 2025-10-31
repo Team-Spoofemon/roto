@@ -10,7 +10,10 @@ public enum MusicState
     LoopA,
     LoopB,
     LoopC,
-    Ending
+    Outro,
+    TransitionA,
+    TransitionB
+
 }
 
 public class AudioManager : MonoBehaviour
@@ -54,7 +57,7 @@ public class AudioManager : MonoBehaviour
                 //States in the level
                 switch (state)
                 {
-                    //case MusicState.Intro: return profile.creteTutorialIntro;
+                    //case MusicState.Intro: return profile.creteIntro;
                     //case MusicState.LoopA: return profile.creteLoopA;
                     //case MusicState.LoopB: return profile.creteLoopB;
                     //case MusicState.LoopC: return profile.creteLoopC;

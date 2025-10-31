@@ -22,7 +22,7 @@ public class AudioProfile : ScriptableObject
 
    [Header("Crete Valley")]
    public AudioClip creteValley;
-   public AudioClip[] bladedSpirits;
+   public AudioClip[] genesis;
 
    //[Header("Mt. Othrys")]
 
