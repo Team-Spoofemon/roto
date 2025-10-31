@@ -4,36 +4,24 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : MonoBehaviour, IHitHandler
 {
-    [SerializeField]
-    private Animator playerAnim;
-
-    [SerializeField]
-    private Collider swordHitbox;
-
-    [SerializeField]
-    private AudioSource sword;
-
-    [SerializeField]
-    private AudioClip[] swordSwingSounds;
-
-    [SerializeField]
-    private float damage;
-
-    [SerializeField]
-    private float damageKnockback;
-    private bool attackLockStatus;
+    [SerializeField] private Animator playerAnim;
+    [SerializeField] private Collider swordHitbox;
+    [SerializeField] private float damage;
+    [SerializeField] private float damageKnockback;
+    [SerializeField] private bool attackLockStatus;
+    [SerializeField] AudioManager audioManager;
 
     //Following comments can be executed after implementation of the SpecialAbilityController
-    //and AudioManager classes
     //[SerializeField] SpecialAbilityController specialAbilityController;
-    //[SerializeField] AudioManager audioManager;
+    
 
     public void OnMelee()
     {
         if (attackLockStatus)
             return;
 
-        //Access AudioManager.PlaySwordSounds()
+
+        AudioManager.Instance.PlaySwordSounds();
 
         StartCoroutine(MeleeRoutine());
     }
