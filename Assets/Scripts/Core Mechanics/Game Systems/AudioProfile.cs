@@ -1,5 +1,10 @@
 using UnityEngine;
 
+public enum RealmType{
+   CreteValley,
+   MountOthrys
+}
+
 [CreateAssetMenu(fileName = "NewAudioProfile", menuName = "Audio/AudioProfile")]
 public class AudioProfile : ScriptableObject
 {
