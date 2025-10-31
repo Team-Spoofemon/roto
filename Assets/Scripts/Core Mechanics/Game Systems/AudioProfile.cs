@@ -16,13 +16,15 @@ public class AudioProfile : ScriptableObject
    [Header("Global SFX")]
    public AudioClip[] swordSounds;
    public AudioClip[] ambienceSounds;
+   public AudioClip[] enemySpawnCalls;
 
    [Header("Cutscene Music")]
    public AudioClip maternaLamenta;
 
    [Header("Crete Valley")]
-   public AudioClip creteValley;
-   public AudioClip[] genesis;
+   public AudioClip creteValley; //field music
+   public AudioClip[] genesis; //tutorial sequence
+
 
    //[Header("Mt. Othrys")]
 

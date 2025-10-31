@@ -57,10 +57,11 @@ public class AudioManager : MonoBehaviour
                 //States in the level
                 switch (state)
                 {
-                    //case MusicState.Intro: return profile.creteIntro;
-                    //case MusicState.LoopA: return profile.creteLoopA;
-                    //case MusicState.LoopB: return profile.creteLoopB;
-                    //case MusicState.LoopC: return profile.creteLoopC;
+                    case MusicState.Intro: return profile.genesis[0];
+                    case MusicState.LoopA: return profile.genesis[1];
+                    case MusicState.TransitionA: return profile.genesis[2];
+                    case MusicState.LoopB: return profile.genesis[3];
+                    case MusicState.Outro: return profile.genesis[4];
                 }
                 break;
 
