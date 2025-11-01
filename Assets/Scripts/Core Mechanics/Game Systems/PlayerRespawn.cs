@@ -1,20 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerRespawn : MonoBehaviour
 {
     public static PlayerRespawn Instance { get; private set; }
-    public Vector3 respawnPoint = Vector3.zero;
 
-    public void SetRespawnPoint(Vector3 newRespawnPoint) => respawnPoint = newRespawnPoint;
-    public Vector3 GetRespawnPoint() => respawnPoint;
-
-    private void Start()
-    {
-        if (respawnPoint == Vector3.zero)
-            respawnPoint = transform.position;
-    }
+    private Vector3 respawnPoint;
+    private string currentScene;
 
     private void Awake()
     {
@@ -25,12 +18,74 @@ public class PlayerRespawn : MonoBehaviour
         }
 
         Instance = this;
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    public void Respawn(Transform respawnable)
+    private void Start()
     {
-        Debug.Log($"Respawning at {respawnPoint}");
-        respawnable.SetPositionAndRotation(respawnPoint, Quaternion.identity);
+        StartCoroutine(InitializeSpawn());
+    }
+
+    private IEnumerator InitializeSpawn()
+    {
+        yield return new WaitForFixedUpdate();
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            respawnPoint = player.transform.position;
+
+        currentScene = SceneManager.GetActiveScene().name;
+    }
+
+    public void SetRespawnPoint(Vector3 newRespawnPoint)
+    {
+        respawnPoint = newRespawnPoint;
+        currentScene = SceneManager.GetActiveScene().name;
+    }
+
+    public void RespawnPlayer()
+    {
+        SceneManager.LoadScene(currentScene);
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(RespawnAfterSceneLoad());
+    }
+
+    private IEnumerator RespawnAfterSceneLoad()
+    {
+        // Wait 2 frames to ensure colliders and physics are ready
+        yield return null;
+        yield return new WaitForFixedUpdate();
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null) yield break;
+
+        if (player.TryGetComponent(out Rigidbody rb))
+        {
+            // Disable gravity and temporarily freeze motion
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            // Move the player slightly above ground
+            player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
+
+            yield return new WaitForFixedUpdate(); // let physics update once
+
+            // Re-enable gravity after reposition
+            rb.useGravity = true;
+        }
+        else
+        {
+            player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
+        }
+
+        var health = player.GetComponent<PlayerHealth>();
+        if (health != null)
+            health.ResetHealth();
     }
 }

@@ -1,78 +1,54 @@
-using System.Collections;
 using UnityEngine;
+using System;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public static LevelManager Instance { get; private set; }
-    private CombatManager combatManager;
+    public static event Action OnPlayerDeathEvent;
 
-    private void Awake()
+    [SerializeField] private float respawnDelay = 1.5f;
+    [SerializeField] private CanvasGroup fadeCanvas;
+    [SerializeField] private AudioSource deathSound;
+
+    private void OnEnable()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-            GenerateManager<CombatManager>(ref combatManager);
-            DontDestroyOnLoad(this.gameObject);
-        }
+        OnPlayerDeathEvent += HandlePlayerDeathTrigger;
     }
 
-    private IEnumerator Start()
+    private void OnDisable()
     {
-        yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
-        BindPlayer();
+        OnPlayerDeathEvent -= HandlePlayerDeathTrigger;
     }
 
-    private void GenerateManager<T>(ref T comp)
-        where T : Component
+    private void HandlePlayerDeathTrigger()
     {
-        comp = GetComponent<T>();
-        if (comp == null)
+        StartCoroutine(HandlePlayerDeath());
+    }
+
+    private IEnumerator HandlePlayerDeath()
+    {
+        if (deathSound != null)
+            deathSound.Play();
+
+        if (fadeCanvas != null)
+            yield return StartCoroutine(FadeOut());
+
+        yield return new WaitForSeconds(respawnDelay);
+
+        if (PlayerRespawn.Instance != null)
+            PlayerRespawn.Instance.RespawnPlayer();
+    }
+
+    private IEnumerator FadeOut()
+    {
+        float duration = 1f;
+        float t = 0f;
+        while (t < duration)
         {
-            comp = gameObject.AddComponent<T>();
-            Debug.Log($"{typeof(T).Name} created in the GameManager!");
-        }
-    }
-
-    // redesign the below code to event based
-    private PlayerHealth playerHealth;
-    private PlayerRespawn playerRespawn;
-    private Vector3 checkpointPosition = Vector3.zero;
-
-    private void BindPlayer()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-        {
-            playerHealth = player.GetComponent<PlayerHealth>();
-            playerRespawn = player.GetComponent<PlayerRespawn>();
-            if (playerRespawn != null)
-                checkpointPosition = playerRespawn.GetRespawnPoint();
-        }
-    }
-
-    public void OnPlayerDeath()
-    {
-        if (playerRespawn != null)
-            checkpointPosition = playerRespawn.GetRespawnPoint();
-        StartCoroutine(RestartFromCheckpoint());
-    }
-
-    private IEnumerator RestartFromCheckpoint()
-    {
-        Scene currentScene = SceneManager.GetActiveScene();
-        yield return SceneManager.LoadSceneAsync(currentScene.name);
-        yield return new WaitUntil(() => GameObject.FindGameObjectWithTag("Player") != null);
-        BindPlayer();
-
-        if (playerRespawn != null)
-        {
-            playerRespawn.SetRespawnPoint(checkpointPosition);
-            playerRespawn.Respawn(playerRespawn.transform);
+            t += Time.deltaTime;
+            fadeCanvas.alpha = Mathf.Lerp(0, 1, t / duration);
+            yield return null;
         }
     }
 }

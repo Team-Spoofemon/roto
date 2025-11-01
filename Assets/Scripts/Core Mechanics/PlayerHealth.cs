@@ -1,34 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
-    [SerializeField]
-    private int maxHealth = 100;
-
-    [SerializeField]
-    private int currentHealth;
-
-    [SerializeField]
-    private float regenRate = 5f;
-
-    [SerializeField]
-    private float regenCooldown = 3f;
-
-    [SerializeField]
-    private float timeSinceLastHit = 0f;
-
-    [SerializeField]
-    private bool isDead = false;
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private int currentHealth;
+    [SerializeField] private float regenRate = 5f;
+    [SerializeField] private float regenCooldown = 3f;
+    [SerializeField] private float timeSinceLastHit = 0f;
+    [SerializeField] private bool isDead = false;
 
     [Header("Attack Cooldowns")]
-    [SerializeField]
-    private float specialAttackCooldown = 2f;
-
-    [SerializeField]
-    private float specialAttackTimer = 0f;
+    [SerializeField] private float specialAttackCooldown = 2f;
+    [SerializeField] private float specialAttackTimer = 0f;
 
     void Start()
     {
@@ -60,10 +44,7 @@ public class PlayerHealth : MonoBehaviour
             specialAttackTimer -= Time.deltaTime;
     }
 
-    public bool CanUseSpecial()
-    {
-        return specialAttackTimer <= 0f;
-    }
+    public bool CanUseSpecial() => specialAttackTimer <= 0f;
 
     public void UseSpecialAttack()
     {
@@ -72,15 +53,26 @@ public class PlayerHealth : MonoBehaviour
     }
 
     public void TakeDamage(int damage)
+{
+    Debug.Log($"TakeDamage called. CurrentHealth={currentHealth}, Damage={damage}, isDead={isDead}");
+    
+    if (isDead)
     {
-        Debug.Log($"TakeDamage called for {damage} damage");
-        if (isDead)
-            return;
-        currentHealth -= damage;
-        timeSinceLastHit = 0f;
-        if (currentHealth <= 0)
-            Die();
+        Debug.Log("TakeDamage: Player is already dead, ignoring damage.");
+        return;
     }
+
+    currentHealth -= damage;
+    timeSinceLastHit = 0f;
+    Debug.Log($"After damage: CurrentHealth={currentHealth}");
+
+    if (currentHealth <= 0)
+    {
+        Debug.Log("Health <= 0 — calling Die()");
+        Die();
+    }
+}
+
 
     public void HealFromHeart()
     {
@@ -94,18 +86,18 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         isDead = true;
-        Debug.Log("You have fallen to your death.");
-        Debug.Log("Die() reached in PlayerHealth");
         LevelManager levelManager = FindObjectOfType<LevelManager>();
-        Debug.Log($"LevelManager found? {levelManager != null}");
         if (levelManager != null)
             levelManager.OnPlayerDeath();
-        else
-            Debug.LogWarning("LevelManager not found in scene!");
+        Debug.Log("PlayerHealth.Die() called");
+        Debug.Log($"LevelManager found? {levelManager != null}");
     }
 
-    public bool IsDead()
+    public void ResetHealth()
     {
-        return isDead;
+        currentHealth = maxHealth;
+        isDead = false;
     }
+
+    public bool IsDead() => isDead;
 }
