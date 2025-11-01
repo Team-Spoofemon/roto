@@ -21,9 +21,28 @@ public class LevelManager : MonoBehaviour
         OnPlayerDeathEvent -= HandlePlayerDeathTrigger;
     }
 
+    // ✅ Add this helper
+    public static void TriggerPlayerDeath()
+    {
+        OnPlayerDeathEvent?.Invoke();
+    }
+
     private void HandlePlayerDeathTrigger()
     {
-        StartCoroutine(HandlePlayerDeath());
+        Instance?.StartCoroutine(Instance.HandlePlayerDeath());
+    }
+
+    public static LevelManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
     }
 
     private IEnumerator HandlePlayerDeath()

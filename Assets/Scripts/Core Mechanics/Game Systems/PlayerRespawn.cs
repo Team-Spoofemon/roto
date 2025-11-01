@@ -57,7 +57,6 @@ public class PlayerRespawn : MonoBehaviour
 
     private IEnumerator RespawnAfterSceneLoad()
     {
-        // Wait 2 frames to ensure colliders and physics are ready
         yield return null;
         yield return new WaitForFixedUpdate();
 
@@ -66,17 +65,14 @@ public class PlayerRespawn : MonoBehaviour
 
         if (player.TryGetComponent(out Rigidbody rb))
         {
-            // Disable gravity and temporarily freeze motion
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            // Move the player slightly above ground
             player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
 
-            yield return new WaitForFixedUpdate(); // let physics update once
+            yield return new WaitForFixedUpdate();
 
-            // Re-enable gravity after reposition
             rb.useGravity = true;
         }
         else
@@ -84,8 +80,21 @@ public class PlayerRespawn : MonoBehaviour
             player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
         }
 
-        var health = player.GetComponent<PlayerHealth>();
-        if (health != null)
-            health.ResetHealth();
+        // Updated section — use HealthManager instead of PlayerHealth
+        var healthManager = player.GetComponent<HealthManager>();
+        if (healthManager != null)
+        {
+            // Reset stats manually
+            var totalHealthField = typeof(HealthManager)
+                .GetField("totalHealth", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var currentHealthField = typeof(HealthManager)
+                .GetField("currentHealth", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+            if (totalHealthField != null && currentHealthField != null)
+            {
+                float totalHealth = (float)totalHealthField.GetValue(healthManager);
+                currentHealthField.SetValue(healthManager, totalHealth);
+            }
+        }
     }
 }

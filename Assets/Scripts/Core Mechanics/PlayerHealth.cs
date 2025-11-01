@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -101,3 +101,4 @@ public class PlayerHealth : MonoBehaviour
 
     public bool IsDead() => isDead;
 }
+*/

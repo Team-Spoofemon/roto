@@ -265,6 +265,11 @@ public class HealthManager : MonoBehaviour
                 await DeathAnimationAsync(0.5f, 0.9f);
         }
 
+        if (CompareTag("Player"))
+            LevelManager.TriggerPlayerDeath();
+
+
+
         Destroy(this.gameObject);
     }
 
