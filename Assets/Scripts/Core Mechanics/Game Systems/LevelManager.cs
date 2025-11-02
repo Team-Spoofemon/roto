@@ -21,7 +21,6 @@ public class LevelManager : MonoBehaviour
         OnPlayerDeathEvent -= HandlePlayerDeathTrigger;
     }
 
-    // ✅ Add this helper
     public static void TriggerPlayerDeath()
     {
         OnPlayerDeathEvent?.Invoke();
