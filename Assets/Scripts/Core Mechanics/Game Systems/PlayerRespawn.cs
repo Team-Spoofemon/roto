@@ -80,7 +80,6 @@ public class PlayerRespawn : MonoBehaviour
             player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
         }
 
-        // Updated section — use HealthManager instead of PlayerHealth
         var healthManager = player.GetComponent<HealthManager>();
         if (healthManager != null)
         {

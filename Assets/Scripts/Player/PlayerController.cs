@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float scaleSmooth = 10f;
 
     [Header("Drowning Settings")]
-    [SerializeField] private float sinkSpeed = 1.5f;
+    [SerializeField] private float sinkSpeed = 0.5f;
     [SerializeField] private float sinkDepth = 2f;
 
     private PlayerCombat playerCombat;
@@ -44,9 +44,9 @@ public class PlayerController : MonoBehaviour
     private bool isDead = false;
     private bool isSinking = false;
     private System.Action<InputAction.CallbackContext> meleeCallback;
-    private float lockedShadowY;
-    private float basePlayerY;
     private float initialScale;
+    private bool hasInitializedShadow = false;
+    private float initialGroundY;
 
     private void Awake()
     {
@@ -77,12 +77,19 @@ public class PlayerController : MonoBehaviour
     {
         if (playerShadow)
         {
-            lockedShadowY = playerShadow.position.y;
             playerShadow.SetParent(null);
             initialScale = playerShadow.localScale.x;
-        }
 
-        basePlayerY = transform.position.y;
+            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out RaycastHit startHit, 10f, groundMask))
+            {
+                initialGroundY = startHit.point.y;
+                playerShadow.position = new Vector3(transform.position.x, initialGroundY + 0.01f, transform.position.z);
+            }
+            else
+            {
+                initialGroundY = transform.position.y;
+            }
+        }
     }
 
     private void OnEnable()
@@ -92,6 +99,7 @@ public class PlayerController : MonoBehaviour
         sprintAction.Enable();
         meleeAction.Enable();
         meleeAction.performed += meleeCallback;
+        LevelManager.OnPlayerDeathEvent += HandleGlobalDeath;
     }
 
     private void OnDisable()
@@ -101,6 +109,7 @@ public class PlayerController : MonoBehaviour
         jumpAction.Disable();
         sprintAction.Disable();
         meleeAction.Disable();
+        LevelManager.OnPlayerDeathEvent -= HandleGlobalDeath;
     }
 
     private void Update()
@@ -176,17 +185,34 @@ public class PlayerController : MonoBehaviour
     {
         if (!playerShadow || isSinking) return;
 
-        Vector3 pos = playerShadow.position;
-        pos.x = transform.position.x;
-        pos.z = transform.position.z;
-        pos.y = lockedShadowY;
-        playerShadow.position = pos;
+        Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
+        if (Physics.Raycast(ray, out RaycastHit hit, 10f, groundMask))
+        {
+            playerShadow.position = new Vector3(transform.position.x, hit.point.y + 0.01f, transform.position.z);
+            playerShadow.gameObject.SetActive(true);
 
-        float height = Mathf.Max(0f, transform.position.y - basePlayerY);
-        float t = Mathf.Clamp01(height / maxJumpHeight);
-        float targetScale = Mathf.Lerp(initialScale, initialScale * minScale, t);
-        float newScale = Mathf.Lerp(playerShadow.localScale.x, targetScale, Time.deltaTime * scaleSmooth);
-        playerShadow.localScale = Vector3.one * newScale;
+            if (!hasInitializedShadow)
+            {
+                playerShadow.localScale = Vector3.one * initialScale;
+                hasInitializedShadow = true;
+                return;
+            }
+
+            float targetScale = initialScale;
+            if (!isGrounded)
+            {
+                float height = Mathf.Max(0f, transform.position.y - hit.point.y);
+                float t = Mathf.Clamp01(height / maxJumpHeight);
+                targetScale = Mathf.Lerp(initialScale, initialScale * minScale, t);
+            }
+
+            float newScale = Mathf.Lerp(playerShadow.localScale.x, targetScale, Time.deltaTime * scaleSmooth);
+            playerShadow.localScale = Vector3.one * newScale;
+        }
+        else
+        {
+            playerShadow.gameObject.SetActive(false);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -199,57 +225,58 @@ public class PlayerController : MonoBehaviour
     {
         isSinking = true;
 
-        // Disable all input
         moveAction.Disable();
         jumpAction.Disable();
         sprintAction.Disable();
         meleeAction.Disable();
 
-        // Turn off physics to avoid fight with manual sinking
         rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
         rb.useGravity = false;
-        rb.isKinematic = false;
 
-        // Hide shadow
         if (playerShadow)
             playerShadow.gameObject.SetActive(false);
 
-        Vector3 startPos = transform.position;
-        Vector3 endPos = startPos - new Vector3(0f, sinkDepth, 0f);
+        float startY = transform.position.y;
+        float targetY = startY - sinkDepth;
 
-        float elapsed = 0f;
-        float duration = sinkDepth / sinkSpeed;
-
-        // Smoothly sink using transform control
-        while (elapsed < duration)
+        while (transform.position.y > targetY)
         {
-            elapsed += Time.deltaTime;
-            transform.position = Vector3.Lerp(startPos, endPos, elapsed / duration);
+            transform.position -= new Vector3(0f, sinkSpeed * Time.deltaTime, 0f);
             yield return null;
         }
 
-        rb.useGravity = true;
         Die();
     }
 
     private void Die()
     {
         isDead = true;
-        rb.isKinematic = true;
-        rb.useGravity = true;
         LevelManager.TriggerPlayerDeath();
+    }
+
+    private void HandleGlobalDeath()
+    {
+        if (playerShadow)
+            playerShadow.gameObject.SetActive(false);
     }
 
     public void Revive()
     {
+        if (this == null) return;
+
         isDead = false;
         isSinking = false;
-        rb.isKinematic = false;
-        rb.useGravity = true;
-        moveAction.Enable();
-        jumpAction.Enable();
-        sprintAction.Enable();
-        meleeAction.Enable();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+        }
+
+        moveAction?.Enable();
+        jumpAction?.Enable();
+        sprintAction?.Enable();
+        meleeAction?.Enable();
 
         if (playerShadow)
             playerShadow.gameObject.SetActive(true);

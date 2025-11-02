@@ -1,15 +1,25 @@
-using UnityEngine;
 using System;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     public static event Action OnPlayerDeathEvent;
-
-    [SerializeField] private float respawnDelay = 1.5f;
     [SerializeField] private CanvasGroup fadeCanvas;
     [SerializeField] private AudioSource deathSound;
+
+    public static LevelManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
 
     private void OnEnable()
     {
@@ -28,34 +38,28 @@ public class LevelManager : MonoBehaviour
 
     private void HandlePlayerDeathTrigger()
     {
-        Instance?.StartCoroutine(Instance.HandlePlayerDeath());
-    }
-
-    public static LevelManager Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        Instance = this;
+        if (Instance != null)
+            Instance.StartCoroutine(Instance.HandlePlayerDeath());
     }
 
     private IEnumerator HandlePlayerDeath()
     {
-        if (deathSound != null)
+        if (AudioManager.Instance != null && deathSound != null)
+            AudioManager.Instance.PlaySFX(deathSound.clip);
+        else if (deathSound != null)
+        {
+            deathSound.Stop();
             deathSound.Play();
+        }
 
         if (fadeCanvas != null)
-            yield return StartCoroutine(FadeOut());
+            fadeCanvas.alpha = 0;
 
-        yield return new WaitForSeconds(respawnDelay);
+        DeathScreenUI deathScreen = FindObjectOfType<DeathScreenUI>(true);
+        if (deathScreen != null)
+            deathScreen.Show();
 
-        if (PlayerRespawn.Instance != null)
-            PlayerRespawn.Instance.RespawnPlayer();
+        yield break;
     }
 
     private IEnumerator FadeOut()

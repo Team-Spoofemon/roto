@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//create enumerated list for any structured list of music or type
 public enum MusicState
 {
     None,
@@ -13,7 +12,6 @@ public enum MusicState
     Outro,
     TransitionA,
     TransitionB
-
 }
 
 public class AudioManager : MonoBehaviour
@@ -26,35 +24,33 @@ public class AudioManager : MonoBehaviour
     private AudioSource musicSource;
     private AudioSource ambienceSource;
     private MusicState currentState = MusicState.None;
+    private Coroutine fadeRoutine;
 
     private void Awake()
     {
-        if (Instance == null)
+        if (Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-
-        else if (Instance != this)
-        {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
             return;
         }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         musicSource = gameObject.AddComponent<AudioSource>();
         ambienceSource = gameObject.AddComponent<AudioSource>();
 
         musicSource.loop = true;
         ambienceSource.loop = true;
+
+        Debug.Log($"AudioManager initialized for realm: {currentRealm}");
     }
 
     private AudioClip GetMusicClip(MusicState state)
     {
         switch (currentRealm)
         {
-            //Each case representing a Realm/Level
             case RealmType.CreteValley:
-                //States in the level
                 switch (state)
                 {
                     case MusicState.Intro: return profile.genesis[0];
@@ -64,8 +60,6 @@ public class AudioManager : MonoBehaviour
                     case MusicState.Outro: return profile.genesis[4];
                 }
                 break;
-
-            //Add other Realms
         }
 
         return null;
@@ -80,7 +74,6 @@ public class AudioManager : MonoBehaviour
     {
         if (newState == currentState) return;
         currentState = newState;
-
         AudioClip clipToPlay = GetMusicClip(newState);
         if (clipToPlay == null)
         {
@@ -88,11 +81,44 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        // Stop current music and start a new one
         musicSource.Stop();
         musicSource.clip = clipToPlay;
         musicSource.volume = profile.musicVolume;
         musicSource.Play();
+    }
+
+    public void CrossfadeTo(MusicState newState, float fadeTime = 1f)
+    {
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+        fadeRoutine = StartCoroutine(FadeMusic(newState, fadeTime));
+    }
+
+    private IEnumerator FadeMusic(MusicState newState, float fadeTime)
+    {
+        AudioClip newClip = GetMusicClip(newState);
+        if (newClip == null) yield break;
+        float startVolume = musicSource.volume;
+        for (float t = 0; t < fadeTime; t += Time.deltaTime)
+        {
+            musicSource.volume = Mathf.Lerp(startVolume, 0f, t / fadeTime);
+            yield return null;
+        }
+        musicSource.Stop();
+        musicSource.clip = newClip;
+        musicSource.Play();
+        for (float t = 0; t < fadeTime; t += Time.deltaTime)
+        {
+            musicSource.volume = Mathf.Lerp(0f, profile.musicVolume, t / fadeTime);
+            yield return null;
+        }
+        musicSource.volume = profile.musicVolume;
+    }
+
+    public void PlaySFX(AudioClip clip, float volumeMultiplier = 1f)
+    {
+        if (clip == null) return;
+        ambienceSource.PlayOneShot(clip, profile.sfxVolume * volumeMultiplier);
     }
 
     public void PlaySwordSounds()
