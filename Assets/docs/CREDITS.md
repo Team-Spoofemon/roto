@@ -8,7 +8,7 @@
 **2D UI Arist:** Lee  
 **2D UI & Support Artist:** Jaden  
 **3D Environment Artist:** Mari  
-**3D Environment Artist:** Yve
+**3D Environment Artist:** Yve  
 **Gameplay Programmer:** Leeann  
 **Gameplay Programmer:** Connor  
 **Gameplay Programmer:** Nathan  
