@@ -1,6 +1,6 @@
 # End Credits  
 
-**Directed by:** Tim Carrizales
+**Directed by:** Tim Carrizales  
 **Written By:** Connor  
 **Composer:** Tim Carrizales  
 **2D Character Artist:** Elizabeth  
