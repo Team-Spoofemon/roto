@@ -12,8 +12,8 @@ All classes should be public unless a private method is nested inside a public c
 - PlayerCombat.cs
 - PlayerHealth.cs
 
-**EnemyAI**
-- EnemyAI.cs
+**Enemy**
+- Enemy.cs
 - EnemyHealth.cs
 - EnemyAttack.cs
 
@@ -52,7 +52,7 @@ All classes should be public unless a private method is nested inside a public c
 - Does player have attack cooldown? Maybe for special abilities but melee can spam
 - If player hits a heart on the battlefield, then health regenerates by 25%
 
-**EnemyAI.cs**
+**Enemy.cs**
 - Enemy behavior such as when to attack, movement
 
 **EnemyHealth.cs**
