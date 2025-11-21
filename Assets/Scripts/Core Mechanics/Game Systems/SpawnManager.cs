@@ -4,22 +4,60 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefabs;
+    [System.Serializable]
+    public class EnemyPool
+    {
+        public GameObject enemyPrefab;
+        public int poolSize = 10;
+        [HideInInspector] public List<GameObject> pool = new List<GameObject>();
+    }
+
+    [SerializeField] private List<EnemyPool> enemyPools = new List<EnemyPool>();
     [SerializeField] private GameObject enemyContainer;
 
-    IEnumerator SpawnRoutine()
+    private void Awake()
     {
-        while (true)
+        foreach (EnemyPool pool in enemyPools)
         {
-            Vector3 spawnHere = new Vector3(Random.Range(-8f, 8f), 7, 0);
-            GameObject newEnemy = Instantiate(enemyPrefabs, spawnHere, Quaternion.identity);
-            newEnemy.transform.parent = enemyContainer.transform;
-            yield return new WaitForSeconds(5.0f);
+            for (int i = 0; i < pool.poolSize; i++)
+            {
+                GameObject enemy = Instantiate(pool.enemyPrefab, enemyContainer.transform);
+                enemy.SetActive(false);
+                pool.pool.Add(enemy);
+            }
         }
     }
 
-    void Start()
+    private GameObject GetPooledEnemy(EnemyPool pool)
+    {
+        foreach (GameObject enemy in pool.pool)
         {
-            StartCoroutine(SpawnRoutine());
+            if (!enemy.activeInHierarchy)
+                return enemy;
         }
+        GameObject newEnemy = Instantiate(pool.enemyPrefab, enemyContainer.transform);
+        newEnemy.SetActive(false);
+        pool.pool.Add(newEnemy);
+        return newEnemy;
+    }
+
+    private GameObject SpawnEnemy(Vector3 position)
+    {
+        EnemyPool selectedPool = enemyPools[Random.Range(0, enemyPools.Count)];
+        GameObject enemy = GetPooledEnemy(selectedPool);
+        enemy.transform.position = position;
+        enemy.SetActive(true);
+        return enemy;
+    }
+
+    public void SpawnInArea(Vector3 center, float radius)
+    {
+        int count = Random.Range(0, 5);
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 spawnPos = center + Random.insideUnitSphere * radius;
+            spawnPos.z = center.z;
+            SpawnEnemy(spawnPos);
+        }
+    }
 }
