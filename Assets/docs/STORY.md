@@ -1,160 +1,184 @@
 # Game Progression
 
-## Act 1: The Beginning and Zeus's Training
+---
 
-***Begin Cutscene***
+## Act I
 
-**Description:** Chaos swirling, giving birth to the first primordial beings.
+---
 
-**Narration:**  
-> From Chaos, came the first beings -- Gaia, the Earth, Uranus, the sky, and Tartarus, the Abyss.
+**CM 1 Opening Credit**
 
-**Description:** Gaia and Uranus with their children.
+FADE IN:
 
-**Narration:**  
-> From Gaia and Uranus, the Titans were born, ferocious and determined.
+Ext. space - timeless void
 
-**Description:** Uranus imprisoning his children.
+WE OPEN with Chaos, a primordial being of space dust and particles, spirals around in the vast emptiness of space, with thundering booms and flashing lights.
 
-**Narration:**  
-> Fearing being overthrown, Uranus trapped his children in Tartarus.
+NARRATOR (V.O.)
+(mythically, with gravitas)
+Chaos ensued.
 
-**Description:** Gaia handing Cronus his sickle.
 
-**Narration:**  
-> Gaia was devastated. She conspired with her son Cronus to dethrone his father.
+Chaos spins. We zoom in to the swirling, seeing Chaos at a closer angle.
 
-**Description:** Cronus striking Uranus with his sickle.
+NARRATOR (CONT’D)
+(Continuously dramatic)
+Timeless, unbounded, unforgiving.
 
-**Narration:**  
-> Cronus dethroned his father, ending the primordial being rule over the land. His father warned him of a prophecy -- that Cronus would suffer the same fate by his children.
 
-**Description:** Cronus and his siblings towering over the land.
+A third angle of Chaos.
 
-**Narration:**  
-> Cronus had now seized control.
+NARRATOR (CONT’D)
+But then...
 
-**Description:** Rhea and Cronus holding their first newborn.
 
-**Narration:**  
-> Fearing the prophecy of his downfall foretold by his father...
+There is a cosmic boom. The force is so intense that causes particles to fly outward from Chaos’s center. We see dust and particles turn into rocks, which rapidly circle each other. From this debris, Gaia, the Earth, and Uranus, the sky, are born.
 
-**Description:** Cronus swallowing a newborn god.
+Ext. The cosmos - new light flickering
 
-**Narration:**  
-> Cronus swallowed each of his newborn children, imprisoning them within himself.
+We first see A Star form rapidly, almost magically, as the debris circle and spiral around each other until The Sun is formed.
 
-**Description:** Rhea pregnant with a god child.
+NARRATOR (CONT’D)
+... a star is born.
 
-**Narration:**  
-> Desperate to save her last child, Rhea tricked Cronus...
 
-**Description:** Rhea giving her child to a nymph in a cave.
+Ext. Space
 
-**Narration:**  
-> and hid her child away in a distant cave on the island of Crete, to be cared for by the nymphs, Adrasteia and Ida, and the goat Amalthea, who would feed her milk to the child.
+We see Gaia, a primordial being that represents the Earth, beginning to form. Rock and debris circle each other, smashing into each other and start to form structure. The Creation slows, as Gaia is not yet fully formed. We see the Earth slowly spin in its unfinished Glory.
 
-**Description:** Close up of Adrasteia's face (same still)
+NARRATOR (CONT’D)
+And soon...
 
-**Narration:**  
-> "And what shall the child be called?" asked Adrasteia?
 
-**Description:** Close up of Rhea's face (same still)
+CUT TO:
 
-**Narration:**  
-> "He shall be called Zeus."
+EXT. Earth - Close up, Day
 
-**Description:** Rhea presenting Cronus with a rounded blanket containing a rock.
 
-**Narration:**  
-> Rhea offered to Cronus a round rock, disguised as the newborn baby, wrapped in a blanket.
+We see Gaia, with peaks and valleys beginning to form. Unfinished bodies of water cover Her, along with trees, mountains, and other elemental creations. We see valleys, deserts, an ocean, and an island.
 
-**Description:** Cronus swallowing rock whole.
+NARRATOR (CONT’D)
+...other creations follow.
 
-**Narration:**  
-> Cronus was none the wiser. He swallowed the rock whole, believing it to be his newborn baby.
+The sun shines through Uranus - the sky - onto Gaia’s surface, warming Her and sprouting new life. Titans begin to grow from the soil, but are trapped.
 
-**Description:** Zeus as a young child, watched over by Amalthea.
+NARRATOR (CONT’D)
+But The Sky was a merciless ruler. He detested the life that he created, fearing that they would ruin what could become.
 
-**Narration:**  
-> In the shadows of the world, Zeus was raised in secret, fed on honey, and the milk of Amalthea.
+Through Her surface, a Titan, Cronus, emerges from the soil, determined to free those that remain buried underneath.
 
-**Description:** Zeus, older, training in a lush valley.
 
-**Narration:**  
-> Under the guidance of wise mentors, Zeus prepared for the war to come.
+NARRATOR (CONT’D)
+But Time proved to be fearless.
 
-***End Cutscene***
 
-Zeus trains in secret. Corresponds to: `GAMEPLAY.md` Level I Tutorial Level - Crete Valley
+We see Cronus facing the sky, arms up, with cosmic rays exerting from his hands, causing the sky to break. As the sky breaks, stars can be seen through the cracks.
 
-Zeus quests to infiltrate Cronus's court. Corresponds to: `GAMEPLAY.md` Level II Infiltrating Cronus's Court
+NARRATOR (CONT’D)
+For a world was not perfect without life...
 
-## Act II: The War Begins
 
-***Begin Cutscene***
+Other Titans begin to emerge from the soils, from the oceans, from the sands. 
 
-**Description:** Zeus, disguised as a servant, gives Cronus a chalice.
+NARRATOR (CONT’D)
+...where death must follow.
 
-**Narration:**  
-> Cronus was given the chalice to drink from, mistaking it for water.
 
-**Description:** Cronus vomiting up his children.
+As Uranus fights back by raining debris onto the Earth, some Titans fall back into the Earth.
 
-**Narration:**  
-> One by one, the gods had returned, each fully grown and ready for vengeance.
 
-**Description:** Zeus and his freed siblings, standing ready.
+NARRATOR (CONT’D)
+So Time was inevitable, and the Sky was forced to let go of its hold on The Earth.
 
-**Narration:**  
-> With his family beside him, the Olympians were ready to take on their father, but not alone.
 
-**Description:** Zeus and his siblings fleeing, Cronus angry.
+We see Cronus, a formidable Titan being, standing over Gaia.
 
-**Narration:**  
-> They escape, setting to build their team to soon face the powerful Titans. Though, the war has still begun.
 
-Zeus gathers allies. Corresponds to: `GAMEPLAY.md` Level III Gathering Divine Allies
+NARRATOR (CONT'D)
+For Cronus was Time. And He knew that power was delicate.
 
-Zeus fights Campe in Tartarus dungeon. Corresponds to: `GAMEPLAY.md` Level IV Fighting Campe
+Ext. Mt. Othrys - night
 
-Zeus trains with the Cyclops to learn his new divine powers. Corresponds to: `GAMEPLAY.md` Level V Divine Powers Training
+We see Cronus's palace in the mountains of Othrys.
 
-***End Cutscene***
+Int. Mt. Othrys - Cronus's palace
 
-## ACT III: The Final Battle
+Rhea, a primordial being, births a child. She gives the child to Cronus, and he swallows it.
 
-Prepared, Zeus and his allies assemble for battle. Corresponds to: `GAMEPLAY.md` Level VI War for the Throne
 
-Zeus and Cronus battle for the throne. Corresponds to: `GAMEPLAY.md` Level VII The Final Battle
+NARRATOR (CONT'D)
+Worried that He too could be removed from His throne, Cronus devoured his offspring...
 
-***Begin Cutscene***
 
-**Description:** Zeus standing victorious over Cronus.
+Cronus swallows three more children, one by one.
 
-**Narration:**  
-> The war was over. The Titans had fallen.
+NARRATOR (CONT'D)
+...one by one, ensuring His reign would never be hindered.
 
-**Description:** Titans being cast into Tartarus.
+We see Rhea facing away from Cronus as he devours another child, physically upset and distraught.
 
-**Narration:**  
-> Bound by chains, the Titans were to be sealed away forever.
 
-**Description:** Zeus standing atop mountains.
+NARRATOR (CONT'D)
+Rhea was heartbroken. She couldn't bear to see another child be eaten by Cronus.
 
-**Narration:**  
-> A new kingdom would be built, towering above all others...
+EXT. Crete Valley - Day
 
-**Description:** Zooming in above to the highest peak (same still).
+A luscious valley on Earth's unfinished surface - with cliffs, trees, a large center lake, a rapid waterfall, and a cave.
 
-**Narration:**  
-> ...Mount Olympus.
+INT. Crete Valley - Cave
 
-**Description:** Zooming out from Zeus's face to reveal all Olympians standing with Zeus.
+Rhea, again pregnant, stands in a cave, with Amalthea, a Goat, with a pure, white fur coat and two female Nymphs, Ada and Adrasteia, with pure white gowns and gold headpieces. All three attend to Rhea with care.
 
-**Narration:** (same narration as previous frame)  
-> ...Mount Olympus.
+We, then, see Rhea holding a male child.
 
-***End Cutscene***
+NARRATOR (CONT'D)
+So she fled to the mountains of Crete Valley, where He was born in captivity, to be raised by Amalthea, a motherly Goat, with the help of two nymphs, Ada and Adrasteia, who would help care for Him.
+
+INT. MT. OTHRYS - Cronus's Palace
+
+Cronus swallows what he thinks to be a child, but is actually a child-sized rock, covered in a small cloth resembling a blanket.
+
+NARRATOR (CONT'D)
+Rhea wrapped a large stone in cloth and returned it to Cronus. Believing it to be another child, he swallows it whole.
+
+
+INT. CRETE VALLEY - CAVE
+
+
+We see Zeus held by one of the Nymphs, be fed milk from a small bowl.
+
+NARRATOR (CONT'D)
+The child would be raised off of Amalthea's milk.
+
+EXT. CRETE VALLEY - day
+
+We see Zeus, older, standing in a small covered forest of trees in Crete Valley. He continues to grow over time.
+
+
+NARRATOR (CONT'D)
+He grows, shielded from Cronus's reign.
+
+
+The camera slowly zooms in on Zeus's face.
+
+NARRATOR (CONT'D)
+He is the one that will challenge Cronus's authority.
+
+CUT TO:
+
+EXT. Black screen
+
+There is a rumbling thunder.
+
+NARRATOR (CONT'D)
+He is Zeus.
+
+**TITLE CARD Rise of the Olympian**
+
+---
+
+**GM 1: Crete Valley**
+
+---
 
 Credit Roll
