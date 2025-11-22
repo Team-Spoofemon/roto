@@ -1,4 +1,4 @@
-- [ ] Incomplete  
+- [ ] Incomplete
 - [x] Complete  
 
 Refer to `CHARACTERS.md` for character attributes.
@@ -9,14 +9,13 @@ Refer to `CHARACTERS.md` for character attributes.
 
 **Priority 1:**
 - [ ] Zeus – Teen/Young Adult (Combat-ready) (He will always be pictured with a sword during first half of game)
-    - [ ] Walking
-    - [ ] Running (I know I said no, but thinking about it, it sounds weird if we don't differentiate running from walking)
+    - [x] Walking
     - [ ] Sword Attacks
     - [ ] Hit Animations
-    - [ ] Idle
+    - [x] Idle
     - [ ] Dead animations
 - [ ] Titan Minions (Tutorial Enemies)
-    - [ ] Walking
+    - [x] Walking
     - [ ] Melee Attacks
     - [ ] Hit Animations
     - [ ] Idle
@@ -39,14 +38,17 @@ Refer to `CHARACTERS.md` for character attributes.
 - [ ] Centimanes
 - [ ] Cronus – Final Boss (Multi-phase)
 
+**Priority Last:**
+- [ ] Cinematic cutscenes
+
 ## UI Elements
 
 **Priority 1:**
 - [ ] Main Menu
-- [ ] Pause menu
-- [ ] Player health bar
-- [ ] Enemey health bar
-- [ ] Player dead screen
+- [x] Pause menu
+- [x] Player health bar
+- [x] Enemey health bar
+- [x] Player dead screen
 
 **Priority 2:**
 - [ ] Game map (interactive)
@@ -54,7 +56,21 @@ Refer to `CHARACTERS.md` for character attributes.
 - [ ] Ability cooldown indicator
 - [ ] Quest arrows
 
-**Priority 2:**
+**Priority 3:**
 - [ ] Quest objective tracker
 - [ ] Loading screen
-- [ ] Level complete screen?
+
+## 3D Art
+
+**Priority 1**
+- [ ] Crete Valley Level Terrain
+- [ ] Trees, Rocks, other environmental design
+
+**Later Priority**
+- [ ] Crete Valley Cave Interior 3D Level Terrain (Specific needs to be discussed later)
+- [ ] Mt. Othrys Exterior 3D Level Terrain (Specific needs to be discussed later)
+- [ ] Mt. Othrys Interior 3D Level Terrain (Specific needs to be discuseed later)
+- [ ] Gaia (Earth) 3D Level Terrain (Specific needs to be discussed later)
+- [ ] Island of Fire Exterior 3D Level Terrain (Specific needs to be discussed later)
+- [ ] Tartarus Interior 3D Level Terrain (Specific needs to be discussed later)
+- [ ] Olympus Post-Credit 3D Level Terrain (Specific needs to be discussed later)
