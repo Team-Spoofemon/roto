@@ -36,11 +36,17 @@ Use the following format:
 
 ---
 
-## Level III – Gathering Divine Allies
+## Level III – Gaia
 
 - [ ]
 
 ---
+
+## Level IV -- Tartarus
+
+---
+
+## Level V -- The Throne
 
 ## Audio
 
