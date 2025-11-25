@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements; // For UI Toolkit
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    // Define UI controls, e.g. public fields or refs
-    private VisualElement healthBar;
-    private VisualElement mainMenu;
-    private VisualElement inGameUI;
-    private VisualElement loadingScreen;
+    [SerializeField] private VisualElement healthBar;
+    [SerializeField] private VisualElement mainMenu;
+    [SerializeField] private VisualElement inGameUI;
+    [SerializeField] private VisualElement loadingScreen;
+
+    public GameObject dialoguePanel;
+    public TextMeshProUGUI dialogueText;
+    public GameObject nameBox;
+    public TextMeshProUGUI nameText;
+    public GameObject cinematicOverlay;
+    public TextMeshProUGUI narrationText;
 
     private void Awake()
     {
@@ -26,7 +34,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void OnEnable() // For UI Toolkit
+    private void OnEnable()
     {
         var root = GetComponent<UIDocument>().rootVisualElement;
         healthBar = root.Q<VisualElement>("HealthBar");
@@ -35,15 +43,12 @@ public class UIManager : MonoBehaviour
         loadingScreen = root.Q<VisualElement>("LoadingScreen");
     }
 
-    // Example: Health Bar Management
     public void UpdateHealth(float value)
     {
-        // Assumes HealthBar element contains a ProgressBar or similar
         ProgressBar bar = healthBar.Q<ProgressBar>();
         bar.value = value;
     }
 
-    // Menu Management
     public void ShowMainMenu() => mainMenu.style.display = DisplayStyle.Flex;
     public void HideMainMenu() => mainMenu.style.display = DisplayStyle.None;
     public void ShowInGameUI() => inGameUI.style.display = DisplayStyle.Flex;
@@ -51,5 +56,42 @@ public class UIManager : MonoBehaviour
     public void ShowLoadingScreen() => loadingScreen.style.display = DisplayStyle.Flex;
     public void HideLoadingScreen() => loadingScreen.style.display = DisplayStyle.None;
 
-    // Additional UI management methods can be added here
+    public void DisplayTextbox(string text)
+    {
+        dialogueText.text = text;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dialoguePanel.GetComponent<RectTransform>());
+        dialoguePanel.SetActive(true);
+        nameBox.SetActive(false);
+    }
+
+    public void DisplayNameAndTextbox(string name, string text)
+    {
+        nameText.text = name;
+        dialogueText.text = text;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dialoguePanel.GetComponent<RectTransform>());
+        dialoguePanel.SetActive(true);
+        nameBox.SetActive(true);
+    }
+
+    public void DisplayNarration(string text)
+    {
+        cinematicOverlay.SetActive(true);
+        narrationText.text = text;
+    }
+
+    public void SetText(string text)
+    {
+        dialogueText.text = text;
+    }
+
+    public void HideTextbox()
+    {
+        dialoguePanel.SetActive(false);
+        nameBox.SetActive(false);
+    }
+
+    public void HideNarration()
+    {
+        cinematicOverlay.SetActive(false);
+    }
 }

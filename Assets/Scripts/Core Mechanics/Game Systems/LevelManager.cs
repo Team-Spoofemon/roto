@@ -5,8 +5,11 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static event Action OnPlayerDeathEvent;
+
     [SerializeField] private CanvasGroup fadeCanvas;
     [SerializeField] private AudioSource deathSound;
+
+    private DialogueManager dialogueManager;
 
     public static LevelManager Instance { get; private set; }
 
@@ -17,8 +20,13 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
+    }
+
+    private void Start()
+    {
+        dialogueManager = DialogueManager.Instance;
+        StartCoroutine(LevelIntroSequence());
     }
 
     private void OnEnable()
@@ -72,5 +80,12 @@ public class LevelManager : MonoBehaviour
             fadeCanvas.alpha = Mathf.Lerp(0, 1, t / duration);
             yield return null;
         }
+    }
+
+    private IEnumerator LevelIntroSequence()
+    {
+        dialogueManager.InstructionalText("See Ada at the center of the map.");
+        yield return new WaitForSeconds(3f);
+        dialogueManager.HideText();
     }
 }
