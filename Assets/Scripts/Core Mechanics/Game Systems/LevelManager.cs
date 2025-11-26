@@ -5,8 +5,11 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static event Action OnPlayerDeathEvent;
+
     [SerializeField] private CanvasGroup fadeCanvas;
     [SerializeField] private AudioSource deathSound;
+
+    private DialogueManager dialogueManager;
 
     public static LevelManager Instance { get; private set; }
 
@@ -17,8 +20,13 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
+    }
+
+    private void Start()
+    {
+        dialogueManager = DialogueManager.Instance;
+        StartCoroutine(LevelIntroSequence());
     }
 
     private void OnEnable()
@@ -38,12 +46,13 @@ public class LevelManager : MonoBehaviour
 
     private void HandlePlayerDeathTrigger()
     {
-        if (Instance != null)
-            Instance.StartCoroutine(Instance.HandlePlayerDeath());
+        StartCoroutine(HandlePlayerDeath());
     }
 
     private IEnumerator HandlePlayerDeath()
     {
+        DialogueManager.Instance.ResetDialogue();
+
         if (AudioManager.Instance != null && deathSound != null)
             AudioManager.Instance.PlaySFX(deathSound.clip);
         else if (deathSound != null)
@@ -53,24 +62,17 @@ public class LevelManager : MonoBehaviour
         }
 
         if (fadeCanvas != null)
-            fadeCanvas.alpha = 0;
+            fadeCanvas.alpha = 1f;
 
-        DeathScreenUI deathScreen = FindObjectOfType<DeathScreenUI>(true);
-        if (deathScreen != null)
-            deathScreen.Show();
+        DeathScreenUI ui = FindObjectOfType<DeathScreenUI>(true);
+        if (ui != null)
+            ui.Show();
 
         yield break;
     }
 
-    private IEnumerator FadeOut()
+    private IEnumerator LevelIntroSequence()
     {
-        float duration = 1f;
-        float t = 0f;
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            fadeCanvas.alpha = Mathf.Lerp(0, 1, t / duration);
-            yield return null;
-        }
+        yield return dialogueManager.InstructionalText("See Adrasteia at the center of the map.", 3f);
     }
 }

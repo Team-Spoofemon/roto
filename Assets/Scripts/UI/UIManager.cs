@@ -1,55 +1,167 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements; // For UI Toolkit
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using TMPro;
+
+public enum DialogueType
+{
+    Character,
+    Instruction,
+    Narration
+}
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance { get; private set; }
 
-    // Define UI controls, e.g. public fields or refs
-    private VisualElement healthBar;
-    private VisualElement mainMenu;
-    private VisualElement inGameUI;
-    private VisualElement loadingScreen;
+    [SerializeField] private VisualElement healthBar;
+    [SerializeField] private VisualElement mainMenu;
+    [SerializeField] private VisualElement inGameUI;
+    [SerializeField] private VisualElement loadingScreen;
+
+    public GameObject dialoguePanel;
+    public TextMeshProUGUI dialogueText;
+    public GameObject nameBox;
+    public TextMeshProUGUI nameText;
+    public GameObject cinematicOverlay;
+    public TextMeshProUGUI narrationText;
+    public CanvasGroup dialogueCanvasGroup;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnEnable()
+    {
+        var doc = GetComponent<UIDocument>();
+        if (doc != null)
+        {
+            var root = doc.rootVisualElement;
+            healthBar = root.Q<VisualElement>("HealthBar");
+            mainMenu = root.Q<VisualElement>("MainMenu");
+            inGameUI = root.Q<VisualElement>("InGameUI");
+            loadingScreen = root.Q<VisualElement>("LoadingScreen");
+        }
+    }
+
+    public void UpdateHealth(float value)
+    {
+        if (healthBar == null) return;
+        ProgressBar bar = healthBar.Q<ProgressBar>();
+        if (bar != null) bar.value = value;
+    }
+
+    public IEnumerator ShowDialogueLine(string name, string text, float typeSpeed, DialogueType type, float autoHideTime)
+    {
+        dialoguePanel.SetActive(true);
+        dialogueCanvasGroup.alpha = 0f;
+        dialogueText.text = "";
+        dialogueText.gameObject.SetActive(true);
+
+        if (!string.IsNullOrEmpty(name))
+        {
+            nameBox.SetActive(true);
+            nameText.text = name;
         }
         else
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            nameBox.SetActive(false);
         }
+
+        yield return null;
+
+        float t = 0f;
+        float fadeInDuration = 0.2f;
+
+        while (t < fadeInDuration)
+        {
+            t += Time.deltaTime;
+            dialogueCanvasGroup.alpha = Mathf.Lerp(0f, 1f, t / fadeInDuration);
+            yield return null;
+        }
+
+        dialogueCanvasGroup.alpha = 1f;
+
+        bool allowSkip = type == DialogueType.Character;
+
+        foreach (char c in text)
+        {
+            if (allowSkip && Input.GetMouseButtonDown(0))
+            {
+                dialogueText.text = text;
+                break;
+            }
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+
+        if (type == DialogueType.Character)
+        {
+            bool clicked = false;
+            while (!clicked)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    clicked = true;
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(autoHideTime);
+        }
+
+        float fadeOutDuration = 0.2f;
+        t = 0f;
+
+        while (t < fadeOutDuration)
+        {
+            t += Time.deltaTime;
+            dialogueCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t / fadeOutDuration);
+            yield return null;
+        }
+
+        dialogueCanvasGroup.alpha = 0f;
+        dialoguePanel.SetActive(false);
+        nameBox.SetActive(false);
+        dialogueText.text = "";
     }
 
-    private void OnEnable() // For UI Toolkit
+    public void DisplayNarration(string text)
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        healthBar = root.Q<VisualElement>("HealthBar");
-        mainMenu = root.Q<VisualElement>("MainMenu");
-        inGameUI = root.Q<VisualElement>("InGameUI");
-        loadingScreen = root.Q<VisualElement>("LoadingScreen");
+        cinematicOverlay.SetActive(true);
+        narrationText.text = text;
     }
 
-    // Example: Health Bar Management
-    public void UpdateHealth(float value)
+    public void HideNarration()
     {
-        // Assumes HealthBar element contains a ProgressBar or similar
-        ProgressBar bar = healthBar.Q<ProgressBar>();
-        bar.value = value;
+        cinematicOverlay.SetActive(false);
+        narrationText.text = "";
     }
 
-    // Menu Management
-    public void ShowMainMenu() => mainMenu.style.display = DisplayStyle.Flex;
-    public void HideMainMenu() => mainMenu.style.display = DisplayStyle.None;
-    public void ShowInGameUI() => inGameUI.style.display = DisplayStyle.Flex;
-    public void HideInGameUI() => inGameUI.style.display = DisplayStyle.None;
-    public void ShowLoadingScreen() => loadingScreen.style.display = DisplayStyle.Flex;
-    public void HideLoadingScreen() => loadingScreen.style.display = DisplayStyle.None;
+    public void HideTextbox()
+    {
+        dialoguePanel.SetActive(false);
+        dialogueText.text = "";
+        nameBox.SetActive(false);
+        dialogueCanvasGroup.alpha = 0f;
+    }
 
-    // Additional UI management methods can be added here
+    public void ResetDialogueUI()
+    {
+        StopAllCoroutines();
+        dialoguePanel.SetActive(false);
+        nameBox.SetActive(false);
+        dialogueCanvasGroup.alpha = 0f;
+        dialogueText.text = "";
+        if (cinematicOverlay != null) cinematicOverlay.SetActive(false);
+        if (narrationText != null) narrationText.text = "";
+    }
 }

@@ -6,7 +6,7 @@ TextureImporter:
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -37,13 +37,13 @@ TextureImporter:
     filterMode: 1
     aniso: 1
     mipBias: 0
-    wrapU: 0
-    wrapV: 0
+    wrapU: 1
+    wrapV: 1
     wrapW: 0
-  nPOTScale: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -52,9 +52,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
-  alphaIsTransparency: 0
-  spriteTessellationDetail: -1
-  textureType: 0
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0
+  textureType: 8
   textureShape: 1
   singleChannelComponent: 0
   flipbookRows: 1
@@ -108,18 +108,75 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
-    outline: []
+    sprites:
+    - serializedVersion: 2
+      name: ui_dialogueBox_0
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 136
+        width: 81
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bfcd4c7bc9d5437aa9e5f2d55dd60c6
+      internalID: -916216367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ui_dialogueBox_1
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 17
+        width: 337
+        height: 115
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 956080a6312f24e2b998c520447f2351
+      internalID: -1522515963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline:
+    - - {x: -170.5, y: 43.5}
+      - {x: -170.5, y: -75.5}
+      - {x: 170.5, y: -75.5}
+      - {x: 170.5, y: 41.5}
+      - {x: 167.5, y: 43.5}
+    - - {x: -147.5, y: 65.5}
+      - {x: -149.5, y: 63.5}
+      - {x: -149.5, y: 45.5}
+      - {x: -147.5, y: 43.5}
+      - {x: -66.5, y: 43.5}
+      - {x: -64.5, y: 45.5}
+      - {x: -64.5, y: 63.5}
+      - {x: -66.5, y: 65.5}
     physicsShape: []
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ui_dialogueBox_0: -916216367
+      ui_dialogueBox_1: -1522515963
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
