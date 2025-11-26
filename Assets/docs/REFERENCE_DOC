@@ -1,0 +1,33 @@
+# How to Show Dialogue
+
+## To show an instructional prompt:
+```
+StartCoroutine(DialogeManager.Instance.InstructionalText(string text, float duration));
+```
+
+
+Definitions:
+string text = text we want to display in the dialogue box
+duration = how long to display text before it fades out
+
+## To run character dialogue:
+```string[] lines = {```
+``` "Lines part 1.```
+``` "Lines part 2."```
+```};```
+```StartCoroutine(DialogueManager.Instance.CharacterDialogue(string characterName, lines));```
+```DialogueManager.Instance.typeSpeed = 0.02f;```
+
+Definitions:
+characterName = name of character speaking
+lines = each element in array displays using CharacterDialogue coroutine
+typeSpeed = declare a float to increase or decrease typeSpeed. smaller time is faster type
+
+## To show a narration:
+
+```StartCoroutine(DialogueManager.Instance.Narration("Narration...", float duration));```
+
+"Narration..." = narration to display
+duration = how long narration is displayed before it is hidden
+
+# Further Reference Inforomation Can Go Here
