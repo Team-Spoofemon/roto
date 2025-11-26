@@ -6,6 +6,7 @@ public class DialogueManager : MonoBehaviour
     public static DialogueManager Instance { get; private set; }
 
     private UIManager uiManager;
+    public float typeSpeed = 0.03f;
 
     private void Awake()
     {
@@ -14,7 +15,6 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
@@ -24,31 +24,30 @@ public class DialogueManager : MonoBehaviour
         uiManager = UIManager.Instance;
     }
 
-    public void InstructionalText(string text)
+    public IEnumerator InstructionalText(string text, float duration)
     {
-        uiManager.DisplayTextbox(text);
+        yield return uiManager.ShowDialogueLine("", text, typeSpeed, DialogueType.Instruction, duration);
     }
 
-    public IEnumerator CharacterDialogue(string name, string[] lines, float lineDelay)
+    public IEnumerator CharacterDialogue(string name, string[] lines)
     {
         foreach (string line in lines)
-        {
-            uiManager.DisplayNameAndTextbox(name, line);
-            yield return new WaitForSeconds(lineDelay);
-        }
-
-        uiManager.HideTextbox();
+            yield return uiManager.ShowDialogueLine(name, line, typeSpeed, DialogueType.Character, 0f);
     }
 
     public IEnumerator Narration(string text, float duration)
     {
-        uiManager.DisplayNarration(text);
-        yield return new WaitForSeconds(duration);
-        uiManager.HideNarration();
+        yield return uiManager.ShowDialogueLine("", text, typeSpeed, DialogueType.Narration, duration);
     }
 
     public void HideText()
     {
         uiManager.HideTextbox();
+    }
+
+    public void ResetDialogue()
+    {
+        StopAllCoroutines();
+        uiManager.ResetDialogueUI();
     }
 }

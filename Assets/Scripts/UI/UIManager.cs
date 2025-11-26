@@ -1,9 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 using TMPro;
+
+public enum DialogueType
+{
+    Character,
+    Instruction,
+    Narration
+}
 
 public class UIManager : MonoBehaviour
 {
@@ -20,57 +26,112 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public GameObject cinematicOverlay;
     public TextMeshProUGUI narrationText;
+    public CanvasGroup dialogueCanvasGroup;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable()
     {
-        var root = GetComponent<UIDocument>().rootVisualElement;
-        healthBar = root.Q<VisualElement>("HealthBar");
-        mainMenu = root.Q<VisualElement>("MainMenu");
-        inGameUI = root.Q<VisualElement>("InGameUI");
-        loadingScreen = root.Q<VisualElement>("LoadingScreen");
+        var doc = GetComponent<UIDocument>();
+        if (doc != null)
+        {
+            var root = doc.rootVisualElement;
+            healthBar = root.Q<VisualElement>("HealthBar");
+            mainMenu = root.Q<VisualElement>("MainMenu");
+            inGameUI = root.Q<VisualElement>("InGameUI");
+            loadingScreen = root.Q<VisualElement>("LoadingScreen");
+        }
     }
 
     public void UpdateHealth(float value)
     {
+        if (healthBar == null) return;
         ProgressBar bar = healthBar.Q<ProgressBar>();
-        bar.value = value;
+        if (bar != null) bar.value = value;
     }
 
-    public void ShowMainMenu() => mainMenu.style.display = DisplayStyle.Flex;
-    public void HideMainMenu() => mainMenu.style.display = DisplayStyle.None;
-    public void ShowInGameUI() => inGameUI.style.display = DisplayStyle.Flex;
-    public void HideInGameUI() => inGameUI.style.display = DisplayStyle.None;
-    public void ShowLoadingScreen() => loadingScreen.style.display = DisplayStyle.Flex;
-    public void HideLoadingScreen() => loadingScreen.style.display = DisplayStyle.None;
-
-    public void DisplayTextbox(string text)
+    public IEnumerator ShowDialogueLine(string name, string text, float typeSpeed, DialogueType type, float autoHideTime)
     {
-        dialogueText.text = text;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(dialoguePanel.GetComponent<RectTransform>());
         dialoguePanel.SetActive(true);
+        dialogueCanvasGroup.alpha = 0f;
+        dialogueText.text = "";
+        dialogueText.gameObject.SetActive(true);
+
+        if (!string.IsNullOrEmpty(name))
+        {
+            nameBox.SetActive(true);
+            nameText.text = name;
+        }
+        else
+        {
+            nameBox.SetActive(false);
+        }
+
+        yield return null;
+
+        float t = 0f;
+        float fadeInDuration = 0.2f;
+
+        while (t < fadeInDuration)
+        {
+            t += Time.deltaTime;
+            dialogueCanvasGroup.alpha = Mathf.Lerp(0f, 1f, t / fadeInDuration);
+            yield return null;
+        }
+
+        dialogueCanvasGroup.alpha = 1f;
+
+        bool allowSkip = type == DialogueType.Character;
+
+        foreach (char c in text)
+        {
+            if (allowSkip && Input.GetMouseButtonDown(0))
+            {
+                dialogueText.text = text;
+                break;
+            }
+            dialogueText.text += c;
+            yield return new WaitForSeconds(typeSpeed);
+        }
+
+        if (type == DialogueType.Character)
+        {
+            bool clicked = false;
+            while (!clicked)
+            {
+                if (Input.GetMouseButtonDown(0))
+                    clicked = true;
+                yield return null;
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(autoHideTime);
+        }
+
+        float fadeOutDuration = 0.2f;
+        t = 0f;
+
+        while (t < fadeOutDuration)
+        {
+            t += Time.deltaTime;
+            dialogueCanvasGroup.alpha = Mathf.Lerp(1f, 0f, t / fadeOutDuration);
+            yield return null;
+        }
+
+        dialogueCanvasGroup.alpha = 0f;
+        dialoguePanel.SetActive(false);
         nameBox.SetActive(false);
-    }
-
-    public void DisplayNameAndTextbox(string name, string text)
-    {
-        nameText.text = name;
-        dialogueText.text = text;
-        LayoutRebuilder.ForceRebuildLayoutImmediate(dialoguePanel.GetComponent<RectTransform>());
-        dialoguePanel.SetActive(true);
-        nameBox.SetActive(true);
+        dialogueText.text = "";
     }
 
     public void DisplayNarration(string text)
@@ -79,19 +140,28 @@ public class UIManager : MonoBehaviour
         narrationText.text = text;
     }
 
-    public void SetText(string text)
+    public void HideNarration()
     {
-        dialogueText.text = text;
+        cinematicOverlay.SetActive(false);
+        narrationText.text = "";
     }
 
     public void HideTextbox()
     {
         dialoguePanel.SetActive(false);
+        dialogueText.text = "";
         nameBox.SetActive(false);
+        dialogueCanvasGroup.alpha = 0f;
     }
 
-    public void HideNarration()
+    public void ResetDialogueUI()
     {
-        cinematicOverlay.SetActive(false);
+        StopAllCoroutines();
+        dialoguePanel.SetActive(false);
+        nameBox.SetActive(false);
+        dialogueCanvasGroup.alpha = 0f;
+        dialogueText.text = "";
+        if (cinematicOverlay != null) cinematicOverlay.SetActive(false);
+        if (narrationText != null) narrationText.text = "";
     }
 }
