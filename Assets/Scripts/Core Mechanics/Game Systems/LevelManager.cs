@@ -26,7 +26,6 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         dialogueManager = DialogueManager.Instance;
-        StartCoroutine(LevelIntroSequence());
     }
 
     private void OnEnable()
@@ -69,10 +68,5 @@ public class LevelManager : MonoBehaviour
             ui.Show();
 
         yield break;
-    }
-
-    private IEnumerator LevelIntroSequence()
-    {
-        yield return dialogueManager.InstructionalText("See Adrasteia at the center of the map.", 3f);
     }
 }
