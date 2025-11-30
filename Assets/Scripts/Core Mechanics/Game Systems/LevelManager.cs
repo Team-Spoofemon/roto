@@ -73,6 +73,6 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator LevelIntroSequence()
     {
-        yield return dialogueManager.InstructionalText("See Adrasteia at the center of the map.", 3f);
+        yield return dialogueManager.InstructionalText("Stone tablets are near...they should help lead the way.", 3f);
     }
 }
