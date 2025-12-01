@@ -26,6 +26,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         dialogueManager = DialogueManager.Instance;
+        StartCoroutine(LevelIntroSequence());
     }
 
     private void OnEnable()
@@ -68,5 +69,10 @@ public class LevelManager : MonoBehaviour
             ui.Show();
 
         yield break;
+    }
+
+    private IEnumerator LevelIntroSequence()
+    {
+        yield return dialogueManager.InstructionalText("Stone tablets are near...they should help lead the way.", 3f);
     }
 }

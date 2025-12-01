@@ -275,19 +275,8 @@
                 },
                 {
                     "name": "",
-                    "id": "34f86fe5-3745-488a-937d-fb55b09322cf",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Melee",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "091d6973-fa2b-4c29-a12a-abd1259547b2",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
