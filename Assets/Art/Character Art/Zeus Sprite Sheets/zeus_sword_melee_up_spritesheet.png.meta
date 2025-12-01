@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9568de582cb7a4808b651a370dd54c13
+guid: 15af4a0f11acf4ff2bd1d98481abaac0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,85 +110,127 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: zeus_idle_spritesheet_0
+      name: zeus_sword_melee_up_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 3
-        width: 98
-        height: 132
+        x: 4
+        y: 7
+        width: 97
+        height: 31
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5511edb2981db7547864972cd5d3c88a
-      internalID: -1495937234
+      spriteID: 21d64aad66c1443398c61f5c6ff681fa
+      internalID: -1453797401
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_idle_spritesheet_1
+      name: zeus_sword_melee_up_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 284
-        y: 3
-        width: 99
-        height: 136
+        x: 313
+        y: 2
+        width: 84
+        height: 50
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 74e0538b18deeaa48adcc5528a618f17
-      internalID: -1775221350
+      spriteID: 405b20dff98584421baf05346ce1c580
+      internalID: 338382272
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_idle_spritesheet_2
+      name: zeus_sword_melee_up_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 539
-        y: 3
-        width: 100
-        height: 133
+        x: 587
+        y: 10
+        width: 167
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f24f6e2e8be6e2c4fafebacccb6c2f36
-      internalID: -1500430772
+      spriteID: 32afeff9b1588479abdf195443a12e86
+      internalID: -1621254614
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_idle_spritesheet_3
+      name: zeus_sword_melee_up_spritesheet_3
       rect:
         serializedVersion: 2
-        x: 793
-        y: 3
-        width: 102
-        height: 130
+        x: 911
+        y: 28
+        width: 84
+        height: 98
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58a037953aa152046a83734bdf328370
-      internalID: 74690257
+      spriteID: 29afebf62c28e46d7ab3e6d1ef222090
+      internalID: 1982738205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeus_sword_melee_up_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 890
+        y: 17
+        width: 20
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7cc01ab31a73498eab37df133be446b
+      internalID: 1543779092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zeus_sword_melee_up_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 22
+        width: 10
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddda70a9298e94680af6a600ee7c874c
+      internalID: 424056493
       vertices: []
       indices: 
       edges: []
@@ -196,7 +238,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 99f4fcdfb4c86ea4eb89fca64f51d73b
+    spriteID: c73c63c5261e54452b9c55d9a2f43f3a
     internalID: 0
     vertices: []
     indices: 
@@ -204,10 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      zeus_idle_spritesheet_0: -1495937234
-      zeus_idle_spritesheet_1: -1775221350
-      zeus_idle_spritesheet_2: -1500430772
-      zeus_idle_spritesheet_3: 74690257
+      zeus_sword_melee_up_spritesheet_0: -1453797401
+      zeus_sword_melee_up_spritesheet_1: 338382272
+      zeus_sword_melee_up_spritesheet_2: -1621254614
+      zeus_sword_melee_up_spritesheet_3: 1982738205
+      zeus_sword_melee_up_spritesheet_4: 1543779092
+      zeus_sword_melee_up_spritesheet_5: 424056493
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
