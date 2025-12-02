@@ -21,6 +21,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float extraGravity = 20f;
+    [SerializeField] private float inputRotation = 0f;
+    [SerializeField] private float spriteBaseRotation = 0f;
 
     [Header("Ground Detection")]
     [SerializeField] private Transform groundCheck;
@@ -129,17 +132,33 @@ public class PlayerController : MonoBehaviour
 
         GroundCheck();
         Move();
+        ApplyExtraGravity();
     }
 
     private void Move()
     {
         bool isSprinting = sprintAction.IsPressed();
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
-        moveDirection = new Vector3(moveAmt.x, 0f, moveAmt.y).normalized;
-        float airControl = isGrounded ? 1f : 0.6f;
-        Vector3 targetVelocity = moveDirection * moveSpeed * airControl;
-        Vector3 velocityChange = targetVelocity - new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        Vector3 raw = new Vector3(moveAmt.x, 0f, moveAmt.y);
+
+        if (inputRotation != 0f){
+            raw = Quaternion.Euler(0f, inputRotation, 0f) * raw;
+        }
+
+        moveDirection = raw.normalized;
+
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 targetVel = moveDirection * moveSpeed;
+        Vector3 velChange = targetVel - flatVel;
+
+        rb.AddForce(velChange, ForceMode.VelocityChange);
+    }
+
+    private void ApplyExtraGravity()
+    {
+        if (!isGrounded)
+            rb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
     }
 
     private void Jump()
@@ -162,18 +181,18 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFlip()
     {
-        float xVelocity = rb.velocity.x;
-        if (xVelocity > 0.1f && !facingRight)
+        float horizontal = moveAmt.x;
+
+        if (horizontal > 0.1f && !facingRight)
             Flip();
-        else if (xVelocity < -0.1f && facingRight)
+        else if (horizontal < -0.1f && facingRight)
             Flip();
     }
 
     private void Flip()
     {
         facingRight = !facingRight;
-        float y = facingRight ? 0f : 180f;
-        spriteHolder.localRotation = Quaternion.Euler(0f, y, 0f);
+        UpdateSpriteRotation();
     }
 
     private void Melee()
@@ -188,7 +207,7 @@ public class PlayerController : MonoBehaviour
         Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 10f, groundMask))
         {
-            playerShadow.position = new Vector3(transform.position.x, hit.point.y + 0.01f, transform.position.z);
+            playerShadow.position = new Vector3(transform.position.x, hit.point.y + 0.75f, transform.position.z - 0.5f);
             playerShadow.gameObject.SetActive(true);
 
             if (!hasInitializedShadow)
@@ -281,4 +300,21 @@ public class PlayerController : MonoBehaviour
         if (playerShadow)
             playerShadow.gameObject.SetActive(true);
     }
+
+    public void SetInputRotation(float degrees){
+        inputRotation = degrees;
+    }
+
+    public void SetSpriteBaseRotation(float degrees)
+    {
+        spriteBaseRotation = degrees;
+        UpdateSpriteRotation();
+    }
+
+    private void UpdateSpriteRotation()
+    {
+        float flipY = facingRight ? 0f : 180f;
+        spriteHolder.localRotation = Quaternion.Euler(0f, spriteBaseRotation + flipY, 0f);
+    }
+
 }
