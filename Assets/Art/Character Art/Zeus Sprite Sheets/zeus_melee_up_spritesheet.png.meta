@@ -113,12 +113,12 @@ TextureImporter:
       name: zeus_melee_up_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 53
+        x: 32
         y: 4
-        width: 88
+        width: 109
         height: 116
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +139,7 @@ TextureImporter:
         width: 102
         height: 123
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,10 +157,10 @@ TextureImporter:
         serializedVersion: 2
         x: 560
         y: 6
-        width: 95
+        width: 114
         height: 132
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,36 +173,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_melee_up_spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 654
-        y: 56
-        width: 20
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7cd8f5e3457554b83946dd9817ecbb13
-      internalID: 2108134433
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: zeus_melee_up_spritesheet_4
       rect:
         serializedVersion: 2
         x: 808
         y: 6
-        width: 100
+        width: 117
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -210,48 +189,6 @@ TextureImporter:
       bones: []
       spriteID: 06a1672e3d649443eb2dc99ff2a838ff
       internalID: 33723706
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: zeus_melee_up_spritesheet_5
-      rect:
-        serializedVersion: 2
-        x: 905
-        y: 50
-        width: 20
-        height: 25
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 53aa6e55d337d4d8ca9bdbfa12459d6c
-      internalID: -338404783
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: zeus_melee_up_spritesheet_6
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 25
-        height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b24b60571cc4e47d2b6201e0d18996eb
-      internalID: 849510857
       vertices: []
       indices: 
       edges: []
