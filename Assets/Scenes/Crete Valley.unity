@@ -3023,7 +3023,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 106.627075, y: 99.58927, z: -15.222925}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3488873, y: 1.3488873, z: 1.3488873}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6757,7 +6757,7 @@ PrefabInstance:
       objectReference: {fileID: 33792779}
     - target: {fileID: 4271970863402828132, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: Keyboard&Mouse
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4727597911748629462, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: walkSpeed
@@ -6767,6 +6767,14 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 1153547255}
+    - target: {fileID: 6097843761166070961, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: amountOfAttacks
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793457675439881469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6793457675439881469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.15
