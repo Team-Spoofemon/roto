@@ -118,7 +118,7 @@ TextureImporter:
         width: 83
         height: 129
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -139,7 +139,7 @@ TextureImporter:
         width: 83
         height: 133
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,36 +152,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_special_stab_spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 547
-        y: 36
-        width: 26
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d5825a1720a6c42d4bd600570fa5d0d3
-      internalID: 1702901823
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: zeus_special_stab_spritesheet_3
       rect:
         serializedVersion: 2
-        x: 571
+        x: 547
         y: 1
-        width: 97
+        width: 124
         height: 123
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,57 +173,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: zeus_special_stab_spritesheet_4
-      rect:
-        serializedVersion: 2
-        x: 646
-        y: 26
-        width: 25
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3155a635aa5e04f6db443b26b6c746b9
-      internalID: 722947935
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: zeus_special_stab_spritesheet_5
-      rect:
-        serializedVersion: 2
-        x: 800
-        y: 34
-        width: 26
-        height: 26
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: eccf4c60517114147b3901d73543fef4
-      internalID: 1071045667
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: zeus_special_stab_spritesheet_6
       rect:
         serializedVersion: 2
-        x: 826
+        x: 800
         y: 1
-        width: 95
+        width: 125
         height: 124
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -252,27 +189,6 @@ TextureImporter:
       bones: []
       spriteID: d2ee23edb0cac44728e4f619c0da4a76
       internalID: 1395949684
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: zeus_special_stab_spritesheet_7
-      rect:
-        serializedVersion: 2
-        x: 900
-        y: 25
-        width: 25
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 075262674efbf4b64a4078394f96ec92
-      internalID: 1351021460
       vertices: []
       indices: 
       edges: []
