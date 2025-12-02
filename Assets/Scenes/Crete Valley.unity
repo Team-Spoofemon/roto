@@ -6735,6 +6735,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2464752496970192198, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464752496970192198, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2464752496970192198, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 982143037
+      objectReference: {fileID: 0}
     - target: {fileID: 2571185499915001958, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: sig_Death.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -6743,6 +6755,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 33792779}
+    - target: {fileID: 4271970863402828132, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Keyboard&Mouse
+      objectReference: {fileID: 0}
     - target: {fileID: 4727597911748629462, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: walkSpeed
       value: 30
@@ -6751,9 +6767,29 @@ PrefabInstance:
       propertyPath: audioManager
       value: 
       objectReference: {fileID: 1153547255}
+    - target: {fileID: 6793457675439881469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6793457675439881469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7044084108375530469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 982143037
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
