@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+        AudioManager.Instance.PlayIntroThenLoop(MusicState.Intro, MusicState.LoopA);
         dialogueManager = DialogueManager.Instance;
         StartCoroutine(LevelIntroSequence());
     }

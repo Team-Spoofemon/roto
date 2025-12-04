@@ -22,6 +22,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private RealmType currentRealm;
 
     private AudioSource musicSource;
+    private AudioSource musicSource2;
     private AudioSource ambienceSource;
     private MusicState currentState = MusicState.None;
     private Coroutine fadeRoutine;
@@ -38,9 +39,11 @@ public class AudioManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         musicSource = gameObject.AddComponent<AudioSource>();
+        musicSource2 = gameObject.AddComponent<AudioSource>();
         ambienceSource = gameObject.AddComponent<AudioSource>();
 
         musicSource.loop = true;
+        musicSource2.loop = true;
         ambienceSource.loop = true;
 
         Debug.Log($"AudioManager initialized for realm: {currentRealm}");
@@ -53,11 +56,8 @@ public class AudioManager : MonoBehaviour
             case RealmType.CreteValley:
                 switch (state)
                 {
-                    case MusicState.Intro: return profile.genesis[0];
-                    case MusicState.LoopA: return profile.genesis[1];
-                    case MusicState.TransitionA: return profile.genesis[2];
-                    case MusicState.LoopB: return profile.genesis[3];
-                    case MusicState.Outro: return profile.genesis[4];
+                    case MusicState.Intro: return profile.creteValley[0];
+                    case MusicState.LoopA: return profile.creteValley[1];
                 }
                 break;
         }
@@ -127,4 +127,64 @@ public class AudioManager : MonoBehaviour
         AudioClip clip = profile.swordSounds[index];
         ambienceSource.PlayOneShot(clip, profile.sfxVolume);
     }
+
+    public void PlayIntroThenLoop(MusicState intro, MusicState loop)
+    {
+        AudioClip introClip = GetMusicClip(intro);
+        AudioClip loopClip = GetMusicClip(loop);
+
+        if (introClip == null || loopClip == null)
+        {
+            Debug.LogWarning("Missing intro or loop clip");
+            return;
+        }
+
+        double startTime = AudioSettings.dspTime + 0.1;
+        double loopStartTime = startTime + introClip.length;
+
+        musicSource.Stop();
+        musicSource2.Stop();
+
+        musicSource.clip = introClip;
+        musicSource2.clip = loopClip;
+
+        musicSource.PlayScheduled(startTime);
+        musicSource2.PlayScheduled(loopStartTime);
+        
+        musicSource.SetScheduledEndTime(loopStartTime);
+        musicSource2.loop = true;
+    }
+
+    public void FadeOutMusic(float fadeTime = 0.5f)
+{
+    if (fadeRoutine != null)
+        StopCoroutine(fadeRoutine);
+
+    fadeRoutine = StartCoroutine(FadeOutRoutine(fadeTime));
+}
+
+    private IEnumerator FadeOutRoutine(float fadeTime)
+    {
+        float startVol = musicSource.volume;
+        float startVol2 = musicSource2 != null ? musicSource2.volume : 0f;
+
+        for (float t = 0; t < fadeTime; t += Time.deltaTime)
+        {
+            float v = 1f - (t / fadeTime);
+            musicSource.volume = startVol * v;
+            if (musicSource2 != null)
+                musicSource2.volume = startVol2 * v;
+
+            yield return null;
+        }
+
+        musicSource.Stop();
+        if (musicSource2 != null)
+            musicSource2.Stop();
+
+        musicSource.volume = profile.musicVolume;
+        if (musicSource2 != null)
+            musicSource2.volume = profile.musicVolume;
+    }
+
 }

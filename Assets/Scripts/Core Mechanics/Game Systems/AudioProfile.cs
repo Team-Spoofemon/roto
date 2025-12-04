@@ -20,8 +20,7 @@ public class AudioProfile : ScriptableObject
    public AudioClip maternaLamenta;
 
    [Header("Crete Valley")]
-   public AudioClip creteValley; //field music
-   public AudioClip[] genesis; //tutorial sequence
+   public AudioClip[] creteValley; //field music
 
 
    //[Header("Mt. Othrys")]
