@@ -108,18 +108,84 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: stonegiant_idle_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 14
+        width: 215
+        height: 213
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12823fda13fbb734fb82cea358e83082
+      internalID: 1605754034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stonegiant_idle_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 14
+        width: 216
+        height: 215
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ee270b32aec8ca429ab446aa2ac43d0
+      internalID: 557026074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stonegiant_idle_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 14
+        width: 218
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4981d2dbcd906cf41bd5fcb750ba0f2a
+      internalID: 1509228464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: df31e27f725bba74cb4a3308787645ff
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      stonegiant_idle_spritesheet_0: 1605754034
+      stonegiant_idle_spritesheet_1: 557026074
+      stonegiant_idle_spritesheet_2: 1509228464
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
