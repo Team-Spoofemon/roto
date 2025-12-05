@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EarthGiant : MonoBehaviour, IHitHandler
+public class EarthGiant : MonoBehaviour, IHitHandler//, PoolableObject
 {
     public NavMeshAgent agent;
     public Transform player;
