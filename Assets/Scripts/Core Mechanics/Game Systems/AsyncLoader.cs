@@ -26,6 +26,8 @@ public class AsyncLoader : MonoBehaviour
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
         loadOperation.allowSceneActivation = false;
 
+        AudioManager.Instance.FadeOutMusic(0.5f);
+
         while (loadOperation.progress < 0.9f)
         {
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
@@ -38,6 +40,7 @@ public class AsyncLoader : MonoBehaviour
         yield return new WaitForSeconds(2f);  // <--- Delay duration here
 
         loadOperation.allowSceneActivation = true;
+        
     }
 
 }

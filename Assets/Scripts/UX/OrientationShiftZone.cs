@@ -25,25 +25,31 @@ public class OrientationShiftZone : MonoBehaviour
     {
         float elapsed = 0f;
 
-        Quaternion startPlayerRot = player.rotation;
-        Quaternion startCamRot = virtualCamera.transform.rotation;
+        float startPlayerYaw = player.eulerAngles.y;
+        float startCameraYaw = virtualCamera.transform.eulerAngles.y;
 
-        Quaternion endPlayerRot = startPlayerRot * Quaternion.Euler(0, targetRotation, 0);
-        Quaternion endCamRot = startCamRot * Quaternion.Euler(0, targetRotation, 0);
+        float endPlayerYaw = startPlayerYaw + targetRotation;
+        float endCameraYaw = startCameraYaw + targetRotation;
 
         while (elapsed < rotateTime)
         {
             float t = elapsed / rotateTime;
-            player.rotation = Quaternion.Slerp(startPlayerRot, endPlayerRot, t);
-            virtualCamera.transform.rotation = Quaternion.Slerp(startCamRot, endCamRot, t);
+
+            float newPlayerYaw = Mathf.LerpAngle(startPlayerYaw, endPlayerYaw, t);
+            float newCameraYaw = Mathf.LerpAngle(startCameraYaw, endCameraYaw, t);
+
+            player.rotation = Quaternion.Euler(0, newPlayerYaw, 0);
+            virtualCamera.transform.rotation = Quaternion.Euler(0, newCameraYaw, 0);
+
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        player.rotation = endPlayerRot;
-        virtualCamera.transform.rotation = endCamRot;
+        player.rotation = Quaternion.Euler(0, endPlayerYaw, 0);
+        virtualCamera.transform.rotation = Quaternion.Euler(0, endCameraYaw, 0);
 
-        playerController.SetInputRotation(targetRotation);
-        playerController.SetSpriteBaseRotation(targetRotation); 
+        playerController.SetInputRotation(endPlayerYaw);
+        playerController.SetSpriteBaseRotation(endPlayerYaw);
     }
+
 }

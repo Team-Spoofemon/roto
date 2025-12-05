@@ -317,4 +317,22 @@ public class PlayerController : MonoBehaviour
         spriteHolder.localRotation = Quaternion.Euler(0f, spriteBaseRotation + flipY, 0f);
     }
 
+    public void SetInputEnabled(bool enabled)
+    {
+        if (enabled)
+        {
+            moveAction.Enable();
+            jumpAction.Enable();
+            sprintAction.Enable();
+            meleeAction.Enable();
+        }
+        else
+        {
+            moveAction.Disable();
+            jumpAction.Disable();
+            sprintAction.Disable();
+            meleeAction.Disable();
+        }
+    }
+
 }
