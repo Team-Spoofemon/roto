@@ -15,8 +15,15 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private List<EnemyPool> enemyPools = new List<EnemyPool>();
     [SerializeField] private GameObject enemyContainer;
 
-    private void Awake()
+    private void Start()
     {
+        StartCoroutine(InitializePools());
+    }
+
+    private IEnumerator InitializePools()
+    {
+        yield return new WaitForEndOfFrame();
+
         foreach (EnemyPool pool in enemyPools)
         {
             for (int i = 0; i < pool.poolSize; i++)

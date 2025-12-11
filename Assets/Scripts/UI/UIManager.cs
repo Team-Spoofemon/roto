@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UI;
 using TMPro;
 
 public enum DialogueType
@@ -39,17 +38,13 @@ public class UIManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void OnEnable()
+    public void BindUIDocument(UIDocument doc)
     {
-        var doc = GetComponent<UIDocument>();
-        if (doc != null)
-        {
-            var root = doc.rootVisualElement;
-            healthBar = root.Q<VisualElement>("HealthBar");
-            mainMenu = root.Q<VisualElement>("MainMenu");
-            inGameUI = root.Q<VisualElement>("InGameUI");
-            loadingScreen = root.Q<VisualElement>("LoadingScreen");
-        }
+        var root = doc.rootVisualElement;
+        healthBar = root.Q<VisualElement>("HealthBar");
+        mainMenu = root.Q<VisualElement>("MainMenu");
+        inGameUI = root.Q<VisualElement>("InGameUI");
+        loadingScreen = root.Q<VisualElement>("LoadingScreen");
     }
 
     public void UpdateHealth(float value)

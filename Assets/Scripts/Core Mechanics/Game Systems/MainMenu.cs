@@ -1,14 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] private AsyncLoader loader;
+
     public void PlayGame()
     {
-        Debug.Log("PlayGame clicked!");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        loader.LoadLevelBtn("1. Crete Valley");
     }
-
 }
