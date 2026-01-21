@@ -438,7 +438,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 2
+    m_Time: 1.2
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -10983,37 +10983,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 550749511122384726, guid: ddf0bcc44bc76c14b9b14523db2beb88, type: 3}
   m_PrefabInstance: {fileID: 647963313}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &653322825
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 653322826}
-  m_Layer: 0
-  m_Name: EnemyContainer
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &653322826
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 653322825}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 106.627075, y: 99.58927, z: -15.222925}
-  m_LocalScale: {x: 1.3488873, y: 1.3488873, z: 1.3488873}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &660853689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15725,7 +15694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &955107410
 Transform:
   m_ObjectHideFlags: 0
@@ -15777,7 +15746,7 @@ MonoBehaviour:
   player: {fileID: 1777065004}
   virtualCamera: {fileID: 1881500665}
   targetRotation: 90
-  rotateTime: 5
+  rotateTime: 1
   playerController: {fileID: 1777065008}
 --- !u!1001 &955851829
 PrefabInstance:
@@ -17708,7 +17677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   messageText: Ahead, you will meet dangerous foe that guard these lands. Should
-    they try to attack you, press "J" or "Left-Click" to attack them.
+    they try to attack you, press "E" or "Left-Click" to attack them.
   displayDuration: 4
 --- !u!135 &1047285470
 SphereCollider:
@@ -17730,7 +17699,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 1.5
-  m_Center: {x: 0.17, y: 0.21, z: 0.52}
+  m_Center: {x: 0.26, y: 0.21, z: 0.22}
 --- !u!1 &1048818387 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7105733242805771238, guid: 94ec30529c5fd4033b2a99aef20ecb41, type: 3}
@@ -30718,8 +30687,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: 287145453
   m_CollectObjects: 1
-  m_Size: {x: 339.6, y: 8.08, z: 331.7}
-  m_Center: {x: -221.7, y: -60, z: 164}
+  m_Size: {x: 279.48914, y: 8.080002, z: 271.1038}
+  m_Center: {x: -204.01038, y: -60, z: 160.12956}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -31967,7 +31936,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1777065004}
   EnemyPerTile: 0.5
-  numberOfEnemies: 6
+  numberOfEnemies: 5
   spawnDelay: 1
   EnemyPrefabs:
   - {fileID: 5911481397331039183, guid: 5515d2b1435074ac49a718648f40b331, type: 3}
@@ -37898,7 +37867,6 @@ SceneRoots:
   - {fileID: 1126865259}
   - {fileID: 1510540146}
   - {fileID: 1413879937}
-  - {fileID: 653322826}
   - {fileID: 1653230899}
   - {fileID: 34907156}
   - {fileID: 2068596687}

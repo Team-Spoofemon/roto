@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyMovement : MonoBehaviour//, IHitHandler
+public class EnemyMovement : MonoBehaviour
 {
     public Transform player;
     public float updateSpeed = 0.1f; //Updating the path to player based on their position
