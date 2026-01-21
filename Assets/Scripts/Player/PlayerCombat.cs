@@ -21,7 +21,7 @@ public class PlayerCombat : MonoBehaviour, IHitHandler
         if (attackLockStatus)
             return;
 
-        //AudioManager.Instance.PlaySwordSounds();
+        AudioManager.Instance.PlaySwordSounds();
 
         StartCoroutine(MeleeRoutine());
     }

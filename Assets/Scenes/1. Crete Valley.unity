@@ -30702,7 +30702,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 1.1733333
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: cc55531f0bbffd8459d6d653369b2b74, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 447bfc87ae0f202428f9dc7f60d6c59e, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &1767996900
 MonoBehaviour:
@@ -30733,7 +30733,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 1.1733333
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8ba827e9c5243ca4d9d98c06f4a9e7be, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 8c1fca0aaa088024aaf5d451ce551bf7, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &1771942581 stripped
 GameObject:
@@ -37810,7 +37810,7 @@ PrefabInstance:
       objectReference: {fileID: 33792779}
     - target: {fileID: 4271970863402828132, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_DefaultControlScheme
-      value: 
+      value: Keyboard&Mouse
       objectReference: {fileID: 0}
     - target: {fileID: 4727597911748629462, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: sinkDepth
