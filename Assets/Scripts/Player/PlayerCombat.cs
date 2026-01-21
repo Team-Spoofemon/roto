@@ -21,7 +21,7 @@ public class PlayerCombat : MonoBehaviour, IHitHandler
         if (attackLockStatus)
             return;
 
-        AudioManager.Instance.PlaySwordSounds();
+        //AudioManager.Instance.PlaySwordSounds();
 
         StartCoroutine(MeleeRoutine());
     }
@@ -34,21 +34,15 @@ public class PlayerCombat : MonoBehaviour, IHitHandler
         //Random.Range will pick a number between 0 and one less than amountOfAttacks
         if(attackNumber == 0)
         {
-            yield return StartCoroutine(
-            CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "Melee")
-        );
+            yield return StartCoroutine(CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "Melee"));
         }
         if(attackNumber == 1)
         {
-            yield return StartCoroutine(
-            CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "MeleeUp")
-        );
+            yield return StartCoroutine(CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "MeleeUp"));
         }
         if(attackNumber == 2)
         {
-            yield return StartCoroutine(
-            CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "SpecialStab")
-        );
+            yield return StartCoroutine(CombatManager.Instance.PlayAttackAndLock(swordHitbox, playerAnim, "SpecialStab"));
         }
         
         attackLockStatus = false;
