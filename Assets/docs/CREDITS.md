@@ -1,8 +1,11 @@
 # End Credits  
 
-**Directed by:** Tim Carrizales  
-**Written By:** Connor  
-**Composer:** Tim Carrizales  
+**Directed by:** Tim  
+**Written By:** Christian
+**Written By:** Tim
+**Game Design:** Mari
+**Game Design:** Yve
+**Composer:** Tim  
 **2D Character Artist:** Elizabeth  
 **2D Character Artist:** Hannah  
 **2D UI Arist:** Lee  
@@ -17,16 +20,8 @@
 
 **SFX Provided By:**  
 Freesound.org  
-Pixabay.com  
-
-**Additional 3D Assets Provided By:**  
-BD Studios  
-EBRU DOGAN  
-MYSTICFORGE  
-AVIONX  
-ADVANCE STUDIOS  
-PURE POLY  
-NEUTRONCAT  
+Pixabay.com
 
 **Special Thanks To:**  
 SJSU Game Dev Club  
+Chris! (our team founder)
