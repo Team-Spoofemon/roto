@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public static class StartGameFix
+public static class CoreStart
 {
     private const string hasSceneKey = "HAS_START_SCENE";
     private const string sceneIndexKey = "START_SCENE_INDEX";
@@ -31,43 +31,5 @@ public static class StartGameFix
         if (SceneManager.GetActiveScene().buildIndex == 0) return;
 
         SceneManager.LoadScene(0);
-    }
-}
-
-public class CoreSceneFix : MonoBehaviour
-{
-    private static bool alreadyHere;
-
-    public float waitTime;
-
-    private void Awake()
-    {
-        if (alreadyHere)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        alreadyHere = true;
-        DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start()
-    {
-        if (!StartGameFix.HasScene()) return;
-
-        if (waitTime > 0f)
-            Invoke(nameof(LoadScene), waitTime);
-        else
-            LoadScene();
-    }
-
-    private void LoadScene()
-    {
-        int index = StartGameFix.GetSceneIndex();
-        StartGameFix.ClearData();
-
-        if (index >= 0 && index != 0)
-            SceneManager.LoadScene(index);
     }
 }

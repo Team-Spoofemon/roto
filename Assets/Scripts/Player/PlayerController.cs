@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
         sprintAction.Enable();
         meleeAction.Enable();
         meleeAction.performed += meleeCallback;
-        LevelManager.OnPlayerDeathEvent += HandleGlobalDeath;
     }
 
     private void OnDisable()
@@ -112,7 +111,6 @@ public class PlayerController : MonoBehaviour
         jumpAction.Disable();
         sprintAction.Disable();
         meleeAction.Disable();
-        LevelManager.OnPlayerDeathEvent -= HandleGlobalDeath;
     }
 
     private void Update()
@@ -142,9 +140,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 raw = new Vector3(moveAmt.x, 0f, moveAmt.y);
 
-        if (inputRotation != 0f){
+        if (inputRotation != 0f)
             raw = Quaternion.Euler(0f, inputRotation, 0f) * raw;
-        }
 
         moveDirection = raw.normalized;
 
@@ -271,13 +268,11 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         isDead = true;
-        LevelManager.TriggerPlayerDeath();
-    }
 
-    private void HandleGlobalDeath()
-    {
         if (playerShadow)
             playerShadow.gameObject.SetActive(false);
+
+        LevelManager.TriggerPlayerDeath();
     }
 
     public void Revive()
@@ -286,6 +281,7 @@ public class PlayerController : MonoBehaviour
 
         isDead = false;
         isSinking = false;
+
         if (rb != null)
         {
             rb.isKinematic = false;
@@ -301,7 +297,8 @@ public class PlayerController : MonoBehaviour
             playerShadow.gameObject.SetActive(true);
     }
 
-    public void SetInputRotation(float degrees){
+    public void SetInputRotation(float degrees)
+    {
         inputRotation = degrees;
     }
 
@@ -316,5 +313,4 @@ public class PlayerController : MonoBehaviour
         float flipY = facingRight ? 0f : 180f;
         spriteHolder.localRotation = Quaternion.Euler(0f, spriteBaseRotation + flipY, 0f);
     }
-
 }

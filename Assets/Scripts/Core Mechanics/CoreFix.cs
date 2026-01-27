@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CoreSceneFix : MonoBehaviour
+public class CoreFix : MonoBehaviour
 {
     private static bool alreadyHere;
 
@@ -21,7 +21,7 @@ public class CoreSceneFix : MonoBehaviour
 
     private void Start()
     {
-        if (!StartGameFix.HasScene()) return;
+        if (!CoreStart.HasScene()) return;
 
         if (waitTime > 0f)
             Invoke(nameof(LoadScene), waitTime);
@@ -31,8 +31,8 @@ public class CoreSceneFix : MonoBehaviour
 
     private void LoadScene()
     {
-        int index = StartGameFix.GetSceneIndex();
-        StartGameFix.ClearData();
+        int index = CoreStart.GetSceneIndex();
+        CoreStart.ClearData();
 
         if (index >= 0 && index != 0)
             SceneManager.LoadScene(index);

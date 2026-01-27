@@ -2,6 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// AudioManager = manages music and audio
+/// singleton, picks music based on the current Realm, and plays tracks based on MusicState.
+/// swap tracks instantly, crossfade, or do an intro to loop. SFX are just one shots through the ambience source.
+///
+/// How I use it:
+/// - Ensure script is attached to a GameObject in the first scene and assign an AudioProfile in the Inspector.
+/// - Then call AudioManager.Instance from anywhere.
+///
+/// Music:
+/// - SetRealm(newRealm): sets which realm we’re in (this controls what clips get picked).
+/// - SetMusicState(state): hard switches to the clip for that state.
+/// - CrossfadeTo(state, fadeTime): fades out then fades in the new track.
+/// - PlayIntroThenLoop(introState, loopState): plays an intro once, then loops the main track seamlessly.
+/// - FadeOutMusic(fadeTime): fades out whatever music is playing and stops it.
+///
+/// SFX:
+/// - PlaySFX(clip, volumeMultiplier): plays a one shot.
+/// - PlaySwordSounds(): randomly plays a sword sound from the profile pool.
+///
+/// Adding a new realm:
+/// - Add the realm clips to AudioProfile and set them in the Inspector.
+/// - Update GetMusicClip(): add a new case for RealmType.RealmName, then map MusicState to the right clip.
+/// - If a state is not properly mapped, it’ll return null.
+/// </summary>
+
+
 public enum MusicState
 {
     None,

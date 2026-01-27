@@ -1,6 +1,6 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 public class PlayerRespawn : MonoBehaviour
 {
@@ -8,6 +8,7 @@ public class PlayerRespawn : MonoBehaviour
 
     private Vector3 respawnPoint;
     private string currentScene;
+    private bool respawnRequested;
 
     private void Awake()
     {
@@ -30,28 +31,47 @@ public class PlayerRespawn : MonoBehaviour
 
     private IEnumerator InitializeSpawn()
     {
+        GameObject player = null;
+        while (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+            yield return null;
+        }
+
         yield return new WaitForFixedUpdate();
 
-        var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-            respawnPoint = player.transform.position;
-
-        currentScene = SceneManager.GetActiveScene().name;
+        respawnPoint = player.transform.position;
+        currentScene = player.scene.name;
     }
 
     public void SetRespawnPoint(Vector3 newRespawnPoint)
     {
         respawnPoint = newRespawnPoint;
-        currentScene = SceneManager.GetActiveScene().name;
+
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            currentScene = player.scene.name;
     }
 
     public void RespawnPlayer()
     {
+        var player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+            currentScene = player.scene.name;
+
+        if (string.IsNullOrEmpty(currentScene))
+            currentScene = SceneManager.GetActiveScene().name;
+
+        respawnRequested = true;
+        Time.timeScale = 1f;
         SceneManager.LoadScene(currentScene);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (!respawnRequested) return;
+        if (scene.name != currentScene) return;
+
         StartCoroutine(RespawnAfterSceneLoad());
     }
 
@@ -61,7 +81,11 @@ public class PlayerRespawn : MonoBehaviour
         yield return new WaitForFixedUpdate();
 
         var player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null) yield break;
+        if (player == null)
+        {
+            respawnRequested = false;
+            yield break;
+        }
 
         if (player.TryGetComponent(out Rigidbody rb))
         {
@@ -83,11 +107,15 @@ public class PlayerRespawn : MonoBehaviour
         var healthManager = player.GetComponent<HealthManager>();
         if (healthManager != null)
         {
-            // Reset stats manually
-            var totalHealthField = typeof(HealthManager)
-                .GetField("totalHealth", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var currentHealthField = typeof(HealthManager)
-                .GetField("currentHealth", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var totalHealthField = typeof(HealthManager).GetField(
+                "totalHealth",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
+            );
+
+            var currentHealthField = typeof(HealthManager).GetField(
+                "currentHealth",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
+            );
 
             if (totalHealthField != null && currentHealthField != null)
             {
@@ -95,5 +123,13 @@ public class PlayerRespawn : MonoBehaviour
                 currentHealthField.SetValue(healthManager, totalHealth);
             }
         }
+
+        respawnRequested = false;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }

@@ -13,6 +13,8 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager Instance { get; private set; }
 
+    private bool deathSequenceActive;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -20,6 +22,7 @@ public class LevelManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         Instance = this;
     }
 
@@ -38,29 +41,35 @@ public class LevelManager : MonoBehaviour
         StartCoroutine(LevelIntroSequence());
     }
 
-    private void OnEnable()
-    {
-        OnPlayerDeathEvent += HandlePlayerDeathTrigger;
-    }
-
-    private void OnDisable()
-    {
-        OnPlayerDeathEvent -= HandlePlayerDeathTrigger;
-    }
-
     public static void TriggerPlayerDeath()
     {
         OnPlayerDeathEvent?.Invoke();
+
+        if (Instance != null)
+        {
+            Instance.BeginDeathSequence();
+            return;
+        }
+
+        var manager = FindObjectOfType<LevelManager>(true);
+        if (manager != null)
+        {
+            Instance = manager;
+            manager.BeginDeathSequence();
+        }
     }
 
-    private void HandlePlayerDeathTrigger()
+    private void BeginDeathSequence()
     {
+        if (deathSequenceActive) return;
+        deathSequenceActive = true;
         StartCoroutine(HandlePlayerDeath());
     }
 
     private IEnumerator HandlePlayerDeath()
     {
-        DialogueManager.Instance.ResetDialogue();
+        if (DialogueManager.Instance != null)
+            DialogueManager.Instance.ResetDialogue();
 
         if (AudioManager.Instance != null && deathSound != null)
             AudioManager.Instance.PlaySFX(deathSound.clip);
@@ -73,9 +82,11 @@ public class LevelManager : MonoBehaviour
         if (fadeCanvas != null)
             fadeCanvas.alpha = 1f;
 
-        DeathScreenUI ui = FindObjectOfType<DeathScreenUI>(true);
+        var ui = FindObjectOfType<DeathScreenUI>(true);
         if (ui != null)
             ui.Show();
+
+        Time.timeScale = 0f;
 
         yield break;
     }
