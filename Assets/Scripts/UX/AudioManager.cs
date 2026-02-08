@@ -1,33 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+// AudioManager.cs
 /// <summary>
-/// AudioManager = manages music and audio
-/// singleton, picks music based on the current Realm, and plays tracks based on MusicState.
-/// swap tracks instantly, crossfade, or do an intro to loop. SFX are just one shots through the ambience source.
-///
-/// How I use it:
-/// - Ensure script is attached to a GameObject in the first scene and assign an AudioProfile in the Inspector.
-/// - Then call AudioManager.Instance from anywhere.
-///
-/// Music:
-/// - SetRealm(newRealm): sets which realm we’re in (this controls what clips get picked).
-/// - SetMusicState(state): hard switches to the clip for that state.
-/// - CrossfadeTo(state, fadeTime): fades out then fades in the new track.
-/// - PlayIntroThenLoop(introState, loopState): plays an intro once, then loops the main track seamlessly.
-/// - FadeOutMusic(fadeTime): fades out whatever music is playing and stops it.
-///
-/// SFX:
-/// - PlaySFX(clip, volumeMultiplier): plays a one shot.
-/// - PlaySwordSounds(): randomly plays a sword sound from the profile pool.
-///
-/// Adding a new realm:
-/// - Add the realm clips to AudioProfile and set them in the Inspector.
-/// - Update GetMusicClip(): add a new case for RealmType.RealmName, then map MusicState to the right clip.
-/// - If a state is not properly mapped, it’ll return null.
+/// MusicState = shared state keys used to pick clips inside the active realm.
+/// Intended mapping: Intro/LoopA/LoopB/etc. align with clip array indices per realm.
+/// AudioManager = persistent audio brain for music + SFX.
+/// Reads an AudioProfile and plays music through internal AudioSources (not camera-bound).
+/// Supports hard switches, crossfades, and intro-then-loop scheduling.
+/// Music UX:
+/// - Menu music uses profile.mainTheme via PlayMainTheme().
+/// - Fade routines use unscaled time so fades still work if Time.timeScale = 0.
+/// - FadeOutMusic(fadeTime) fades whichever music sources are currently playing, then stops them.
+/// How to use:
+/// - Put in Core/Bootstrap, assign AudioProfile, keep object alive via DontDestroyOnLoad.
+/// - Main Menu: call PlayMainTheme(...) when the menu appears.
+/// - Loading transition: call FadeOutMusic(1.5f) from AsyncLoader.
+/// - Gameplay: call SetRealm(...) then SetMusicState/CrossfadeTo/PlayIntroThenLoop.
 /// </summary>
-
+// AudioManager.cs
+using System.Collections;
+using UnityEngine;
 
 public enum MusicState
 {
@@ -51,8 +41,12 @@ public class AudioManager : MonoBehaviour
     private AudioSource musicSource;
     private AudioSource musicSource2;
     private AudioSource ambienceSource;
+
     private MusicState currentState = MusicState.None;
     private Coroutine fadeRoutine;
+
+    private float MusicVol => profile != null ? profile.musicVolume : 1f;
+    private float SfxVol => profile != null ? profile.sfxVolume : 1f;
 
     private void Awake()
     {
@@ -73,23 +67,12 @@ public class AudioManager : MonoBehaviour
         musicSource2.loop = true;
         ambienceSource.loop = true;
 
-        Debug.Log($"AudioManager initialized for realm: {currentRealm}");
-    }
+        musicSource.playOnAwake = false;
+        musicSource2.playOnAwake = false;
+        ambienceSource.playOnAwake = false;
 
-    private AudioClip GetMusicClip(MusicState state)
-    {
-        switch (currentRealm)
-        {
-            case RealmType.CreteValley:
-                switch (state)
-                {
-                    case MusicState.Intro: return profile.creteValley[0];
-                    case MusicState.LoopA: return profile.creteValley[1];
-                }
-                break;
-        }
-
-        return null;
+        musicSource.volume = MusicVol;
+        musicSource2.volume = MusicVol;
     }
 
     public void SetRealm(RealmType newRealm)
@@ -97,20 +80,116 @@ public class AudioManager : MonoBehaviour
         currentRealm = newRealm;
     }
 
+    public void PlayMainTheme(float fadeInTime = 0.35f)
+    {
+        if (profile == null || profile.mainTheme == null) return;
+
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+
+        StopMusicImmediate();
+
+        musicSource.clip = profile.mainTheme;
+        musicSource.loop = true;
+        musicSource.volume = 0f;
+        musicSource.Play();
+
+        fadeRoutine = StartCoroutine(FadeVolume(musicSource, 0f, MusicVol, fadeInTime));
+        currentState = MusicState.None;
+    }
+
+    public void PlayDeathTheme(float fadeOutTime = 0.15f, float fadeInTime = 0.15f)
+    {
+        if (profile == null || profile.deathTheme == null) return;
+
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+
+        fadeRoutine = StartCoroutine(PlayDeathThemeRoutine(fadeOutTime, fadeInTime));
+        currentState = MusicState.None;
+    }
+
+    private IEnumerator PlayDeathThemeRoutine(float fadeOutTime, float fadeInTime)
+    {
+        bool p1 = musicSource != null && musicSource.isPlaying;
+        bool p2 = musicSource2 != null && musicSource2.isPlaying;
+
+        if ((p1 || p2) && fadeOutTime > 0f)
+        {
+            float startVol1 = p1 ? musicSource.volume : 0f;
+            float startVol2 = p2 ? musicSource2.volume : 0f;
+
+            float t = 0f;
+            while (t < fadeOutTime)
+            {
+                t += Time.unscaledDeltaTime;
+                float a = Mathf.Clamp01(t / fadeOutTime);
+                float k = 1f - a;
+
+                if (p1) musicSource.volume = startVol1 * k;
+                if (p2) musicSource2.volume = startVol2 * k;
+
+                yield return null;
+            }
+        }
+
+        StopMusicImmediate();
+
+        musicSource.clip = profile.deathTheme;
+        musicSource.loop = true;
+        musicSource.volume = 0f;
+        musicSource.Play();
+
+        if (fadeInTime > 0f)
+            yield return FadeVolume(musicSource, 0f, MusicVol, fadeInTime);
+
+        musicSource.volume = MusicVol;
+    }
+
+    private AudioClip GetMusicClip(MusicState state)
+    {
+        if (profile == null) return null;
+
+        switch (currentRealm)
+        {
+            case RealmType.CreteValley:
+                switch (state)
+                {
+                    case MusicState.Intro: return profile.creteValley != null && profile.creteValley.Length > 0 ? profile.creteValley[0] : null;
+                    case MusicState.LoopA: return profile.creteValley != null && profile.creteValley.Length > 1 ? profile.creteValley[1] : null;
+                }
+                break;
+
+            case RealmType.MountOthrys:
+                switch (state)
+                {
+                    case MusicState.Intro: return profile.mtOthrys != null && profile.mtOthrys.Length > 0 ? profile.mtOthrys[0] : null;
+                    case MusicState.LoopA: return profile.mtOthrys != null && profile.mtOthrys.Length > 1 ? profile.mtOthrys[1] : null;
+                }
+                break;
+        }
+
+        return null;
+    }
+
     public void SetMusicState(MusicState newState)
     {
         if (newState == currentState) return;
         currentState = newState;
+
         AudioClip clipToPlay = GetMusicClip(newState);
-        if (clipToPlay == null)
-        {
-            Debug.LogWarning($"No clip found for {currentRealm} in {newState} state");
-            return;
-        }
+        if (clipToPlay == null) return;
+
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+
+        musicSource2.Stop();
+        musicSource2.clip = null;
 
         musicSource.Stop();
         musicSource.clip = clipToPlay;
-        musicSource.volume = profile.musicVolume;
+        musicSource.loop = true;
+        musicSource.volume = MusicVol;
         musicSource.Play();
     }
 
@@ -118,6 +197,7 @@ public class AudioManager : MonoBehaviour
     {
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
+
         fadeRoutine = StartCoroutine(FadeMusic(newState, fadeTime));
     }
 
@@ -125,93 +205,140 @@ public class AudioManager : MonoBehaviour
     {
         AudioClip newClip = GetMusicClip(newState);
         if (newClip == null) yield break;
-        float startVolume = musicSource.volume;
-        for (float t = 0; t < fadeTime; t += Time.deltaTime)
-        {
-            musicSource.volume = Mathf.Lerp(startVolume, 0f, t / fadeTime);
-            yield return null;
-        }
+
+        float startVolume = (musicSource != null && musicSource.isPlaying) ? musicSource.volume : 0f;
+
+        if (musicSource != null && musicSource.isPlaying && fadeTime > 0f)
+            yield return FadeVolume(musicSource, startVolume, 0f, fadeTime);
+
         musicSource.Stop();
         musicSource.clip = newClip;
+        musicSource.loop = true;
+        musicSource.volume = 0f;
         musicSource.Play();
-        for (float t = 0; t < fadeTime; t += Time.deltaTime)
-        {
-            musicSource.volume = Mathf.Lerp(0f, profile.musicVolume, t / fadeTime);
-            yield return null;
-        }
-        musicSource.volume = profile.musicVolume;
-    }
 
-    public void PlaySFX(AudioClip clip, float volumeMultiplier = 1f)
-    {
-        if (clip == null) return;
-        ambienceSource.PlayOneShot(clip, profile.sfxVolume * volumeMultiplier);
-    }
+        if (fadeTime > 0f)
+            yield return FadeVolume(musicSource, 0f, MusicVol, fadeTime);
 
-    public void PlaySwordSounds()
-    {
-        int index = Random.Range(0, profile.swordSounds.Length);
-        AudioClip clip = profile.swordSounds[index];
-        ambienceSource.PlayOneShot(clip, profile.sfxVolume);
+        musicSource.volume = MusicVol;
     }
 
     public void PlayIntroThenLoop(MusicState intro, MusicState loop)
     {
         AudioClip introClip = GetMusicClip(intro);
         AudioClip loopClip = GetMusicClip(loop);
+        if (introClip == null || loopClip == null) return;
 
-        if (introClip == null || loopClip == null)
-        {
-            Debug.LogWarning("Missing intro or loop clip");
-            return;
-        }
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+
+        StopMusicImmediate();
 
         double startTime = AudioSettings.dspTime + 0.1;
         double loopStartTime = startTime + introClip.length;
 
-        musicSource.Stop();
-        musicSource2.Stop();
-
         musicSource.clip = introClip;
         musicSource2.clip = loopClip;
 
+        musicSource.volume = MusicVol;
+        musicSource2.volume = MusicVol;
+
         musicSource.PlayScheduled(startTime);
         musicSource2.PlayScheduled(loopStartTime);
-        
+
         musicSource.SetScheduledEndTime(loopStartTime);
         musicSource2.loop = true;
     }
 
-    public void FadeOutMusic(float fadeTime = 0.5f)
-{
-    if (fadeRoutine != null)
-        StopCoroutine(fadeRoutine);
+    public void FadeOutMusic(float fadeTime = 1.5f)
+    {
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
 
-    fadeRoutine = StartCoroutine(FadeOutRoutine(fadeTime));
-}
+        fadeRoutine = StartCoroutine(FadeOutRoutine(fadeTime));
+    }
 
     private IEnumerator FadeOutRoutine(float fadeTime)
     {
-        float startVol = musicSource.volume;
-        float startVol2 = musicSource2 != null ? musicSource2.volume : 0f;
+        bool p1 = musicSource != null && musicSource.isPlaying;
+        bool p2 = musicSource2 != null && musicSource2.isPlaying;
 
-        for (float t = 0; t < fadeTime; t += Time.deltaTime)
+        if (!p1 && !p2)
+            yield break;
+
+        float startVol1 = p1 ? musicSource.volume : 0f;
+        float startVol2 = p2 ? musicSource2.volume : 0f;
+
+        if (fadeTime <= 0f)
         {
-            float v = 1f - (t / fadeTime);
-            musicSource.volume = startVol * v;
-            if (musicSource2 != null)
-                musicSource2.volume = startVol2 * v;
+            StopMusicImmediate();
+            yield break;
+        }
+
+        float t = 0f;
+        while (t < fadeTime)
+        {
+            t += Time.unscaledDeltaTime;
+            float a = Mathf.Clamp01(t / fadeTime);
+            float k = 1f - a;
+
+            if (p1) musicSource.volume = startVol1 * k;
+            if (p2) musicSource2.volume = startVol2 * k;
 
             yield return null;
         }
 
-        musicSource.Stop();
-        if (musicSource2 != null)
-            musicSource2.Stop();
-
-        musicSource.volume = profile.musicVolume;
-        if (musicSource2 != null)
-            musicSource2.volume = profile.musicVolume;
+        StopMusicImmediate();
     }
 
+    private void StopMusicImmediate()
+    {
+        if (musicSource != null)
+        {
+            musicSource.Stop();
+            musicSource.clip = null;
+            musicSource.volume = MusicVol;
+        }
+
+        if (musicSource2 != null)
+        {
+            musicSource2.Stop();
+            musicSource2.clip = null;
+            musicSource2.volume = MusicVol;
+        }
+    }
+
+    private IEnumerator FadeVolume(AudioSource src, float from, float to, float time)
+    {
+        if (src == null) yield break;
+
+        if (time <= 0f)
+        {
+            src.volume = to;
+            yield break;
+        }
+
+        float t = 0f;
+        while (t < time)
+        {
+            t += Time.unscaledDeltaTime;
+            src.volume = Mathf.Lerp(from, to, Mathf.Clamp01(t / time));
+            yield return null;
+        }
+
+        src.volume = to;
+    }
+
+    public void PlaySFX(AudioClip clip, float volumeMultiplier = 1f)
+    {
+        if (clip == null) return;
+        ambienceSource.PlayOneShot(clip, SfxVol * volumeMultiplier);
+    }
+
+    public void PlaySwordSounds()
+    {
+        if (profile == null || profile.swordSounds == null || profile.swordSounds.Length == 0) return;
+        int index = Random.Range(0, profile.swordSounds.Length);
+        ambienceSource.PlayOneShot(profile.swordSounds[index], SfxVol);
+    }
 }

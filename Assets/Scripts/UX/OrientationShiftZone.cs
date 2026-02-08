@@ -10,18 +10,28 @@ public class OrientationShiftZone : MonoBehaviour
     public float rotateTime = 0.3f;
     public PlayerController playerController;
 
-    bool triggered;
+    private bool triggered;
 
-    void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (triggered) return;
         if (!other.CompareTag("Player")) return;
 
         triggered = true;
+
+        if (!playerController)
+            playerController = other.GetComponent<PlayerController>();
+
+        if (!player)
+            player = other.transform;
+
+        if (playerController)
+            playerController.SetCameraTransform(virtualCamera.transform);
+
         StartCoroutine(RotatePlayerAndCamera());
     }
 
-    IEnumerator RotatePlayerAndCamera()
+    private IEnumerator RotatePlayerAndCamera()
     {
         float elapsed = 0f;
 
@@ -38,18 +48,20 @@ public class OrientationShiftZone : MonoBehaviour
             float newPlayerYaw = Mathf.LerpAngle(startPlayerYaw, endPlayerYaw, t);
             float newCameraYaw = Mathf.LerpAngle(startCameraYaw, endCameraYaw, t);
 
-            player.rotation = Quaternion.Euler(0, newPlayerYaw, 0);
-            virtualCamera.transform.rotation = Quaternion.Euler(0, newCameraYaw, 0);
+            player.rotation = Quaternion.Euler(0f, newPlayerYaw, 0f);
+            virtualCamera.transform.rotation = Quaternion.Euler(0f, newCameraYaw, 0f);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        player.rotation = Quaternion.Euler(0, endPlayerYaw, 0);
-        virtualCamera.transform.rotation = Quaternion.Euler(0, endCameraYaw, 0);
+        player.rotation = Quaternion.Euler(0f, endPlayerYaw, 0f);
+        virtualCamera.transform.rotation = Quaternion.Euler(0f, endCameraYaw, 0f);
 
-        playerController.SetInputRotation(endPlayerYaw);
-        playerController.SetSpriteBaseRotation(endPlayerYaw);
+        if (playerController)
+        {
+            playerController.SetInputRotation(endPlayerYaw);
+            playerController.SetCameraTransform(virtualCamera.transform);
+        }
     }
-
 }

@@ -4,6 +4,8 @@ using System.Collections;
 
 public class DeathScreenUI : MonoBehaviour
 {
+    public static DeathScreenUI Instance { get; private set; }
+
     [SerializeField] private CanvasGroup canvasGroup;
     [SerializeField] private TMPro.TextMeshProUGUI youDiedText;
     [SerializeField] private TMPro.TextMeshProUGUI respawnText;
@@ -15,6 +17,15 @@ public class DeathScreenUI : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
         if (canvasGroup == null)
             canvasGroup = GetComponent<CanvasGroup>();
 
@@ -100,7 +111,12 @@ public class DeathScreenUI : MonoBehaviour
 
         Hide();
 
-        if (PlayerRespawn.Instance != null)
+        if (LevelManager.Instance != null)
+            LevelManager.Instance.RespawnFromDeathScreen();
+        else if (PlayerRespawn.Instance != null)
+        {
+            Time.timeScale = 1f;
             PlayerRespawn.Instance.RespawnPlayer();
+        }
     }
 }

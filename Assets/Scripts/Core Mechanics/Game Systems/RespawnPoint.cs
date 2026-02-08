@@ -1,5 +1,3 @@
-using UnityEngine;
-
 /// <summary>
 /// Defines a checkpoint that updates the player respawn location when entered.
 /// Uses a trigger collider and supports multiple coordinate sources for flexibility.
@@ -20,6 +18,8 @@ using UnityEngine;
 /// </summary>
 
 
+using UnityEngine;
+
 [RequireComponent(typeof(BoxCollider))]
 public class RespawnPoint : MonoBehaviour
 {
@@ -38,18 +38,21 @@ public class RespawnPoint : MonoBehaviour
         if (!other.CompareTag("Player"))
             return;
 
+        Vector3 pos;
         switch (coordinateSource)
         {
             default:
             case CoordinateSource.TransformPosition:
-                PlayerRespawn.Instance.SetRespawnPoint(transform.position);
+                pos = transform.position;
                 break;
             case CoordinateSource.ColliderPosition:
-                PlayerRespawn.Instance.SetRespawnPoint(GetComponent<Collider>().bounds.center);
+                pos = GetComponent<Collider>().bounds.center;
                 break;
             case CoordinateSource.Vector3Variable:
-                PlayerRespawn.Instance.SetRespawnPoint(respawnCoordinates);
+                pos = respawnCoordinates;
                 break;
         }
+
+        PlayerRespawn.Instance.SetRespawnPoint(pos, transform.rotation);
     }
 }

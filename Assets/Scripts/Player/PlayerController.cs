@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform spriteHolder;
     [SerializeField] private Transform playerShadow;
 
+    [Header("Camera Facing")]
+    [SerializeField] private Transform cameraTransform;
+
     [Header("Input Actions")]
     [SerializeField] private InputAction moveAction;
     [SerializeField] private InputAction jumpAction;
@@ -23,7 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 5f;
     [SerializeField] private float extraGravity = 20f;
     [SerializeField] private float inputRotation = 0f;
-    [SerializeField] private float spriteBaseRotation = 0f;
 
     [Header("Ground Detection")]
     [SerializeField] private Transform groundCheck;
@@ -49,7 +51,8 @@ public class PlayerController : MonoBehaviour
     private System.Action<InputAction.CallbackContext> meleeCallback;
     private float initialScale;
     private bool hasInitializedShadow = false;
-    private float initialGroundY;
+
+    private const float FlipHysteresis = 0.08f;
 
     private void Awake()
     {
@@ -73,7 +76,10 @@ public class PlayerController : MonoBehaviour
         jumpAction = playerInput.actions["Jump"];
         sprintAction = playerInput.actions["Sprint"];
         meleeAction = playerInput.actions["Melee"];
-        meleeCallback = ctx => Melee();
+        meleeCallback = _ => Melee();
+
+        if (!cameraTransform && Camera.main)
+            cameraTransform = Camera.main.transform;
     }
 
     private void Start()
@@ -82,16 +88,6 @@ public class PlayerController : MonoBehaviour
         {
             playerShadow.SetParent(null);
             initialScale = playerShadow.localScale.x;
-
-            if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out RaycastHit startHit, 10f, groundMask))
-            {
-                initialGroundY = startHit.point.y;
-                playerShadow.position = new Vector3(transform.position.x, initialGroundY + 0.01f, transform.position.z);
-            }
-            else
-            {
-                initialGroundY = transform.position.y;
-            }
         }
     }
 
@@ -118,8 +114,10 @@ public class PlayerController : MonoBehaviour
         if (isDead || isSinking) return;
 
         moveAmt = moveAction.ReadValue<Vector2>();
+
         if (jumpAction.WasPressedThisFrame() && isGrounded)
             Jump();
+
         HandleFlip();
         AnimateMovement();
     }
@@ -133,72 +131,11 @@ public class PlayerController : MonoBehaviour
         ApplyExtraGravity();
     }
 
-    private void Move()
-    {
-        bool isSprinting = sprintAction.IsPressed();
-        float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
-
-        Vector3 raw = new Vector3(moveAmt.x, 0f, moveAmt.y);
-
-        if (inputRotation != 0f)
-            raw = Quaternion.Euler(0f, inputRotation, 0f) * raw;
-
-        moveDirection = raw.normalized;
-
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        Vector3 targetVel = moveDirection * moveSpeed;
-        Vector3 velChange = targetVel - flatVel;
-
-        rb.AddForce(velChange, ForceMode.VelocityChange);
-    }
-
-    private void ApplyExtraGravity()
-    {
-        if (!isGrounded)
-            rb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
-    }
-
-    private void Jump()
-    {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    }
-
-    private void GroundCheck()
-    {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-    }
-
-    private void AnimateMovement()
-    {
-        if (!playerAnim) return;
-        bool isMoving = moveAmt.sqrMagnitude > 0.01f;
-        playerAnim.SetBool("isWalking", isMoving);
-    }
-
-    private void HandleFlip()
-    {
-        float horizontal = moveAmt.x;
-
-        if (horizontal > 0.1f && !facingRight)
-            Flip();
-        else if (horizontal < -0.1f && facingRight)
-            Flip();
-    }
-
-    private void Flip()
-    {
-        facingRight = !facingRight;
-        UpdateSpriteRotation();
-    }
-
-    private void Melee()
-    {
-        playerCombat.OnMelee();
-    }
-
     private void LateUpdate()
     {
+        if (!isSinking)
+            UpdateSpriteRotation();
+
         if (!playerShadow || isSinking) return;
 
         Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
@@ -231,6 +168,105 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Move()
+    {
+        bool isSprinting = sprintAction.IsPressed();
+        float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
+
+        Vector3 desired;
+
+        if (cameraTransform)
+        {
+            Vector3 forward = cameraTransform.forward;
+            forward.y = 0f;
+            forward.Normalize();
+
+            Vector3 right = cameraTransform.right;
+            right.y = 0f;
+            right.Normalize();
+
+            desired = (right * moveAmt.x + forward * moveAmt.y);
+        }
+        else
+        {
+            Vector3 raw = new Vector3(moveAmt.x, 0f, moveAmt.y);
+            if (inputRotation != 0f)
+                raw = Quaternion.Euler(0f, inputRotation, 0f) * raw;
+            desired = raw;
+        }
+
+        moveDirection = desired.sqrMagnitude > 0.0001f ? desired.normalized : Vector3.zero;
+
+        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        Vector3 targetVel = moveDirection * moveSpeed;
+        Vector3 velChange = targetVel - flatVel;
+
+        rb.AddForce(velChange, ForceMode.VelocityChange);
+    }
+
+    private void HandleFlip()
+    {
+        float x = moveAmt.x;
+
+        if (x > FlipHysteresis)
+            facingRight = true;
+        else if (x < -FlipHysteresis)
+            facingRight = false;
+    }
+
+    private void UpdateSpriteRotation()
+    {
+        if (!cameraTransform) return;
+
+        Vector3 forward = cameraTransform.forward;
+        forward.y = 0f;
+        if (forward.sqrMagnitude < 0.0001f) return;
+
+        Quaternion faceCam = Quaternion.LookRotation(forward, Vector3.up);
+        float flipY = facingRight ? 0f : 180f;
+
+        spriteHolder.rotation = faceCam * Quaternion.Euler(0f, flipY, 0f);
+    }
+
+    private void ApplyExtraGravity()
+    {
+        if (!isGrounded)
+            rb.AddForce(Vector3.down * extraGravity, ForceMode.Acceleration);
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    }
+
+    private void GroundCheck()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+    }
+
+    private void AnimateMovement()
+    {
+        if (!playerAnim) return;
+        bool isMoving = moveAmt.sqrMagnitude > 0.01f;
+        playerAnim.SetBool("isWalking", isMoving);
+    }
+
+    private void Melee()
+    {
+        playerCombat.OnMelee();
+    }
+
+    public void SetInputRotation(float degrees)
+    {
+        inputRotation = degrees;
+    }
+
+    public void SetCameraTransform(Transform cam)
+    {
+        cameraTransform = cam;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Water") && !isDead && !isSinking)
@@ -239,6 +275,8 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DrownSequence()
     {
+        Debug.Log("PLAYERCONTROLLER DrownSequence() started");
+
         isSinking = true;
 
         moveAction.Disable();
@@ -267,6 +305,8 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
+        Debug.Log("PLAYERCONTROLLER Die() is calling LevelManager.TriggerPlayerDeath()");
+
         isDead = true;
 
         if (playerShadow)
@@ -295,22 +335,5 @@ public class PlayerController : MonoBehaviour
 
         if (playerShadow)
             playerShadow.gameObject.SetActive(true);
-    }
-
-    public void SetInputRotation(float degrees)
-    {
-        inputRotation = degrees;
-    }
-
-    public void SetSpriteBaseRotation(float degrees)
-    {
-        spriteBaseRotation = degrees;
-        UpdateSpriteRotation();
-    }
-
-    private void UpdateSpriteRotation()
-    {
-        float flipY = facingRight ? 0f : 180f;
-        spriteHolder.localRotation = Quaternion.Euler(0f, spriteBaseRotation + flipY, 0f);
     }
 }

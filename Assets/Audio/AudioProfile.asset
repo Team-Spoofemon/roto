@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4f5b39df6b174d9e8df870c75aa8121, type: 3}
   m_Name: AudioProfile
   m_EditorClassIdentifier: 
-  mainTheme: {fileID: 8300000, guid: 91bb73e5306ce465ea837935068b9a37, type: 3}
+  mainTheme: {fileID: 8300000, guid: 5bac81967635f419aa8baefa4b31f96d, type: 3}
   swordSounds:
   - {fileID: 8300000, guid: 7e331ac71692d48729397023a26eb23f, type: 3}
   - {fileID: 8300000, guid: 5a34a7c631f3a4ccd84f2b576c9ba79f, type: 3}

@@ -346,4 +346,37 @@ public class HealthManager : MonoBehaviour
 
         sig_Death?.Invoke();
     }
+
+    public void RestoreFullHealth()
+    {
+        currentHealth = totalHealth;
+        _damageable = true;
+        _deathHandled = false;
+
+        if (_invulnRoutine != null)
+        {
+            StopCoroutine(_invulnRoutine);
+            _invulnRoutine = null;
+        }
+
+        if (_damageBar)
+        {
+            _damageBar.SetActiveStatus(showHealthBar);
+            _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
+        }
+
+        if (sprites != null)
+        {
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                var sr = sprites[i];
+                if (!sr) continue;
+                sr.enabled = true;
+                var c = sr.color;
+                c.a = 1f;
+                sr.color = c;
+            }
+        }
+}
+
 }

@@ -1,3 +1,4 @@
+// LevelManager.cs
 using System;
 using System.Collections;
 using UnityEngine;
@@ -43,36 +44,44 @@ public class LevelManager : MonoBehaviour
 
     public static void TriggerPlayerDeath()
     {
-        OnPlayerDeathEvent?.Invoke();
+        Debug.Log("LEVELMANAGER TriggerPlayerDeath() entered");
+
+        try
+        {
+            OnPlayerDeathEvent?.Invoke();
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("LEVELMANAGER OnPlayerDeathEvent listener threw: " + e);
+        }
 
         if (Instance != null)
-        {
             Instance.BeginDeathSequence();
-            return;
-        }
-
-        var manager = FindObjectOfType<LevelManager>(true);
-        if (manager != null)
-        {
-            Instance = manager;
-            manager.BeginDeathSequence();
-        }
     }
 
     private void BeginDeathSequence()
     {
-        if (deathSequenceActive) return;
+        Debug.Log("LEVELMANAGER BeginDeathSequence() deathSequenceActive=" + deathSequenceActive);
+
+        if (deathSequenceActive)
+            return;
+
         deathSequenceActive = true;
         StartCoroutine(HandlePlayerDeath());
     }
 
     private IEnumerator HandlePlayerDeath()
     {
+        Debug.Log("LEVELMANAGER HandlePlayerDeath() started - showing death UI");
+
         if (DialogueManager.Instance != null)
             DialogueManager.Instance.ResetDialogue();
 
-        if (AudioManager.Instance != null && deathSound != null)
-            AudioManager.Instance.PlaySFX(deathSound.clip);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayDeathTheme(0.15f, 0.15f);
+            if (deathSound != null) AudioManager.Instance.PlaySFX(deathSound.clip);
+        }
         else if (deathSound != null)
         {
             deathSound.Stop();
@@ -82,13 +91,25 @@ public class LevelManager : MonoBehaviour
         if (fadeCanvas != null)
             fadeCanvas.alpha = 1f;
 
-        var ui = FindObjectOfType<DeathScreenUI>(true);
-        if (ui != null)
-            ui.Show();
+        if (DeathScreenUI.Instance != null)
+            DeathScreenUI.Instance.Show();
+        else
+            Debug.LogError("LEVELMANAGER: DeathScreenUI.Instance is null (bootstrap UI not present)");
 
         Time.timeScale = 0f;
-
         yield break;
+    }
+
+    public void RespawnFromDeathScreen()
+    {
+        Time.timeScale = 1f;
+        deathSequenceActive = false;
+
+        if (DeathScreenUI.Instance != null)
+            DeathScreenUI.Instance.Hide();
+
+        if (PlayerRespawn.Instance != null)
+            PlayerRespawn.Instance.RespawnPlayer();
     }
 
     private IEnumerator LevelIntroSequence()

@@ -6,7 +6,8 @@ public class PlayerRespawn : MonoBehaviour
 {
     public static PlayerRespawn Instance { get; private set; }
 
-    private Vector3 respawnPoint;
+    private Vector3 respawnPosition;
+    private Quaternion respawnRotation;
     private string currentScene;
     private bool respawnRequested;
 
@@ -20,7 +21,6 @@ public class PlayerRespawn : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -40,27 +40,24 @@ public class PlayerRespawn : MonoBehaviour
 
         yield return new WaitForFixedUpdate();
 
-        respawnPoint = player.transform.position;
+        respawnPosition = player.transform.position;
+        respawnRotation = player.transform.rotation;
         currentScene = player.scene.name;
     }
 
-    public void SetRespawnPoint(Vector3 newRespawnPoint)
+    public void SetRespawnPoint(Vector3 position, Quaternion rotation)
     {
-        respawnPoint = newRespawnPoint;
+        respawnPosition = position;
+        respawnRotation = rotation;
 
         var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-            currentScene = player.scene.name;
+        currentScene = player != null ? player.scene.name : SceneManager.GetActiveScene().name;
     }
 
     public void RespawnPlayer()
     {
         var player = GameObject.FindGameObjectWithTag("Player");
-        if (player != null)
-            currentScene = player.scene.name;
-
-        if (string.IsNullOrEmpty(currentScene))
-            currentScene = SceneManager.GetActiveScene().name;
+        currentScene = player != null ? player.scene.name : SceneManager.GetActiveScene().name;
 
         respawnRequested = true;
         Time.timeScale = 1f;
@@ -87,41 +84,32 @@ public class PlayerRespawn : MonoBehaviour
             yield break;
         }
 
+        var targetPos = respawnPosition + Vector3.up * 0.2f;
+        var targetRot = respawnRotation;
+
         if (player.TryGetComponent(out Rigidbody rb))
         {
             rb.useGravity = false;
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
+            player.transform.SetPositionAndRotation(targetPos, targetRot);
 
             yield return new WaitForFixedUpdate();
 
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             rb.useGravity = true;
         }
         else
         {
-            player.transform.SetPositionAndRotation(respawnPoint + Vector3.up * 0.2f, Quaternion.identity);
+            player.transform.SetPositionAndRotation(targetPos, targetRot);
         }
 
         var healthManager = player.GetComponent<HealthManager>();
         if (healthManager != null)
         {
-            var totalHealthField = typeof(HealthManager).GetField(
-                "totalHealth",
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
-            );
-
-            var currentHealthField = typeof(HealthManager).GetField(
-                "currentHealth",
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance
-            );
-
-            if (totalHealthField != null && currentHealthField != null)
-            {
-                float totalHealth = (float)totalHealthField.GetValue(healthManager);
-                currentHealthField.SetValue(healthManager, totalHealth);
-            }
+            healthManager.RestoreFullHealth();
         }
 
         respawnRequested = false;
