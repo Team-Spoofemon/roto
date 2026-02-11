@@ -2,48 +2,28 @@ using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.UI;
 
-/// <summary>
-/// This class is responsible for managing the damage handeling of a the GameObject it is placed on.
-/// This should be used in tandum with some Entity Script (Enemy/DamagableObject/Player), anything that can be damaged.
-/// </summary>
 public class HealthManager : MonoBehaviour
 {
     [System.Serializable]
     public class FloatEvent : UnityEvent<float> { }
 
     [Header("Entity Instance Stat Modification")]
-    // Default stats
-    [SerializeField]
-    private float totalHealth;
+    [SerializeField] private float totalHealth;
+    [SerializeField] private float totalDefense;
+    [SerializeField] private float damageInvulnerabilityTime = 0.7f;
 
-    [SerializeField]
-    private float totalDefense;
-
-    [SerializeField]
-    private float damageInvulnerabilityTime = 0.7f;
-
-    // Current stats
-    [SerializeField]
-    private float currentHealth;
+    [SerializeField] private float currentHealth;
     public float currentDefense { get; private set; }
 
-    // Damage logic variables
     private bool _damageable = true;
 
-    // Health Bar Components
     private DamageBar _damageBar;
 
     [Header("Damage System Overrides")]
-    [SerializeField]
-    private bool showHealthBar = true;
-
-    [SerializeField]
-    private bool hasDeathOverride = false;
-
-    [SerializeField]
-    private bool hasDamageOverride = false;
+    [SerializeField] private bool showHealthBar = true;
+    [SerializeField] private bool hasDeathOverride = false;
+    [SerializeField] private bool hasDamageOverride = false;
 
     [Header("System Override Signals (only enable if bools are checked)")]
     public FloatEvent sig_TakeDamageOverride = new FloatEvent();
@@ -53,28 +33,23 @@ public class HealthManager : MonoBehaviour
     public UnityEvent sig_Death = new UnityEvent();
 
     [Header("Animation Settings")]
-    [SerializeField]
-    private bool hasDeathAnimation = false;
-
-    [SerializeField]
-    private bool hasDeathAnimationOverride = false;
-
-    [SerializeField]
-    private bool flashOnInvulnerable = true;
+    [SerializeField] private bool hasDeathAnimation = false;
+    [SerializeField] private bool hasDeathAnimationOverride = false;
+    [SerializeField] private bool flashOnInvulnerable = true;
 
     public UnityEvent sig_DeathAnimationOverride = new UnityEvent();
 
     private Coroutine _invulnRoutine;
     private SpriteRenderer[] sprites;
 
+    private bool _deathHandled;
+
     private void Start()
     {
-        // Set Stats during runtime
         currentHealth = totalHealth;
 
         _damageBar = GetComponentInChildren<DamageBar>();
 
-        // Progress bar to be toggle
         if (_damageBar)
         {
             _damageBar.SetActiveStatus(showHealthBar);
@@ -87,10 +62,9 @@ public class HealthManager : MonoBehaviour
     private void Update()
     {
         if (_damageBar)
-        {
             _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
-        }
-        if (currentHealth <= 0 && _damageable)
+
+        if (!_deathHandled && currentHealth <= 0f)
             HandleDestory();
     }
 
@@ -98,28 +72,24 @@ public class HealthManager : MonoBehaviour
     {
         if (hasDamageOverride)
         {
-            // Alert override function
             sig_TakeDamageOverride.Invoke(damage);
             return;
         }
+
         TakeDamageInternal(damage);
     }
 
     private void TakeDamageInternal(float damage)
     {
-        if (!_damageable)
+        if (!_damageable || _deathHandled)
             return;
-
-        Debug.Log(gameObject.name + " has been damaged by " + damage + " dmg!");
 
         float actualDamage = damage - totalDefense;
-        if (actualDamage <= 0)
+        if (actualDamage <= 0f)
             return;
 
-        // Actual damage applied
         currentHealth -= actualDamage;
 
-        // Set invulnrability mode
         if (currentHealth > 0f && damageInvulnerabilityTime > 0f)
         {
             if (_invulnRoutine != null)
@@ -127,6 +97,7 @@ public class HealthManager : MonoBehaviour
                 StopCoroutine(_invulnRoutine);
                 _invulnRoutine = null;
             }
+
             _invulnRoutine = StartCoroutine(
                 InvulnerabilityCoroutine(
                     sprites,
@@ -137,16 +108,14 @@ public class HealthManager : MonoBehaviour
             );
         }
 
-        // UI force update
         if (_damageBar && totalHealth > 0f)
             _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
 
-        // Death condition
-        if (currentHealth <= 0)
+        if (currentHealth <= 0f)
             HandleDestory();
     }
 
-    IEnumerator InvulnerabilityCoroutine(
+    private IEnumerator InvulnerabilityCoroutine(
         SpriteRenderer[] sprites,
         float duration,
         float flashPeriod,
@@ -158,7 +127,6 @@ public class HealthManager : MonoBehaviour
         float endTime = Time.time + Mathf.Max(0f, duration);
         bool flashOn = false;
 
-        // ensure starting state
         if (useAlpha && sprites != null)
         {
             for (int i = 0; i < sprites.Length; i++)
@@ -193,14 +161,12 @@ public class HealthManager : MonoBehaviour
 
                     if (useAlpha)
                     {
-                        // fast white-ish flash by dropping alpha
                         var c = sr.color;
                         c.a = flashOn ? 0.5f : 1f;
                         sr.color = c;
                     }
                     else
                     {
-                        // blink
                         sr.enabled = flashOn;
                     }
                 }
@@ -209,7 +175,6 @@ public class HealthManager : MonoBehaviour
             yield return new WaitForSeconds(flashPeriod);
         }
 
-        // restore visuals
         if (sprites != null)
         {
             for (int i = 0; i < sprites.Length; i++)
@@ -237,6 +202,11 @@ public class HealthManager : MonoBehaviour
 
     public void HandleDestory()
     {
+        if (_deathHandled)
+            return;
+
+        _deathHandled = true;
+
         if (_invulnRoutine != null)
         {
             StopCoroutine(_invulnRoutine);
@@ -244,11 +214,13 @@ public class HealthManager : MonoBehaviour
         }
 
         _damageable = false;
+
         if (hasDeathOverride)
         {
             sig_DestroyedOverride.Invoke();
             return;
         }
+
         HandleDestoryInternal();
     }
 
@@ -256,6 +228,12 @@ public class HealthManager : MonoBehaviour
     {
         if (_damageBar)
             _damageBar.SetActiveStatus(false);
+
+        if (CompareTag("Player"))
+        {
+            LevelManager.TriggerPlayerDeath();
+            return;
+        }
 
         if (hasDeathAnimation)
         {
@@ -265,27 +243,22 @@ public class HealthManager : MonoBehaviour
                 await DeathAnimationAsync(0.5f, 0.9f);
         }
 
-        if (CompareTag("Player"))
-            LevelManager.TriggerPlayerDeath();
+        sig_Death?.Invoke();
 
-
-
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
-    // Zelda-like death animation where they shrink, turn red, and spin down.
     private async Task DeathAnimationAsync(float sec, float spinSpeed)
     {
         if (this == null)
             return;
+
         Transform tr = transform;
         if (tr == null)
             return;
 
-        // Cache renderers once
         var renderers = GetComponentsInChildren<Renderer>();
 
-        // Compute initial combined bounds and remember the original ground Y (min.y)
         Bounds initialBounds = default;
         bool hasInitial = false;
         for (int i = 0; i < renderers.Length; i++)
@@ -293,20 +266,23 @@ public class HealthManager : MonoBehaviour
             var r = renderers[i];
             if (r == null)
                 continue;
+
             if (!hasInitial)
             {
                 initialBounds = r.bounds;
                 hasInitial = true;
             }
             else
+            {
                 initialBounds.Encapsulate(r.bounds);
+            }
         }
+
         float groundY = hasInitial ? initialBounds.min.y : tr.position.y;
 
         Vector3 startScale = tr.localScale;
         Quaternion startRot = tr.rotation;
 
-        // Turn the whole object (and children) red
         for (int i = 0; i < renderers.Length; i++)
         {
             var r = renderers[i];
@@ -326,14 +302,11 @@ public class HealthManager : MonoBehaviour
             elapsed += Time.deltaTime;
             float t01 = Mathf.Clamp01(elapsed / duration);
 
-            // Shrink
             tr.localScale = Vector3.Lerp(startScale, Vector3.zero, t01);
 
-            // Spin
             spinAccum += Mathf.Max(0f, spinSpeed) * 360f * Time.deltaTime;
             tr.rotation = startRot * Quaternion.Euler(0f, spinAccum, 0f);
 
-            // Keep the bottom glued to original ground Y by adjusting Y position
             if (hasInitial)
             {
                 Bounds now = default;
@@ -343,14 +316,18 @@ public class HealthManager : MonoBehaviour
                     var r = renderers[i];
                     if (r == null)
                         continue;
+
                     if (!hasNow)
                     {
                         now = r.bounds;
                         hasNow = true;
                     }
                     else
+                    {
                         now.Encapsulate(r.bounds);
+                    }
                 }
+
                 if (hasNow)
                 {
                     float dy = groundY - now.min.y;
@@ -364,34 +341,42 @@ public class HealthManager : MonoBehaviour
         if (this == null || tr == null)
             return;
 
-        // Ensure final state and final ground clamp
         tr.localScale = Vector3.zero;
         tr.rotation = startRot * Quaternion.Euler(0f, spinAccum, 0f);
 
-        if (hasInitial)
-        {
-            Bounds now = default;
-            bool hasNow = false;
-            for (int i = 0; i < renderers.Length; i++)
-            {
-                var r = renderers[i];
-                if (r == null)
-                    continue;
-                if (!hasNow)
-                {
-                    now = r.bounds;
-                    hasNow = true;
-                }
-                else
-                    now.Encapsulate(r.bounds);
-            }
-            if (hasNow)
-            {
-                float dy = groundY - now.min.y;
-                tr.position += new Vector3(0f, dy, 0f);
-            }
-        }
-
         sig_Death?.Invoke();
     }
+
+    public void RestoreFullHealth()
+    {
+        currentHealth = totalHealth;
+        _damageable = true;
+        _deathHandled = false;
+
+        if (_invulnRoutine != null)
+        {
+            StopCoroutine(_invulnRoutine);
+            _invulnRoutine = null;
+        }
+
+        if (_damageBar)
+        {
+            _damageBar.SetActiveStatus(showHealthBar);
+            _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
+        }
+
+        if (sprites != null)
+        {
+            for (int i = 0; i < sprites.Length; i++)
+            {
+                var sr = sprites[i];
+                if (!sr) continue;
+                sr.enabled = true;
+                var c = sr.color;
+                c.a = 1f;
+                sr.color = c;
+            }
+        }
+}
+
 }

@@ -6,11 +6,15 @@ public class OutOfBounds : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log($"OutOfBounds triggered by: {other.name}");
-        var health = other.GetComponent<HealthManager>();
+        var root = other.transform.root;
+
+        if (!root.CompareTag("Player"))
+            return;
+
+        var health = root.GetComponent<HealthManager>();
         if (health != null)
-        {
             health.TakeDamage(damage);
-        }
+        else
+            LevelManager.TriggerPlayerDeath();
     }
 }

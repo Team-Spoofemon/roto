@@ -151,13 +151,11 @@ Crete Valley, Mt. Othrys Field, Mt. Othrys Castle Interior, Gaia, Island of Fire
   - [x] Initial art integration
   - [x] Initial programming branch testing
   - [x] Initial bug fixing
-- ACT 1 Demo Dec 4, 2025 (est.)
-  - World Building
-  - Tutorial Sequence
-  - End Credits
-- ACT II - ACT III Sprint Apr 1, 2025 (est.)
-- Final Playtesting and Bug Fixes May 15, 2025 (est.)
-- Release June 1, 2025 (est.)
+- [x][ACT 1 Demo Dec 4, 2025 (est.)
+  - [x] World Building
+- [ ]ACT II - ACT III Sprint Apr 1, 2025 (est.)
+- [ ] Final Playtesting and Bug Fixes May 15, 2025 (est.)
+- [ ] Release June 1, 2025 (est.)
 
 **Expected Release Date:**  
 - If achievable in two semesters: May 1, 2025  
@@ -177,24 +175,28 @@ To combat scope, we have ensured the story can function without certain aspects 
 
 ## Roles
 
+- Producer: Tim
+
 **Story**  
-- Christian: Writer  
-- Tim: Story Design  
+- Christian: Writer
+- Mari: Gameplay Designer
+- Yve: Gameplay Designer
 
 **Art & Environment**  
 - Elizabeth: 2D Character Artist  
 - Jaden: 2D UI & Support Artist  
 - Hannah: 2D Character Artist  
 - Lee: 2D UI Artist  
-- Mari: 3D Environment Artist  
+- Mari: 3D Environment Artist
+- Yve: 3D Environment Artist
 
 **Programmers**  
 - Connor: Gameplay Programmer  
-- Leeann: AI Programmer  
+- Leeann: AI Behavior, UX Programmer  
 - Nathan: Gameplay Programmer  
 - Mita: Gameplay Programmer  
-- Tim: UI Programmer  
-- Wendy: Gameplay Tester  
+- Tim: UX Programmer  
+- Wendy: UI Programmer  
 
 **Sound Design**  
-- Composer: Tim  
+- Tim: Composer
