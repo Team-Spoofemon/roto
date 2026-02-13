@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/0B. Main Menu.unity
     guid: 64a3df52da2a14793897ca0bda33dd24
   - enabled: 1
+    path: Assets/Scenes/1A. CM 1.unity
+    guid: 53e80629556664b4aba100cffef94e94
+  - enabled: 1
     path: Assets/Scenes/1B. Crete Valley.unity
     guid: 9f2f9b97be3cc49fa960aca2d610d95b
   - enabled: 1
