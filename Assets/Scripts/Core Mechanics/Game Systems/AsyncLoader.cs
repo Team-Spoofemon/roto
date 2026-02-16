@@ -1,20 +1,9 @@
-// AsyncLoader.cs
+
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-/// <summary>
-/// AsyncLoader = swaps from main menu into an additive-loaded gameplay scene with a loading screen.
-/// - Shows loading screen immediately, starts a music fade-out, and guarantees the loading screen stays visible
-///   for at least minLoadingScreenTime (real time) so fades/UX have time to complete even if the scene loads very fast.
-/// - Disables menu cameras/lights/volumes before allowing scene activation to avoid carryover.
-/// How to use:
-/// - Assign mainMenu, loadingScreen, and loadingSlider.
-/// - Adjust musicFadeOutTime and minLoadingScreenTime in Inspector.
-/// - Call LoadLevelBtn(sceneName) from UI.
-/// </summary>
 public class AsyncLoader : MonoBehaviour
 {
     [SerializeField] private GameObject loadingScreen;
@@ -36,7 +25,6 @@ public class AsyncLoader : MonoBehaviour
 
     IEnumerator LoadLevelAsync(string levelToLoad)
     {
-        // Record when loading screen became visible (real time)
         float loadingScreenShownAt = Time.realtimeSinceStartup;
 
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Additive);
@@ -44,11 +32,9 @@ public class AsyncLoader : MonoBehaviour
 
         loadOperation.allowSceneActivation = false;
 
-        // Start music fade-out immediately (unscaled/unaffected by Time.timeScale)
         if (AudioManager.Instance != null)
             AudioManager.Instance.FadeOutMusic(musicFadeOutTime);
 
-        // Wait for Unity loading progress to reach the "ready to activate" threshold
         while (loadOperation.progress < 0.9f)
         {
             loadingSlider.value = Mathf.Clamp01(loadOperation.progress / 0.9f);
@@ -57,21 +43,15 @@ public class AsyncLoader : MonoBehaviour
 
         loadingSlider.value = 1f;
 
-        // Calculate how long we've already shown the loading screen (realtime)
         float elapsed = Time.realtimeSinceStartup - loadingScreenShownAt;
 
-        // Ensure the loading screen remains visible for at least the minimum time
         float remaining = minLoadingScreenTime - elapsed;
         if (remaining > 0f)
             yield return new WaitForSecondsRealtime(remaining);
 
-        // At this point we've shown the loading screen for long enough; disable menu influencers.
         DisableMenuSceneInfluencers();
-
-        // Allow the scene to activate now that the UX buffer has completed.
         loadOperation.allowSceneActivation = true;
 
-        // Wait until the scene is actually loaded and valid
         Scene loadedScene = default;
         while (true)
         {
@@ -82,11 +62,6 @@ public class AsyncLoader : MonoBehaviour
 
         SceneManager.SetActiveScene(loadedScene);
 
-        // Optionally: request level music fade-in here (example)
-        // AudioManager.Instance.SetRealm(RealmType.CreteValley);
-        // AudioManager.Instance.CrossfadeTo(MusicState.LoopA, 0.8f);
-
-        // Finally unload menu scene
         SceneManager.UnloadSceneAsync(MainMenuSceneName);
     }
 
