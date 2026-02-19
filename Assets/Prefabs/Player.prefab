@@ -142,7 +142,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 11
+  m_SortingOrder: 0
   m_Sprite: {fileID: 540151043, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 4271970863402828132}
   - component: {fileID: 6097843761166070961}
   - component: {fileID: 2571185499915001958}
+  - component: {fileID: 5068724538491514825}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -237,7 +238,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1495937234, guid: 9568de582cb7a4808b651a370dd54c13, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -337,6 +338,7 @@ MonoBehaviour:
   playerInput: {fileID: 4271970863402828132}
   spriteHolder: {fileID: 1860561865972728697}
   playerShadow: {fileID: 1332348868972558053}
+  cameraTransform: {fileID: 0}
   moveAction:
     m_Name: Move
     m_Type: 0
@@ -378,7 +380,6 @@ MonoBehaviour:
   jumpForce: 10
   extraGravity: 20
   inputRotation: 0
-  spriteBaseRotation: 0
   groundCheck: {fileID: 4897589482079595285}
   groundDistance: 0.4
   groundMask:
@@ -484,6 +485,18 @@ MonoBehaviour:
   sig_DeathAnimationOverride:
     m_PersistentCalls:
       m_Calls: []
+--- !u!210 &5068724538491514825
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7044084108375530469}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &7736479222707934234
 GameObject:
   m_ObjectHideFlags: 0

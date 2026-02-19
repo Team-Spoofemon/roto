@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 8414923215331412016}
   - component: {fileID: 3163027204316537704}
   - component: {fileID: 5911481397331039183}
+  - component: {fileID: 6326220641012939094}
   m_Layer: 7
   m_Name: EarthGiant
   m_TagString: Untagged
@@ -103,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5839697302801213245}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 134.8, y: 19.56, z: 42.9}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
@@ -111,7 +112,7 @@ Transform:
   - {fileID: 7026709306130561523}
   - {fileID: 2735118242367631966}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &9206561606016056266
 Animator:
   serializedVersion: 5
@@ -171,9 +172,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 982143037
-  m_SortingLayer: 1
-  m_SortingOrder: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
   m_Sprite: {fileID: -819483328, guid: acd38094d3bc241ca9be05559dc49397, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -335,6 +336,18 @@ MonoBehaviour:
   agent: {fileID: 8414923215331412016}
   damage: 20
   damageKnockback: 20
+--- !u!210 &6326220641012939094
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839697302801213245}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1001 &896338639175917470
 PrefabInstance:
   m_ObjectHideFlags: 0

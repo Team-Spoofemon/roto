@@ -31,13 +31,12 @@ public class EarthGiant : MonoBehaviour, IHitHandler
 
         if (player == null)
         {
-            //Try to find the new player after respawn
+            //Try to find the player after respawn
             GameObject newPlayer = GameObject.FindGameObjectWithTag("Player");
             if (newPlayer != null)
                 player = newPlayer.transform;
             else
                 return;
-            
         }
 
         //Stores the current distance between the enemy and the player

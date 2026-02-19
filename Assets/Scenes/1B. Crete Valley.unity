@@ -468,6 +468,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4612705709044446070, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5143192174582317809, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5
@@ -15830,7 +15834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &955107410
 Transform:
   m_ObjectHideFlags: 0
@@ -28113,6 +28117,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4612705709044446070, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5143192174582317809, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5
@@ -36789,6 +36797,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4612705709044446070, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5143192174582317809, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5
@@ -37886,6 +37898,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 194611016614213711, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1332348868972558053, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.5952
@@ -38002,6 +38018,14 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5409425935757556389, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5548816750482811202, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6097843761166070961, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: audioManager
       value: 
@@ -38026,9 +38050,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7044084108375530469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7736479222707934234, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingOrder
@@ -38036,7 +38068,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingLayerID
-      value: 982143037
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619916899367092437, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
