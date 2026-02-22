@@ -22,7 +22,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d422b7aba8ff94414819c02613620e6e, type: 3}
   ambienceSounds: []
   enemySpawnCalls: []
-  cutsceneRealm: []
+  cutsceneRealm:
+  - {fileID: 8300000, guid: 3efc4ee272b104e22a4b1e0ff9a9012c, type: 3}
   creteValley:
   - {fileID: 8300000, guid: 8de137b95c1fb4be984f7fef02067a2c, type: 3}
   - {fileID: 8300000, guid: da9ad637e321c4a629a18a825ba808dc, type: 3}

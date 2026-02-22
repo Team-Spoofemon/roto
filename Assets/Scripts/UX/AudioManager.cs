@@ -1,19 +1,3 @@
-// AudioManager.cs
-/// <summary>
-/// MusicState = shared state keys used to pick clips inside the active realm.
-/// Intended mapping: Intro/LoopA/LoopB/etc. align with clip array indices per realm.
-/// AudioManager = persistent audio brain for music + SFX.
-/// Music UX:
-/// - Menu music uses profile.mainTheme via PlayMainTheme().
-/// - Fade routines use unscaled time so fades still work if Time.timeScale = 0.
-/// - FadeOutMusic(fadeTime) fades whichever music sources are currently playing, then stops them.
-/// How to use:
-/// - Put in Core/Bootstrap, assign AudioProfile, keep object alive via DontDestroyOnLoad.
-/// - Main Menu: call PlayMainTheme(...) when the menu appears.
-/// - Loading transition: call FadeOutMusic(1.5f) from AsyncLoader.
-/// - Gameplay: call SetRealm(...) then SetMusicState/CrossfadeTo/PlayIntroThenLoop.
-/// </summary>
-// AudioManager.cs
 using System.Collections;
 using UnityEngine;
 
@@ -42,6 +26,8 @@ public class AudioManager : MonoBehaviour
 
     private MusicState currentState = MusicState.None;
     private Coroutine fadeRoutine;
+
+    public bool IsFadingOut { get; private set; }
 
     private float MusicVol => profile != null ? profile.musicVolume : 1f;
     private float SfxVol => profile != null ? profile.sfxVolume : 1f;
@@ -80,6 +66,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMainTheme(float fadeInTime = 0.35f)
     {
+        if (IsFadingOut) return;
         if (profile == null || profile.mainTheme == null) return;
 
         if (fadeRoutine != null)
@@ -98,6 +85,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlayDeathTheme(float fadeOutTime = 0.15f, float fadeInTime = 0.15f)
     {
+        if (IsFadingOut) return;
         if (profile == null || profile.deathTheme == null) return;
 
         if (fadeRoutine != null)
@@ -179,6 +167,7 @@ public class AudioManager : MonoBehaviour
 
     public void SetMusicState(MusicState newState)
     {
+        if (IsFadingOut) return;
         if (newState == currentState) return;
         currentState = newState;
 
@@ -200,6 +189,8 @@ public class AudioManager : MonoBehaviour
 
     public void CrossfadeTo(MusicState newState, float fadeTime = 1f)
     {
+        if (IsFadingOut) return;
+
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
 
@@ -230,6 +221,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayIntroThenLoop(MusicState intro, MusicState loop)
     {
+        if (IsFadingOut) return;
+
         AudioClip introClip = GetMusicClip(intro);
         AudioClip loopClip = GetMusicClip(loop);
         if (introClip == null || loopClip == null) return;
@@ -260,7 +253,26 @@ public class AudioManager : MonoBehaviour
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
 
-        fadeRoutine = StartCoroutine(FadeOutRoutine(fadeTime));
+        IsFadingOut = true;
+        fadeRoutine = StartCoroutine(FadeOutRoutineWrapper(fadeTime));
+    }
+
+    public IEnumerator FadeOutCoroutine(float fadeTime)
+    {
+        if (fadeRoutine != null)
+            StopCoroutine(fadeRoutine);
+
+        IsFadingOut = true;
+        yield return FadeOutRoutine(fadeTime);
+        IsFadingOut = false;
+        fadeRoutine = null;
+    }
+
+    private IEnumerator FadeOutRoutineWrapper(float fadeTime)
+    {
+        yield return FadeOutRoutine(fadeTime);
+        IsFadingOut = false;
+        fadeRoutine = null;
     }
 
     private IEnumerator FadeOutRoutine(float fadeTime)
@@ -302,14 +314,12 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.Stop();
             musicSource.clip = null;
-            musicSource.volume = MusicVol;
         }
 
         if (musicSource2 != null)
         {
             musicSource2.Stop();
             musicSource2.clip = null;
-            musicSource2.volume = MusicVol;
         }
     }
 

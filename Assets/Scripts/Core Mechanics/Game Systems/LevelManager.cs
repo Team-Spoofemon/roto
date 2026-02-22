@@ -1,4 +1,3 @@
-// LevelManager.cs
 using System;
 using System.Collections;
 using UnityEngine;
@@ -36,6 +35,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private bool hasIntroMusic = true;
     [SerializeField] private MusicState introMusic = MusicState.Intro;
     [SerializeField] private MusicState loopMusic = MusicState.LoopA;
+
+    [Header("Next Level")]
+    [SerializeField] private RealmType nextRealm = RealmType.CreteValley;
 
     [Header("Level Intro Text")]
     [SerializeField] private bool showIntroText = true;
@@ -311,7 +313,7 @@ public class LevelManager : MonoBehaviour
         yield return null;
 
         if (playerController != null)
-        playerController.Revive();
+            playerController.Revive();
 
         UnlockPlayer();
         yield break;
@@ -404,7 +406,7 @@ public class LevelManager : MonoBehaviour
             yield break;
         }
 
-        AsyncLoader.Instance.LoadScene(targetBuildIndex);
+        AsyncLoader.Instance.LoadScene(targetBuildIndex, nextRealm, true);
         yield break;
     }
 }

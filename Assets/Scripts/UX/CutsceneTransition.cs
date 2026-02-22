@@ -12,8 +12,25 @@ public class CutsceneTransition : MonoBehaviour
     [SerializeField] private string coreSceneName = "0A. Core";
     [SerializeField] private string sceneToLoad = "1B. Crete Valley";
 
+    [Header("Next Realm")]
+    [SerializeField] private RealmType nextRealm = RealmType.CreteValley;
+
+    [Header("Cutscene Music")]
+    [SerializeField] private bool autoPlayCutsceneMusic = true;
+
     private float timer;
     private bool transitioning;
+
+    void Start()
+    {
+        if (!autoPlayCutsceneMusic) return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetRealm(RealmType.cutsceneRealm);
+            AudioManager.Instance.SetMusicState(MusicState.Intro);
+        }
+    }
 
     void Update()
     {
@@ -33,22 +50,26 @@ public class CutsceneTransition : MonoBehaviour
         if (!IsSceneLoaded(coreSceneName))
             yield return LoadScene(coreSceneName, LoadSceneMode.Additive);
 
-        if (AsyncLoader.Instance == null)
+        if (AsyncLoader.Instance != null)
         {
-            yield return LoadScene(sceneToLoad, LoadSceneMode.Additive);
-            SetActiveScene(sceneToLoad);
-            yield return UnloadAllExcept(coreSceneName, sceneToLoad);
+            AsyncLoader.Instance.LoadScene(sceneToLoad, nextRealm, true);
             Destroy(gameObject);
             yield break;
         }
 
-        AsyncLoader.Instance.LoadScene(sceneToLoad);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.FadeOutMusic(0.75f);
+            yield return new WaitForSecondsRealtime(0.75f);
+        }
 
-        while (!IsSceneLoaded(sceneToLoad) || SceneManager.GetActiveScene().name != sceneToLoad)
-            yield return null;
+        yield return LoadScene(sceneToLoad, LoadSceneMode.Additive);
+        SetActiveScene(sceneToLoad);
+
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetRealm(nextRealm);
 
         yield return UnloadAllExcept(coreSceneName, sceneToLoad);
-
         Destroy(gameObject);
     }
 

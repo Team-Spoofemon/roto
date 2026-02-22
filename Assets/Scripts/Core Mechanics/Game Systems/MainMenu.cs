@@ -8,6 +8,10 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string firstLevelSceneName = "1A. CM 1";
     [SerializeField] private string creditsSceneName = "8. End Credits";
 
+    [Header("Realms")]
+    [SerializeField] private RealmType firstLevelRealm = RealmType.CreteValley;
+    [SerializeField] private RealmType creditsRealm = RealmType.cutsceneRealm;
+
     private void Start()
     {
         StartMenuMusic();
@@ -24,8 +28,7 @@ public class MainMenu : MonoBehaviour
         if (AsyncLoader.Instance == null)
             return;
 
-        else
-            AsyncLoader.Instance.LoadScene(firstLevelSceneName);
+        AsyncLoader.Instance.LoadScene(firstLevelSceneName, firstLevelRealm, true);
     }
 
     public void StartCredits()
@@ -33,7 +36,6 @@ public class MainMenu : MonoBehaviour
         if (AsyncLoader.Instance == null)
             return;
 
-        else
-            AsyncLoader.Instance.LoadScene(creditsSceneName);
+        AsyncLoader.Instance.LoadScene(creditsSceneName, creditsRealm, true);
     }
 }

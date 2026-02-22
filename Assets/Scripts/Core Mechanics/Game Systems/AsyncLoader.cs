@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Reflection;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -12,7 +11,6 @@ public class AsyncLoader : MonoBehaviour
 
     [Header("Timing")]
     [SerializeField] private float musicFadeOutTime = 1.5f;
-    [SerializeField] private float musicFadeInTime = 1.0f;
     [SerializeField] private float minLoadingScreenTime = 2.5f;
 
     [Header("Scenes")]
@@ -43,29 +41,44 @@ public class AsyncLoader : MonoBehaviour
             loadingSlider.maxValue = 1f;
             loadingSlider.wholeNumbers = false;
             loadingSlider.value = 0f;
-            
         }
     }
 
-    public void LoadScene(string sceneName)
+    public void LoadScene(string sceneName, RealmType nextRealm, bool fadeMusicFirst = true)
     {
         if (isLoading) return;
         if (string.IsNullOrEmpty(sceneName)) return;
-        StartCoroutine(LoadSceneRoutine(sceneName, -1));
+        StartCoroutine(LoadSceneRoutine(sceneName, -1, nextRealm, fadeMusicFirst));
     }
 
-    public void LoadScene(int buildIndex)
+    public void LoadScene(int buildIndex, RealmType nextRealm, bool fadeMusicFirst = true)
     {
         if (isLoading) return;
         if (buildIndex < 0) return;
-        StartCoroutine(LoadSceneRoutine(null, buildIndex));
+        StartCoroutine(LoadSceneRoutine(null, buildIndex, nextRealm, fadeMusicFirst));
     }
 
-    private IEnumerator LoadSceneRoutine(string sceneName, int buildIndex)
+    private IEnumerator LoadSceneRoutine(string sceneName, int buildIndex, RealmType nextRealm, bool fadeMusicFirst)
     {
         isLoading = true;
 
         Scene oldActive = SceneManager.GetActiveScene();
+
+        if (loadingScreen != null)
+            loadingScreen.SetActive(false);
+
+        if (loadingSlider != null)
+            loadingSlider.value = 0f;
+
+        yield return null;
+
+        if (fadeMusicFirst && AudioManager.Instance != null)
+        {
+            if (musicFadeOutTime > 0f)
+                yield return AudioManager.Instance.FadeOutCoroutine(musicFadeOutTime);
+            else
+                AudioManager.Instance.FadeOutMusic(0f);
+        }
 
         if (loadingScreen != null)
             loadingScreen.SetActive(true);
@@ -73,26 +86,11 @@ public class AsyncLoader : MonoBehaviour
         if (loadingSlider != null)
             loadingSlider.value = 0f;
 
-        if (loadingScreen != null)
-        loadingScreen.SetActive(true);
-
-        if (loadingSlider != null)
-        loadingSlider.value = 0f;
-
         yield return null;
-
-        if (AudioManager.Instance != null)
-        {
-            AudioManager.Instance.FadeOutMusic(musicFadeOutTime);
-
-            if (musicFadeOutTime > 0f)
-                yield return new WaitForSecondsRealtime(musicFadeOutTime);
-        }
 
         float shownAt = Time.realtimeSinceStartup;
 
         AsyncOperation op;
-
         if (!string.IsNullOrEmpty(sceneName))
             op = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         else
@@ -100,6 +98,9 @@ public class AsyncLoader : MonoBehaviour
 
         if (op == null)
         {
+            if (loadingScreen != null)
+                loadingScreen.SetActive(false);
+
             isLoading = false;
             yield break;
         }
@@ -117,7 +118,6 @@ public class AsyncLoader : MonoBehaviour
 
         float elapsed = Time.realtimeSinceStartup - shownAt;
         float remaining = minLoadingScreenTime - elapsed;
-
         if (remaining > 0f)
             yield return new WaitForSecondsRealtime(remaining);
 
@@ -126,8 +126,7 @@ public class AsyncLoader : MonoBehaviour
 
         op.allowSceneActivation = true;
 
-        Scene newScene = default;
-
+        Scene newScene;
         while (true)
         {
             if (!string.IsNullOrEmpty(sceneName))
@@ -143,6 +142,9 @@ public class AsyncLoader : MonoBehaviour
 
         SceneManager.SetActiveScene(newScene);
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetRealm(nextRealm);
+
         if (oldActive.IsValid() && oldActive.isLoaded && oldActive != newScene && oldActive.name != coreSceneName)
             SceneManager.UnloadSceneAsync(oldActive);
 
@@ -150,51 +152,9 @@ public class AsyncLoader : MonoBehaviour
         if (menu.IsValid() && menu.isLoaded && menu != newScene)
             SceneManager.UnloadSceneAsync(menu);
 
-        if (AudioManager.Instance != null)
-            TryRestoreMusic(AudioManager.Instance, musicFadeInTime);
-
         if (loadingScreen != null)
             loadingScreen.SetActive(false);
 
         isLoading = false;
-    }
-
-    private void TryRestoreMusic(object audioManager, float fadeInTime)
-    {
-        if (audioManager == null) return;
-
-        var type = audioManager.GetType();
-
-        if (TryInvoke(type, audioManager, "FadeInMusic", fadeInTime)) return;
-        if (TryInvoke(type, audioManager, "FadeMusicIn", fadeInTime)) return;
-        if (TryInvoke(type, audioManager, "RestoreMusic", fadeInTime)) return;
-        if (TryInvoke(type, audioManager, "ResetMusicVolume", fadeInTime)) return;
-        if (TryInvoke(type, audioManager, "UnmuteMusic", fadeInTime)) return;
-
-        if (TryInvoke(type, audioManager, "FadeInMusic")) return;
-        if (TryInvoke(type, audioManager, "FadeMusicIn")) return;
-        if (TryInvoke(type, audioManager, "RestoreMusic")) return;
-        if (TryInvoke(type, audioManager, "ResetMusicVolume")) return;
-        if (TryInvoke(type, audioManager, "UnmuteMusic")) return;
-
-        if (TryInvoke(type, audioManager, "SetMusicVolume", 1f)) return;
-        if (TryInvoke(type, audioManager, "SetMusicVolume", 1.0f)) return;
-        if (TryInvoke(type, audioManager, "SetMusicVolumeNormalized", 1f)) return;
-    }
-
-    private bool TryInvoke(System.Type type, object target, string methodName, float arg)
-    {
-        var m = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new[] { typeof(float) }, null);
-        if (m == null) return false;
-        m.Invoke(target, new object[] { arg });
-        return true;
-    }
-
-    private bool TryInvoke(System.Type type, object target, string methodName)
-    {
-        var m = type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, System.Type.EmptyTypes, null);
-        if (m == null) return false;
-        m.Invoke(target, null);
-        return true;
     }
 }
