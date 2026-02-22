@@ -1,34 +1,37 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
-
 public class PlayerInteractor : MonoBehaviour
 {
-    public TextMeshProUGUI promptLabel;
     private Interactable currentInteractable;
     private bool interactionCooldown = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        Interactable interactable = other.GetComponent<Interactable>();
-        if (interactable != null)
+        Interactable interactable = other.GetComponentInParent<Interactable>();
+        if (interactable == null) return;
+
+        currentInteractable = interactable;
+
+        if (!interactionCooldown && UIManager.Instance != null)
         {
-            currentInteractable = interactable;
-            if (!interactionCooldown)
-            {
-                promptLabel.text = interactable.GetPromptText();
-                promptLabel.gameObject.SetActive(true);
-            }
+            var text = interactable.GetPromptText();
+            if (!string.IsNullOrEmpty(text))
+                UIManager.Instance.ShowPrompt(text);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Interactable>() == currentInteractable)
-        {
-            currentInteractable = null;
-            promptLabel.gameObject.SetActive(false);
-        }
+        if (currentInteractable == null) return;
+
+        Interactable interactable = other.GetComponentInParent<Interactable>();
+        if (interactable != currentInteractable) return;
+
+        currentInteractable = null;
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.HidePrompt();
     }
 
     private void Update()
@@ -47,14 +50,20 @@ public class PlayerInteractor : MonoBehaviour
     private IEnumerator DialogueCooldownRoutine(IEnumerator dialogueRoutine)
     {
         interactionCooldown = true;
-        promptLabel.gameObject.SetActive(false);
+
+        if (UIManager.Instance != null)
+            UIManager.Instance.HidePrompt();
+
         yield return StartCoroutine(dialogueRoutine);
         yield return new WaitForSeconds(1f);
-        if (currentInteractable != null)
+
+        if (currentInteractable != null && UIManager.Instance != null)
         {
-            promptLabel.text = currentInteractable.GetPromptText();
-            promptLabel.gameObject.SetActive(true);
+            var text = currentInteractable.GetPromptText();
+            if (!string.IsNullOrEmpty(text))
+                UIManager.Instance.ShowPrompt(text);
         }
+
         interactionCooldown = false;
     }
 }

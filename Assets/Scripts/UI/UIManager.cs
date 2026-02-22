@@ -3,36 +3,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using TMPro;
 
-/// <summary>
-/// UIManager is the hub for gameplay UI and dialogue UI.
-/// It’s a singleton that lives across scenes, and it handles:
-/// - UI Toolkit bindings (health bar, menus, loading screen) from a UIDocument
-/// - Health updates through a ProgressBar
-/// - Dialogue textboxes with a typewriter effect and fade in/out
-/// - Narration / cinematic overlay text
-///
-/// How to use it:
-/// - Put this on a GameObject in the first scene so it becomes UIManager.Instance and persists.
-/// - For UI Toolkit stuff, call BindUIDocument(doc) after the UIDocument exists so the VisualElements get grabbed.
-/// - Call UpdateHealth(value) whenever player health changes.
-///
-/// Dialogue:
-/// - StartCoroutine(ShowDialogueLine(name, text, typeSpeed, type, autoHideTime))
-///   - Character: shows name (if provided), typewrites, and waits for a click to continue (and lets me click to skip typing).
-///   - Instruction/Narration: typewrites, then auto-hides after autoHideTime.
-/// - HideTextbox() instantly hides the dialogue box.
-/// - ResetDialogueUI() is the “panic button” — stops coroutines and clears everything (including narration overlay).
-///
-/// Narration overlay:
-/// - DisplayNarration(text) turns on the cinematic overlay and sets the narration text.
-/// - HideNarration() turns it off and clears the text.
-///
-/// Notes / setup reminders:
-/// - The UI Toolkit element names have to match: "HealthBar", "MainMenu", "InGameUI", "LoadingScreen".
-/// - The dialogue/narration GameObjects and TMP references need to be assigned in the Inspector.
-/// </summary>
-
-
 public enum DialogueType
 {
     Character,
@@ -57,6 +27,10 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI narrationText;
     public CanvasGroup dialogueCanvasGroup;
 
+    [Header("Hover Prompt")]
+    [SerializeField] private GameObject promptPanel;
+    [SerializeField] private TextMeshProUGUI promptText;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -66,6 +40,8 @@ public class UIManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        HidePrompt();
     }
 
     public void BindUIDocument(UIDocument doc)
@@ -82,6 +58,20 @@ public class UIManager : MonoBehaviour
         if (healthBar == null) return;
         ProgressBar bar = healthBar.Q<ProgressBar>();
         if (bar != null) bar.value = value;
+    }
+
+    public void ShowPrompt(string text)
+    {
+        if (promptPanel == null || promptText == null) return;
+        promptText.text = text;
+        promptPanel.SetActive(true);
+    }
+
+    public void HidePrompt()
+    {
+        if (promptPanel == null || promptText == null) return;
+        promptText.text = "";
+        promptPanel.SetActive(false);
     }
 
     public IEnumerator ShowDialogueLine(string name, string text, float typeSpeed, DialogueType type, float autoHideTime)
@@ -188,5 +178,6 @@ public class UIManager : MonoBehaviour
         dialogueText.text = "";
         if (cinematicOverlay != null) cinematicOverlay.SetActive(false);
         if (narrationText != null) narrationText.text = "";
+        HidePrompt();
     }
 }

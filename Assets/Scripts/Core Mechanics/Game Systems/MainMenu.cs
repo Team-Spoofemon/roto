@@ -1,18 +1,12 @@
-// MainMenu.cs
 using UnityEngine;
 
-/// <summary>
-/// MainMenu = controls main menu UI flow.
-/// Music UX:
-/// - Starts menu music (AudioProfile.mainTheme) through AudioManager when the menu becomes active.
-/// - Loading transition fades music out via AsyncLoader.
-/// How to use:
-/// - Call ShowMenu() when menu should be visible.
-/// - Ensure AudioManager exists in Core/Bootstrap and has an AudioProfile assigned.
-/// </summary>
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] private float menuMusicFadeInTime = 0.35f;
+    [SerializeField] private float menuMusicFadeInTime = 0f;
+
+    [Header("Start Game Target")]
+    [SerializeField] private string firstLevelSceneName = "1A. CM 1";
+    [SerializeField] private string creditsSceneName = "8. End Credits";
 
     private void Start()
     {
@@ -23,5 +17,23 @@ public class MainMenu : MonoBehaviour
     {
         if (AudioManager.Instance != null)
             AudioManager.Instance.PlayMainTheme(menuMusicFadeInTime);
+    }
+
+    public void StartGame()
+    {
+        if (AsyncLoader.Instance == null)
+            return;
+
+        else
+            AsyncLoader.Instance.LoadScene(firstLevelSceneName);
+    }
+
+    public void StartCredits()
+    {
+        if (AsyncLoader.Instance == null)
+            return;
+
+        else
+            AsyncLoader.Instance.LoadScene(creditsSceneName);
     }
 }

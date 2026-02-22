@@ -10,8 +10,7 @@ public class CutsceneTransition : MonoBehaviour
 
     [Header("Scenes")]
     [SerializeField] private string coreSceneName = "0A. Core";
-    [SerializeField] private string previousSceneName = "0B. Main Menu";
-    [SerializeField] private string nextSceneName = "1B. Crete Valley";
+    [SerializeField] private string sceneToLoad = "1B. Crete Valley";
 
     private float timer;
     private bool transitioning;
@@ -25,7 +24,6 @@ public class CutsceneTransition : MonoBehaviour
         if (timer >= waitSeconds || Input.GetKeyDown(skipKey))
         {
             transitioning = true;
-            DontDestroyOnLoad(gameObject);
             StartCoroutine(LoadNextRoutine());
         }
     }
@@ -33,14 +31,23 @@ public class CutsceneTransition : MonoBehaviour
     private IEnumerator LoadNextRoutine()
     {
         if (!IsSceneLoaded(coreSceneName))
-            yield return LoadScene(coreSceneName, LoadSceneMode.Single);
+            yield return LoadScene(coreSceneName, LoadSceneMode.Additive);
 
-        if (!IsSceneLoaded(nextSceneName))
-            yield return LoadScene(nextSceneName, LoadSceneMode.Additive);
+        if (AsyncLoader.Instance == null)
+        {
+            yield return LoadScene(sceneToLoad, LoadSceneMode.Additive);
+            SetActiveScene(sceneToLoad);
+            yield return UnloadAllExcept(coreSceneName, sceneToLoad);
+            Destroy(gameObject);
+            yield break;
+        }
 
-        SetActiveScene(nextSceneName);
+        AsyncLoader.Instance.LoadScene(sceneToLoad);
 
-        yield return UnloadAllExcept(coreSceneName, nextSceneName);
+        while (!IsSceneLoaded(sceneToLoad) || SceneManager.GetActiveScene().name != sceneToLoad)
+            yield return null;
+
+        yield return UnloadAllExcept(coreSceneName, sceneToLoad);
 
         Destroy(gameObject);
     }
@@ -48,7 +55,7 @@ public class CutsceneTransition : MonoBehaviour
     private static IEnumerator LoadScene(string sceneName, LoadSceneMode mode)
     {
         var op = SceneManager.LoadSceneAsync(sceneName, mode);
-        while (!op.isDone) yield return null;
+        while (op != null && !op.isDone) yield return null;
     }
 
     private static bool IsSceneLoaded(string sceneName)

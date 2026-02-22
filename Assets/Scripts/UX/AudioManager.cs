@@ -3,8 +3,6 @@
 /// MusicState = shared state keys used to pick clips inside the active realm.
 /// Intended mapping: Intro/LoopA/LoopB/etc. align with clip array indices per realm.
 /// AudioManager = persistent audio brain for music + SFX.
-/// Reads an AudioProfile and plays music through internal AudioSources (not camera-bound).
-/// Supports hard switches, crossfades, and intro-then-loop scheduling.
 /// Music UX:
 /// - Menu music uses profile.mainTheme via PlayMainTheme().
 /// - Fade routines use unscaled time so fades still work if Time.timeScale = 0.
@@ -165,6 +163,13 @@ public class AudioManager : MonoBehaviour
                 {
                     case MusicState.Intro: return profile.mtOthrys != null && profile.mtOthrys.Length > 0 ? profile.mtOthrys[0] : null;
                     case MusicState.LoopA: return profile.mtOthrys != null && profile.mtOthrys.Length > 1 ? profile.mtOthrys[1] : null;
+                }
+                break;
+
+            case RealmType.cutsceneRealm:
+                switch (state)
+                {
+                    case MusicState.Intro: return profile.cutsceneRealm != null && profile.cutsceneRealm.Length > 0 ? profile.cutsceneRealm[0] : null;
                 }
                 break;
         }
