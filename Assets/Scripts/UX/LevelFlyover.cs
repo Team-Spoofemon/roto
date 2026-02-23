@@ -4,23 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-/// <summary>
-/// Level flyover that spline-interpolates an intro camera along waypoint transforms, then hands off to gameplay cleanly.
-/// Tail-end fix: the flyover now ends on the *gameplay camera's actual follow/orbit pose* (what CameraFollow will compute),
-/// so there is no last-frame orientation pop. The CinemachineBrain is re-enabled on the next frame to avoid a stale-frame pop.
-/// </summary>
 public class LevelFlyover : MonoBehaviour
 {
     [Header("Assign These")]
-    [SerializeField] private Camera introCamera;
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private CinemachineBrain cinemachineBrain;
-    [SerializeField] private CinemachineVirtualCamera vcamStart;
-    [SerializeField] private Transform gameplayCameraStart;
+    [SerializeField] private CinemachineVirtualCamera vcamFlyover;
+    [SerializeField] private CinemachineVirtualCamera vcamMain;
     [SerializeField] private Transform waypointsParent;
 
-    [Header("Gameplay Orientation Source")]
-    [SerializeField] private CameraFollow gameplayCameraFollow;
+    [Header("Optional: last waypoint anchor (STATIC transform, not a live vcam)")]
+    [SerializeField] private Transform gameplayCameraStart;
+
+    [Header("Priorities")]
+    [SerializeField] private int flyoverPriority = 20;
+    [SerializeField] private int mainPriority = 10;
 
     [Header("Tuning")]
     [SerializeField] private float secondsPerSegment = 1.5f;
@@ -28,11 +24,18 @@ public class LevelFlyover : MonoBehaviour
     [Header("Spline Sampling")]
     [SerializeField] private int samplesPerSegment = 40;
 
+    [Header("End Rotation Stabilizer")]
+    [Range(0f, 0.5f)]
+    [SerializeField] private float endBlendPercent = 0.12f;
+
     [Header("Orientation")]
     [SerializeField] private bool useWaypointUp = true;
     [SerializeField] private Vector3 fallbackUp = Vector3.up;
 
     private bool playing;
+
+    private int originalFlyoverPriority;
+    private int originalMainPriority;
 
     private struct Waypoint
     {
@@ -52,26 +55,30 @@ public class LevelFlyover : MonoBehaviour
         if (playing)
             return;
 
-        if (introCamera == null || mainCamera == null || cinemachineBrain == null || vcamStart == null || gameplayCameraStart == null || waypointsParent == null)
+        if (vcamFlyover == null || vcamMain == null || waypointsParent == null)
         {
             onDone?.Invoke();
             return;
         }
 
+        if (fallbackUp == Vector3.zero)
+            fallbackUp = Vector3.up;
+
         if (waypointsParent.childCount < 1)
         {
-            StartCoroutine(EndFlyoverRoutine(onDone));
+            onDone?.Invoke();
             return;
         }
 
         playing = true;
 
-        if (gameplayCameraFollow != null)
-            gameplayCameraFollow.enabled = false;
+        originalFlyoverPriority = vcamFlyover.Priority;
+        originalMainPriority = vcamMain.Priority;
 
-        cinemachineBrain.enabled = false;
-        if (mainCamera != null) mainCamera.enabled = false;
-        introCamera.enabled = true;
+        vcamFlyover.gameObject.SetActive(true);
+
+        vcamFlyover.Priority = flyoverPriority;
+        vcamMain.Priority = mainPriority;
 
         StartCoroutine(Fly(onDone));
     }
@@ -84,28 +91,34 @@ public class LevelFlyover : MonoBehaviour
 
         if (segCount <= 0)
         {
-            introCamera.transform.SetPositionAndRotation(points[0].pos, points[0].rot);
+            vcamFlyover.transform.SetPositionAndRotation(points[0].pos, points[0].rot);
             yield return EndFlyoverRoutine(onDone);
             yield break;
         }
 
         if (secondsPerSegment <= 0f)
         {
-            introCamera.transform.SetPositionAndRotation(points[count - 1].pos, points[count - 1].rot);
+            vcamFlyover.transform.SetPositionAndRotation(points[count - 1].pos, points[count - 1].rot);
             yield return EndFlyoverRoutine(onDone);
             yield break;
         }
 
-        List<Sample> table = new List<Sample>(segCount * Mathf.Max(2, samplesPerSegment) + 1);
-        float totalLength = BuildArcLengthTable(points, segCount, table);
+        int sps = Mathf.Max(2, samplesPerSegment);
+
+        List<Sample> table = new List<Sample>(segCount * sps + 1);
+        float totalLength = BuildArcLengthTable(points, segCount, table, sps);
 
         float totalDuration = secondsPerSegment * segCount;
-        float speed = totalLength / totalDuration;
+        float speed = totalDuration > 0f ? totalLength / totalDuration : 0f;
 
         float traveled = 0f;
 
+        Waypoint lastWp = points[count - 1];
+
         EvaluateAtDistance(points, segCount, table, 0f, out Vector3 startPos, out Quaternion startRot);
-        introCamera.transform.SetPositionAndRotation(startPos, startRot);
+        vcamFlyover.transform.SetPositionAndRotation(startPos, startRot);
+
+        float endBlendStart = Mathf.Max(0f, totalLength * (1f - Mathf.Clamp01(endBlendPercent)));
 
         while (traveled < totalLength)
         {
@@ -113,12 +126,19 @@ public class LevelFlyover : MonoBehaviour
             float s = Mathf.Min(traveled, totalLength);
 
             EvaluateAtDistance(points, segCount, table, s, out Vector3 pos, out Quaternion rot);
-            introCamera.transform.SetPositionAndRotation(pos, rot);
+
+            if (s >= endBlendStart && totalLength > 0f)
+            {
+                float u = Mathf.InverseLerp(endBlendStart, totalLength, s);
+                rot = Quaternion.Slerp(rot, lastWp.rot, u);
+            }
+
+            vcamFlyover.transform.SetPositionAndRotation(pos, rot);
 
             yield return null;
         }
 
-        introCamera.transform.SetPositionAndRotation(points[count - 1].pos, points[count - 1].rot);
+        vcamFlyover.transform.SetPositionAndRotation(lastWp.pos, lastWp.rot);
 
         yield return EndFlyoverRoutine(onDone);
     }
@@ -134,29 +154,29 @@ public class LevelFlyover : MonoBehaviour
             points.Add(new Waypoint { pos = t.position, rot = t.rotation });
         }
 
-        ComputeGameplayPose(out Vector3 endPos, out Quaternion endRot);
-        points.Add(new Waypoint { pos = endPos, rot = endRot });
+        if (gameplayCameraStart != null)
+            points.Add(new Waypoint { pos = gameplayCameraStart.position, rot = gameplayCameraStart.rotation });
+        else
+            points.Add(new Waypoint { pos = points[points.Count - 1].pos, rot = points[points.Count - 1].rot });
 
         return points;
     }
 
-    private float BuildArcLengthTable(List<Waypoint> points, int segCount, List<Sample> table)
+    private float BuildArcLengthTable(List<Waypoint> points, int segCount, List<Sample> table, int sps)
     {
         table.Clear();
 
         float total = 0f;
         table.Add(new Sample { s = 0f, seg = 0, t = 0f });
 
-        Vector3 prev = EvalPosition(points, segCount, 0, 0f);
-
-        int sps = Mathf.Max(2, samplesPerSegment);
+        Vector3 prev = EvalPosition(points, 0, 0f);
 
         for (int seg = 0; seg < segCount; seg++)
         {
             for (int i = 1; i <= sps; i++)
             {
                 float t = i / (float)sps;
-                Vector3 p = EvalPosition(points, segCount, seg, t);
+                Vector3 p = EvalPosition(points, seg, t);
                 total += Vector3.Distance(prev, p);
                 prev = p;
 
@@ -171,8 +191,8 @@ public class LevelFlyover : MonoBehaviour
     {
         if (s <= 0f)
         {
-            pos = EvalPosition(points, segCount, 0, 0f);
-            rot = EvalRotation(points, segCount, 0, 0f);
+            pos = EvalPosition(points, 0, 0f);
+            rot = EvalRotation(points, 0, 0f);
             return;
         }
 
@@ -180,8 +200,8 @@ public class LevelFlyover : MonoBehaviour
         if (s >= table[last].s)
         {
             int seg = segCount - 1;
-            pos = EvalPosition(points, segCount, seg, 1f);
-            rot = EvalRotation(points, segCount, seg, 1f);
+            pos = EvalPosition(points, seg, 1f);
+            rot = EvalRotation(points, seg, 1f);
             return;
         }
 
@@ -202,8 +222,8 @@ public class LevelFlyover : MonoBehaviour
         float span = b.s - a.s;
         float u = span > 0f ? (s - a.s) / span : 0f;
 
-        float t = Mathf.Lerp(a.t, b.t, u);
         int segIndex = a.seg;
+        float t = Mathf.Lerp(a.t, b.t, u);
 
         if (b.seg != a.seg)
         {
@@ -211,11 +231,11 @@ public class LevelFlyover : MonoBehaviour
             t = Mathf.Lerp(0f, b.t, u);
         }
 
-        pos = EvalPosition(points, segCount, segIndex, t);
-        rot = EvalRotation(points, segCount, segIndex, t);
+        pos = EvalPosition(points, segIndex, t);
+        rot = EvalRotation(points, segIndex, t);
     }
 
-    private Vector3 EvalPosition(List<Waypoint> points, int segCount, int seg, float t)
+    private Vector3 EvalPosition(List<Waypoint> points, int seg, float t)
     {
         int count = points.Count;
 
@@ -227,21 +247,18 @@ public class LevelFlyover : MonoBehaviour
         return CatmullRom(p0.pos, p1.pos, p2.pos, p3.pos, t);
     }
 
-    private Quaternion EvalRotation(List<Waypoint> points, int segCount, int seg, float t)
+    private Quaternion EvalRotation(List<Waypoint> points, int seg, float t)
     {
         int count = points.Count;
 
-        Vector3 pos = EvalPosition(points, segCount, seg, t);
+        Waypoint p0 = points[Mathf.Clamp(seg - 1, 0, count - 1)];
+        Waypoint p1 = points[Mathf.Clamp(seg, 0, count - 1)];
+        Waypoint p2 = points[Mathf.Clamp(seg + 1, 0, count - 1)];
+        Waypoint p3 = points[Mathf.Clamp(seg + 2, 0, count - 1)];
 
-        float dt = 0.0025f;
-        float t2 = Mathf.Min(1f, t + dt);
-        Vector3 pos2 = EvalPosition(points, segCount, seg, t2);
-
-        Vector3 forward = (pos2 - pos);
-        if (forward.sqrMagnitude < 1e-8f)
-            forward = Vector3.forward;
-        else
-            forward.Normalize();
+        Vector3 forward = CatmullRomTangent(p0.pos, p1.pos, p2.pos, p3.pos, t);
+        if (forward.sqrMagnitude < 1e-8f) forward = Vector3.forward;
+        else forward.Normalize();
 
         Vector3 up = fallbackUp;
 
@@ -272,60 +289,28 @@ public class LevelFlyover : MonoBehaviour
         );
     }
 
-    private void ComputeGameplayPose(out Vector3 pos, out Quaternion rot)
+    private static Vector3 CatmullRomTangent(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float t)
     {
-        pos = gameplayCameraStart.position;
-        rot = gameplayCameraStart.rotation;
+        float t2 = t * t;
 
-        if (gameplayCameraFollow == null || gameplayCameraFollow.player == null)
-            return;
-
-        Transform p = gameplayCameraFollow.player.transform;
-
-        float desiredYAngle = p.eulerAngles.y;
-        Quaternion yRot = Quaternion.Euler(0f, desiredYAngle, 0f);
-
-        pos = p.position + yRot * gameplayCameraFollow.offset;
-
-        Vector3 toPlayer = (p.position - pos);
-        if (toPlayer.sqrMagnitude < 1e-8f)
-        {
-            rot = yRot;
-            return;
-        }
-
-        rot = Quaternion.LookRotation(toPlayer.normalized, fallbackUp);
+        return 0.5f * (
+            (-p0 + p2) +
+            2f * (2f * p0 - 5f * p1 + 4f * p2 - p3) * t +
+            3f * (-p0 + 3f * p1 - 3f * p2 + p3) * t2
+        );
     }
 
     private IEnumerator EndFlyoverRoutine(Action onDone)
     {
-        ComputeGameplayPose(out Vector3 endPos, out Quaternion endRot);
-
-        if (introCamera != null)
-            introCamera.transform.SetPositionAndRotation(endPos, endRot);
-
-        if (introCamera != null)
-            introCamera.enabled = false;
-
-        if (vcamStart != null)
-            vcamStart.transform.SetPositionAndRotation(endPos, endRot);
-
-        if (mainCamera != null)
-            mainCamera.transform.SetPositionAndRotation(endPos, endRot);
-
-        if (mainCamera != null)
-            mainCamera.enabled = true;
-
-        if (cinemachineBrain != null)
-            cinemachineBrain.enabled = false;
+        vcamFlyover.Priority = mainPriority;
+        vcamMain.Priority = flyoverPriority;
 
         yield return null;
 
-        if (cinemachineBrain != null)
-            cinemachineBrain.enabled = true;
+        vcamFlyover.Priority = originalFlyoverPriority;
+        vcamMain.Priority = originalMainPriority;
 
-        if (gameplayCameraFollow != null)
-            gameplayCameraFollow.enabled = true;
+        vcamFlyover.gameObject.SetActive(false);
 
         playing = false;
         onDone?.Invoke();

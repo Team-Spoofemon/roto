@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Manages level flow (intro, death, respawn, completion). Respawn now forces level music to restart at Loop A after death.
+/// </summary>
 public class LevelManager : MonoBehaviour
 {
     public static event Action OnPlayerDeathEvent;
@@ -295,6 +298,14 @@ public class LevelManager : MonoBehaviour
 
         if (fadeCanvas != null)
             fadeCanvas.alpha = 0f;
+
+        if (AudioManager.Instance != null)
+        {
+            if (playLevelMusic)
+                AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+            else
+                AudioManager.Instance.FadeOutMusic(0.05f);
+        }
 
         if (deathSound != null)
             deathSound.Stop();
