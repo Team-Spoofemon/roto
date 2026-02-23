@@ -30181,7 +30181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1730714634
 Transform:
   m_ObjectHideFlags: 0
@@ -30630,7 +30630,7 @@ MonoBehaviour:
   introText: Cronus has guarded these lands with Earth Giants. The Stone Tablets
     should help guide you.
   introTextSeconds: 6
-  playIntroFlyover: 1
+  playIntroFlyover: 0
   levelFlyover: {fileID: 1730714635}
 --- !u!4 &1751652646
 Transform:
