@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   damageSourceBehaviour: {fileID: 0}
 --- !u!65 &2992769508182418159
 BoxCollider:
@@ -83,7 +83,6 @@ GameObject:
   - component: {fileID: 8640518035448502675}
   - component: {fileID: 8062064131043936961}
   - component: {fileID: 8238422678213837086}
-  - component: {fileID: 8054317243947642763}
   - component: {fileID: 6127973450099014467}
   - component: {fileID: 8414923215331412016}
   - component: {fileID: 3163027204316537704}
@@ -234,22 +233,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 6.75, y: 7.779603, z: 0.6}
   m_Center: {x: -0.04999987, y: 0.03979906, z: 0}
---- !u!114 &8054317243947642763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839697302801213245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de9cb2f1a3cfd479ba203da064acf4b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  damageSourceBehaviour: {fileID: 0}
 --- !u!114 &6127973450099014467
 MonoBehaviour:
   m_ObjectHideFlags: 0

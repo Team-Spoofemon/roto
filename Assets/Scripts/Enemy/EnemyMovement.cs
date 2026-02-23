@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
 
+    //If not currently chasing, begin the process for following the player
     public void StartChasing()
     {
         if(followCoroutine == null)
@@ -28,12 +29,14 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    //Starts process of following the player
     private IEnumerator MoveTowardPlayer()
     {
         WaitForSeconds Wait = new WaitForSeconds(updateSpeed);
 
         while (enabled)
         {
+            //NavMeshAgent sets destination to the player's position
             agent.SetDestination(player.transform.position);
 
             yield return Wait;

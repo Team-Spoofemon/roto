@@ -1,4 +1,4 @@
-using UnityEngine;
+/* using UnityEngine;
 using UnityEngine.AI;
 
 public class EarthGiant : MonoBehaviour, IHitHandler
@@ -72,3 +72,4 @@ public class EarthGiant : MonoBehaviour, IHitHandler
         CombatManager.Instance.SingleAttack(targetHealth, damage, transform, damageKnockback);
     }
 }
+ */
