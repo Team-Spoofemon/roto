@@ -10,11 +10,27 @@ public class CutsceneTransition : MonoBehaviour
 
     [Header("Scenes")]
     [SerializeField] private string coreSceneName = "0A. Core";
-    [SerializeField] private string previousSceneName = "0B. Main Menu";
-    [SerializeField] private string nextSceneName = "1B. Crete Valley";
+    [SerializeField] private string sceneToLoad = "1B. Crete Valley";
+
+    [Header("Next Realm")]
+    [SerializeField] private RealmType nextRealm = RealmType.CreteValley;
+
+    [Header("Cutscene Music")]
+    [SerializeField] private bool autoPlayCutsceneMusic = true;
 
     private float timer;
     private bool transitioning;
+
+    void Start()
+    {
+        if (!autoPlayCutsceneMusic) return;
+
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetRealm(RealmType.cutsceneRealm);
+            AudioManager.Instance.SetMusicState(MusicState.Intro);
+        }
+    }
 
     void Update()
     {
@@ -25,7 +41,6 @@ public class CutsceneTransition : MonoBehaviour
         if (timer >= waitSeconds || Input.GetKeyDown(skipKey))
         {
             transitioning = true;
-            DontDestroyOnLoad(gameObject);
             StartCoroutine(LoadNextRoutine());
         }
     }
@@ -33,22 +48,35 @@ public class CutsceneTransition : MonoBehaviour
     private IEnumerator LoadNextRoutine()
     {
         if (!IsSceneLoaded(coreSceneName))
-            yield return LoadScene(coreSceneName, LoadSceneMode.Single);
+            yield return LoadScene(coreSceneName, LoadSceneMode.Additive);
 
-        if (!IsSceneLoaded(nextSceneName))
-            yield return LoadScene(nextSceneName, LoadSceneMode.Additive);
+        if (AsyncLoader.Instance != null)
+        {
+            AsyncLoader.Instance.LoadScene(sceneToLoad, nextRealm, true);
+            Destroy(gameObject);
+            yield break;
+        }
 
-        SetActiveScene(nextSceneName);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.FadeOutMusic(0.75f);
+            yield return new WaitForSecondsRealtime(0.75f);
+        }
 
-        yield return UnloadAllExcept(coreSceneName, nextSceneName);
+        yield return LoadScene(sceneToLoad, LoadSceneMode.Additive);
+        SetActiveScene(sceneToLoad);
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.SetRealm(nextRealm);
+
+        yield return UnloadAllExcept(coreSceneName, sceneToLoad);
         Destroy(gameObject);
     }
 
     private static IEnumerator LoadScene(string sceneName, LoadSceneMode mode)
     {
         var op = SceneManager.LoadSceneAsync(sceneName, mode);
-        while (!op.isDone) yield return null;
+        while (op != null && !op.isDone) yield return null;
     }
 
     private static bool IsSceneLoaded(string sceneName)

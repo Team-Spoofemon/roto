@@ -25,7 +25,8 @@ using UnityEngine;
 public enum RealmType
 {
     CreteValley,
-    MountOthrys
+    MountOthrys,
+    cutsceneRealm
 }
 
 [CreateAssetMenu(fileName = "NewAudioProfile", menuName = "Audio/AudioProfile")]
@@ -42,8 +43,8 @@ public class AudioProfile : ScriptableObject
     public AudioClip[] ambienceSounds;
     public AudioClip[] enemySpawnCalls;
 
-    [Header("Cutscene Music")]
-    public AudioClip maternaLamenta;
+    [Header("Cutscene Realm")]
+    public AudioClip[] cutsceneRealm;
 
     [Header("Crete Valley")]
     public AudioClip[] creteValley;
