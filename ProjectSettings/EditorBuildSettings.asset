@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/8. End Credits.unity
     guid: 67dd51af136f84430866ced03905f373
+  - enabled: 1
+    path: Assets/Scenes/Playtest Greybox.unity
+    guid: 30502967c5f5f4921bc54b8f78ca60af
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
