@@ -329,6 +329,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: -208595431880416365, guid: a42328219c8324ba4907e62aae46197c, type: 3}
+      propertyPath: m_Name
+      value: locked door
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: a42328219c8324ba4907e62aae46197c, type: 3}
       propertyPath: m_Name
       value: Castle
@@ -391,6 +395,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -208595431880416365, guid: a42328219c8324ba4907e62aae46197c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2072658813}
+    - targetCorrespondingSourceObject: {fileID: -208595431880416365, guid: a42328219c8324ba4907e62aae46197c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2072658817}
     - targetCorrespondingSourceObject: {fileID: -7271449666460269675, guid: a42328219c8324ba4907e62aae46197c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 637566117}
@@ -2399,6 +2406,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3329902420748629119, guid: a42328219c8324ba4907e62aae46197c, type: 3}
+--- !u!95 &2072658817
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2072658809}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ed9bc4b2eb99a461eb77640a794201ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
