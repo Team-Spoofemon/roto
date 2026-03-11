@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetLayer:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   damageSourceBehaviour: {fileID: 0}
 --- !u!65 &2992769508182418159
 BoxCollider:
@@ -68,8 +68,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 9.75, y: 10.7, z: 1}
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Size: {x: 12.987026, y: 11.34223, z: 8.361442}
+  m_Center: {x: -0.30000016, y: 1.821116, z: 0.3}
 --- !u!1 &5839697302801213245
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,11 +83,11 @@ GameObject:
   - component: {fileID: 8640518035448502675}
   - component: {fileID: 8062064131043936961}
   - component: {fileID: 8238422678213837086}
-  - component: {fileID: 8054317243947642763}
   - component: {fileID: 6127973450099014467}
   - component: {fileID: 8414923215331412016}
   - component: {fileID: 3163027204316537704}
   - component: {fileID: 5911481397331039183}
+  - component: {fileID: 6326220641012939094}
   m_Layer: 7
   m_Name: EarthGiant
   m_TagString: Untagged
@@ -171,9 +171,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 982143037
-  m_SortingLayer: 1
-  m_SortingOrder: -1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
   m_Sprite: {fileID: -819483328, guid: acd38094d3bc241ca9be05559dc49397, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -210,7 +210,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 84
+  m_Constraints: 116
   m_CollisionDetection: 1
 --- !u!65 &8238422678213837086
 BoxCollider:
@@ -231,24 +231,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.39, y: 6.98, z: 0.6}
-  m_Center: {x: 0.21, y: -0.36, z: 0}
---- !u!114 &8054317243947642763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5839697302801213245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de9cb2f1a3cfd479ba203da064acf4b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  damageSourceBehaviour: {fileID: 0}
+  m_Size: {x: 6.75, y: 7.779603, z: 0.6}
+  m_Center: {x: -0.04999987, y: 0.03979906, z: 0}
 --- !u!114 &6127973450099014467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5780330be51b419091821913db0362a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalHealth: 120
+  totalHealth: 60
   totalDefense: 0
   damageInvulnerabilityTime: 0.7
   currentHealth: 0
@@ -335,6 +319,18 @@ MonoBehaviour:
   agent: {fileID: 8414923215331412016}
   damage: 20
   damageKnockback: 20
+--- !u!210 &6326220641012939094
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839697302801213245}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1001 &896338639175917470
 PrefabInstance:
   m_ObjectHideFlags: 0

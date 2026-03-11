@@ -1,7 +1,7 @@
-using UnityEngine;
+/* using UnityEngine;
 using UnityEngine.AI;
 
-public class EarthGiant : MonoBehaviour, IHitHandler//, PoolableObject
+public class EarthGiant : MonoBehaviour, IHitHandler
 {
     public NavMeshAgent agent;
     public Transform player;
@@ -31,13 +31,12 @@ public class EarthGiant : MonoBehaviour, IHitHandler//, PoolableObject
 
         if (player == null)
         {
-            //Try to find the new player after respawn
+            //Try to find the player after respawn
             GameObject newPlayer = GameObject.FindGameObjectWithTag("Player");
             if (newPlayer != null)
                 player = newPlayer.transform;
             else
                 return;
-            
         }
 
         //Stores the current distance between the enemy and the player
@@ -73,3 +72,4 @@ public class EarthGiant : MonoBehaviour, IHitHandler//, PoolableObject
         CombatManager.Instance.SingleAttack(targetHealth, damage, transform, damageKnockback);
     }
 }
+ */

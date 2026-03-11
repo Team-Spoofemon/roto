@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: PlayerSprite
+  - name: Foreground
     uniqueID: 982143037
+    locked: 0
+  - name: Background
+    uniqueID: 787596557
     locked: 0
