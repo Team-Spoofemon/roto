@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 /// <summary>
-/// Manages level flow (intro, death, respawn, completion). Respawn now forces level music to restart at Loop A after death.
+/// Manages level flow (intro, death, respawn, completion). Flyover prep now happens immediately so the intro camera is already live before the player camera can flash onscreen.
 /// </summary>
 public class LevelManager : MonoBehaviour
 {
@@ -77,9 +77,14 @@ public class LevelManager : MonoBehaviour
         ResolvePlayerRefs();
 
         if (playIntroFlyover && levelFlyover != null)
+        {
+            levelFlyover.PrepareForIntro();
             LockPlayer();
+        }
         else
+        {
             UnlockPlayer();
+        }
     }
 
     private void OnDestroy()
@@ -248,7 +253,6 @@ public class LevelManager : MonoBehaviour
         }
 
         StartCoroutine(LevelIntroSequence());
-        yield break;
     }
 
     private void PlacePlayerAtStart()
@@ -359,7 +363,6 @@ public class LevelManager : MonoBehaviour
             playerController.Revive();
 
         UnlockPlayer();
-        yield break;
     }
 
     private IEnumerator LevelIntroSequence()
@@ -370,9 +373,14 @@ public class LevelManager : MonoBehaviour
         bool shouldShowText = showIntroText && !string.IsNullOrWhiteSpace(introText) && introTextSeconds > 0f;
 
         if (shouldPlayFlyover)
+        {
+            levelFlyover.PrepareForIntro();
             LockPlayer();
+        }
         else
+        {
             UnlockPlayer();
+        }
 
         bool flyoverDone = !shouldPlayFlyover;
         bool textDone = !shouldShowText;
@@ -391,8 +399,6 @@ public class LevelManager : MonoBehaviour
 
         if (!deathSequenceActive)
             UnlockPlayer();
-
-        yield break;
     }
 
     public void CompleteLevel()
@@ -450,6 +456,5 @@ public class LevelManager : MonoBehaviour
         }
 
         AsyncLoader.Instance.LoadScene(targetBuildIndex, nextRealm, true);
-        yield break;
     }
 }
