@@ -26,6 +26,9 @@ public class LevelManager : MonoBehaviour
     [Header("Physics Lock")]
     [SerializeField] private Rigidbody playerRigidbody;
 
+    [Header("Spawn")]
+    public Transform SpawnStart;
+
     [Header("Audio")]
     [SerializeField] private AudioSource deathSound;
     [SerializeField] private float levelCompleteFadeOutSeconds = 0.6f;
@@ -226,6 +229,13 @@ public class LevelManager : MonoBehaviour
 
         dialogueManager = DialogueManager.Instance;
 
+        ResolvePlayerRefs();
+        yield return null;
+        ResolvePlayerRefs();
+
+        if (SpawnStart != null)
+            PlacePlayerAtStart();
+
         if (playLevelMusic)
         {
             if (hasIntroMusic)
@@ -236,6 +246,25 @@ public class LevelManager : MonoBehaviour
 
         StartCoroutine(LevelIntroSequence());
         yield break;
+    }
+
+    private void PlacePlayerAtStart()
+    {
+        ResolvePlayerRefs();
+
+        if (SpawnStart == null || playerRoot == null)
+            return;
+
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.position = SpawnStart.position;
+            playerRigidbody.rotation = SpawnStart.rotation;
+            playerRigidbody.velocity = Vector3.zero;
+            playerRigidbody.angularVelocity = Vector3.zero;
+        }
+
+        playerRoot.transform.position = SpawnStart.position;
+        playerRoot.transform.rotation = SpawnStart.rotation;
     }
 
     public static void TriggerPlayerDeath()

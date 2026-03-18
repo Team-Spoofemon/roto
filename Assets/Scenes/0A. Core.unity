@@ -1149,7 +1149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.69411767, g: 0.5882353, b: 0.30980393, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.69411767, g: 0.5882353, b: 0.30980393, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2442,7 +2442,6 @@ MonoBehaviour:
   loadingScreen: {fileID: 705118643}
   loadingSlider: {fileID: 370697064}
   musicFadeOutTime: 0.35
-  musicFadeInTime: 1
   minLoadingScreenTime: 4
   coreSceneName: 0A. Core
   mainMenuSceneName: 0B. Main Menu
