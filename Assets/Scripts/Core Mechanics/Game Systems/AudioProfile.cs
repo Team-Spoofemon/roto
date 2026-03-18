@@ -25,7 +25,8 @@ using UnityEngine;
 public enum RealmType
 {
     CreteValley,
-    MountOthrys,
+    MountOthrysExt,
+    MountOthrysInt,
     cutsceneRealm
 }
 
@@ -49,8 +50,11 @@ public class AudioProfile : ScriptableObject
     [Header("Crete Valley")]
     public AudioClip[] creteValley;
 
-    [Header("Mt. Othrys")]
-    public AudioClip[] mtOthrys;
+    [Header("Mt. Othrys Exterior")]
+    public AudioClip[] mtOthrysExt;
+
+    [Header("Mt. Othrys Interior")]
+    public AudioClip[] mtOthrysInt;
 
     [Header("Volume Settings")]
     [Range(0f, 1f)] public float musicVolume = 1f;

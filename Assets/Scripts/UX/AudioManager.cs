@@ -146,13 +146,19 @@ public class AudioManager : MonoBehaviour
                 }
                 break;
 
-            case RealmType.MountOthrys:
+            case RealmType.MountOthrysExt:
                 switch (state)
                 {
-                    case MusicState.Intro: return profile.mtOthrys != null && profile.mtOthrys.Length > 0 ? profile.mtOthrys[0] : null;
-                    case MusicState.LoopA: return profile.mtOthrys != null && profile.mtOthrys.Length > 1 ? profile.mtOthrys[1] : null;
+                    case MusicState.LoopA: return profile.mtOthrysExt != null && profile.mtOthrysExt.Length > 0 ? profile.mtOthrysExt[0] : null;
                 }
                 break;
+
+            case RealmType.MountOthrysInt:
+            switch (state)
+            {
+                case MusicState.LoopA: return profile.mtOthrysInt != null && profile.mtOthrysInt.Length > 0 ? profile.mtOthrysInt[0] : null;
+            }
+            break;
 
             case RealmType.cutsceneRealm:
                 switch (state)

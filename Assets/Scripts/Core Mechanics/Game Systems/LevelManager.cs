@@ -42,7 +42,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private MusicState introMusic = MusicState.Intro;
     [SerializeField] private MusicState loopMusic = MusicState.LoopA;
 
-    [Header("Next Level")]
+    [Header("Realm")]
+    [SerializeField] private RealmType currentRealm;
+    public RealmType CurrentRealm => currentRealm;
     [SerializeField] private RealmType nextRealm = RealmType.CreteValley;
 
     [Header("Level Intro Text")]
@@ -63,10 +65,11 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("LevelManager Awake in scene: " + gameObject.scene.name);
+
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject);
-            return;
+            Debug.LogWarning("Another LevelManager already exists from scene: " + Instance.gameObject.scene.name);
         }
 
         Instance = this;
