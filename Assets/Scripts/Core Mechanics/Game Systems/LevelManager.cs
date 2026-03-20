@@ -336,12 +336,14 @@ public class LevelManager : MonoBehaviour
             fadeCanvas.alpha = 0f;
 
         if (AudioManager.Instance != null)
-        {
-            if (playLevelMusic)
-                AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
-            else
-                AudioManager.Instance.FadeOutMusic(0.05f);
-        }
+            {
+                AudioManager.Instance.ResetDeathThemeState();
+
+                if (playLevelMusic)
+                    AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+                else
+                    AudioManager.Instance.FadeOutMusic(0.05f);
+            }
 
         if (deathSound != null)
             deathSound.Stop();

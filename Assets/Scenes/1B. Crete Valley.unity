@@ -451,7 +451,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: StoneTablet 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3901397228147036087, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 65280bec2d81848dabf6cbb38479702f, type: 3}
     - {fileID: -8700617353114198275, guid: 65280bec2d81848dabf6cbb38479702f, type: 3}
@@ -44566,7 +44567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   worldHoverText: {fileID: 0}
   billboardToCamera: 1
-  messageText: Ahead are CRONUS   's EARTH GIANTS. Tread lightly...
+  messageText: Ahead are CRONUS' EARTH GIANTS. Tread lightly...
   displayDuration: 4
   interactionIndicator: {fileID: 0}
 --- !u!4 &1966914027 stripped
@@ -46370,7 +46371,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3901397228147036087, guid: 4fc056458967b45cda36217d74dff89d, type: 3}
     m_RemovedGameObjects:
     - {fileID: 65702495048144492, guid: 65280bec2d81848dabf6cbb38479702f, type: 3}
     - {fileID: -8700617353114198275, guid: 65280bec2d81848dabf6cbb38479702f, type: 3}

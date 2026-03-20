@@ -643,7 +643,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 168818475}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0675e451018d04bd294cfe9b58fbbb60, type: 3}
+  m_Script: {fileID: 11500000, guid: b833adf7110244311989ab66950d5e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 1466127903}
@@ -1620,7 +1620,7 @@ PrefabInstance:
       objectReference: {fileID: 2039840837}
     - target: {fileID: 7301291508613969461, guid: 0eac05f75457343f8bb2db051163958c, type: 3}
       propertyPath: playIntroFlyover
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7301291508613969461, guid: 0eac05f75457343f8bb2db051163958c, type: 3}
       propertyPath: playerController
@@ -2281,8 +2281,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0675e451018d04bd294cfe9b58fbbb60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {fileID: 0}
-  cooldown: 0.2
 --- !u!114 &866214822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3792,6 +3790,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4727597911748629462, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: sprintSpeed
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 4727597911748629462, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 1363628146}
     - target: {fileID: 7044084108375530469, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4817,6 +4823,11 @@ PrefabInstance:
       addedObject: {fileID: 1656760293}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4667b972a96d4988bf506cf4ea8c059, type: 3}
+--- !u!4 &1363628146 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 595199234615510949, guid: b4667b972a96d4988bf506cf4ea8c059, type: 3}
+  m_PrefabInstance: {fileID: 1363628145}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1367401211 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2062819149693761909, guid: b4667b972a96d4988bf506cf4ea8c059, type: 3}
@@ -5244,7 +5255,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1466127902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0675e451018d04bd294cfe9b58fbbb60, type: 3}
+  m_Script: {fileID: 11500000, guid: b833adf7110244311989ab66950d5e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destination: {fileID: 168818476}

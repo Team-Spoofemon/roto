@@ -242,6 +242,8 @@ MonoBehaviour:
   menuMusicFadeInTime: 1
   firstLevelSceneName: 1A. CM 1
   creditsSceneName: 8. End Credits
+  firstLevelRealm: 0
+  creditsRealm: 3
 --- !u!1 &255344529
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +433,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 512984086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 105787950}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: StartCredits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &512984086
 MonoBehaviour:
   m_ObjectHideFlags: 0

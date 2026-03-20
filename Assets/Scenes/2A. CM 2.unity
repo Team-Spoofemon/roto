@@ -180,7 +180,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: This is a placeholder for this cutscene. Your quest will resume momentarily.
-    Enjoy this sneak peak song for the next 10 seconds.
+    Enjoy this sneak peek song for the next 10 seconds.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8d93c7c5b722439381cbbac5ee1d9fe, type: 2}
   m_sharedMaterial: {fileID: 7876868082352970059, guid: b8d93c7c5b722439381cbbac5ee1d9fe, type: 2}

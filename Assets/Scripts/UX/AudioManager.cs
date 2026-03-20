@@ -32,6 +32,8 @@ public class AudioManager : MonoBehaviour
     private float MusicVol => profile != null ? profile.musicVolume : 1f;
     private float SfxVol => profile != null ? profile.sfxVolume : 1f;
 
+    private bool isPlayingDeathTheme = false;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -86,13 +88,21 @@ public class AudioManager : MonoBehaviour
     public void PlayDeathTheme(float fadeOutTime = 0.15f, float fadeInTime = 0.15f)
     {
         if (IsFadingOut) return;
+        if (isPlayingDeathTheme) return;
         if (profile == null || profile.deathTheme == null) return;
+
+        isPlayingDeathTheme = true;
 
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
 
         fadeRoutine = StartCoroutine(PlayDeathThemeRoutine(fadeOutTime, fadeInTime));
         currentState = MusicState.None;
+    }
+
+    public void ResetDeathThemeState()
+    {
+        isPlayingDeathTheme = false;
     }
 
     private IEnumerator PlayDeathThemeRoutine(float fadeOutTime, float fadeInTime)
@@ -122,7 +132,7 @@ public class AudioManager : MonoBehaviour
         StopMusicImmediate();
 
         musicSource.clip = profile.deathTheme;
-        musicSource.loop = true;
+        musicSource.loop = false;
         musicSource.volume = 0f;
         musicSource.Play();
 
