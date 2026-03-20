@@ -5512,31 +5512,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.017893061
+      value: 0.41192213
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.017893061
+      value: -0.4133869
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7068804
+      value: -0.57473487
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.7068804
+      value: -0.57368225
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: -89.855
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -177.1
+      value: -198.595
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 90.001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_ConstrainProportionsScale
@@ -5545,7 +5545,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 145e32c088b8b4ede960571c18d7b897, type: 2}
+      objectReference: {fileID: 2100000, guid: 333102d0db19240c7bca8f2ddfb968ff, type: 2}
     - target: {fileID: 919132149155446097, guid: bf7663c77d1bc49ffaa7728b6370bc6f, type: 3}
       propertyPath: m_Name
       value: Skybox
@@ -13337,7 +13337,7 @@ Light:
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 1000
-  m_UseColorTemperature: 0
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -13351,13 +13351,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794586513}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.18119809, y: -0.8289149, z: 0.52569383, w: 0.060937826}
+  m_LocalRotation: {x: 0.15187576, y: -0.18461628, z: 0.6182355, w: 0.748756}
   m_LocalPosition: {x: 1175, y: 234, z: 2259}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 121.851, y: 33.535995, z: 223.682}
+  m_LocalEulerAnglesHint: {x: 152.889, y: 174.283, z: 257.712}
 --- !u!1001 &801758424
 PrefabInstance:
   m_ObjectHideFlags: 0

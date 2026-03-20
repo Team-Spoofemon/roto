@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class DoorUnlockers : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public LockKeySystem lockKey;
+    public Animator doorAnim;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (lockKey.hasKey == true)
+        {
+            if (other.CompareTag("Player"))
+            {
+                doorAnim.SetTrigger("doorOpen");
+            }
+        }
     }
 }
