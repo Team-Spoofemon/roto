@@ -50,15 +50,10 @@ public class AudioProfile : ScriptableObject
     [Header("Crete Valley")]
     public AudioClip[] creteValley;
 
-<<<<<<< Updated upstream
     [Header("Mt. Othrys Exterior")]
     public AudioClip[] mtOthrysExt;
 
     [Header("Mt. Othrys Interior")]
-=======
-    [Header("Mt. Othrys")]
-    public AudioClip[] mtOthrysExt;
->>>>>>> Stashed changes
     public AudioClip[] mtOthrysInt;
 
     [Header("Volume Settings")]
