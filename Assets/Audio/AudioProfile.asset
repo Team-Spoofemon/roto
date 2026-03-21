@@ -28,8 +28,17 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8de137b95c1fb4be984f7fef02067a2c, type: 3}
   - {fileID: 8300000, guid: da9ad637e321c4a629a18a825ba808dc, type: 3}
   mtOthrysExt:
+<<<<<<< Updated upstream
   - {fileID: 8300000, guid: aef1107d7bfdb451693ce44ef3e30426, type: 3}
   mtOthrysInt:
   - {fileID: 8300000, guid: 7a162194b0f0d444f822d3ac2c094a5c, type: 3}
   musicVolume: 0.75
   sfxVolume: 0.65
+=======
+  - {fileID: 8300000, guid: b00b92a5b2e764f6c9897bec6c589647, type: 3}
+  - {fileID: 8300000, guid: 0cec248356a4d4c899d515d3067c68ba, type: 3}
+  mtOthrysInt:
+  - {fileID: 8300000, guid: 2ce4adbecbae24953b069345492b684f, type: 3}
+  musicVolume: 1
+  sfxVolume: 1
+>>>>>>> Stashed changes
