@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Manages level flow (intro, death, respawn, completion). Flyover prep now happens immediately so the intro camera is already live before the player camera can flash onscreen.
-/// </summary>
 public class LevelManager : MonoBehaviour
 {
     public static event Action OnPlayerDeathEvent;
@@ -65,26 +62,11 @@ public class LevelManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("LevelManager Awake in scene: " + gameObject.scene.name);
-
         if (Instance != null && Instance != this)
-        {
-            Debug.LogWarning("Another LevelManager already exists from scene: " + Instance.gameObject.scene.name);
-        }
+            Instance.enabled = false;
 
         Instance = this;
-
         ResolvePlayerRefs();
-
-        if (playIntroFlyover && levelFlyover != null)
-        {
-            levelFlyover.PrepareForIntro();
-            LockPlayer();
-        }
-        else
-        {
-            UnlockPlayer();
-        }
     }
 
     private void OnDestroy()
@@ -100,27 +82,23 @@ public class LevelManager : MonoBehaviour
 
     private void ResolvePlayerRefs()
     {
-        if (playerRoot == null)
-        {
-            GameObject tagged = GameObject.FindGameObjectWithTag("Player");
-            if (tagged != null)
-                playerRoot = tagged;
-        }
+        playerRoot = null;
+        playerController = null;
+        playerCombat = null;
+        playerInput = null;
+        playerRigidbody = null;
+
+        GameObject tagged = GameObject.FindGameObjectWithTag("Player");
+        if (tagged != null)
+            playerRoot = tagged;
 
         if (playerRoot == null)
             return;
 
-        if (playerInput == null)
-            playerInput = playerRoot.GetComponentInChildren<PlayerInput>(true);
-
-        if (playerCombat == null)
-            playerCombat = playerRoot.GetComponentInChildren<PlayerCombat>(true);
-
-        if (playerRigidbody == null)
-            playerRigidbody = playerRoot.GetComponentInChildren<Rigidbody>(true);
-
-        if (playerController == null)
-            playerController = playerRoot.GetComponentInChildren<PlayerController>(true);
+        playerInput = playerRoot.GetComponentInChildren<PlayerInput>(true);
+        playerCombat = playerRoot.GetComponentInChildren<PlayerCombat>(true);
+        playerRigidbody = playerRoot.GetComponentInChildren<Rigidbody>(true);
+        playerController = playerRoot.GetComponentInChildren<PlayerController>(true);
     }
 
     private void FreezePhysics()
@@ -173,10 +151,7 @@ public class LevelManager : MonoBehaviour
         }
 
         if (playerInput.actions.FindActionMap("Player", true) != null)
-        {
             playerInput.SwitchCurrentActionMap("Player");
-            return;
-        }
     }
 
     private void EnsurePlayerActionMap()
@@ -228,12 +203,45 @@ public class LevelManager : MonoBehaviour
             EnsurePlayerActionMap();
             playerInput.ActivateInput();
         }
+        
+        StartCoroutine(DelayedInputReset());
+    }
+
+    private IEnumerator DelayedInputReset()
+    {
+        yield return null;
+        yield return null;
+
+        ResolvePlayerRefs();
+
+        if (playerInput != null)
+        {
+            playerInput.enabled = false;
+            playerInput.enabled = true;
+        }
+    }
+
+    public void FinalizeSceneLoad()
+    {
+        ResolvePlayerRefs();
+
+        if (SpawnStart != null)
+            PlacePlayerAtStart();
+
+        if (!deathSequenceActive && !(playIntroFlyover && levelFlyover != null))
+            UnlockPlayer();
     }
 
     private IEnumerator Initialize()
     {
-        while (AudioManager.Instance == null || DialogueManager.Instance == null)
+        float waitTimer = 0f;
+        const float managerWaitTimeout = 2f;
+
+        while (AudioManager.Instance == null && waitTimer < managerWaitTimeout)
+        {
+            waitTimer += Time.unscaledDeltaTime;
             yield return null;
+        }
 
         dialogueManager = DialogueManager.Instance;
 
@@ -244,12 +252,17 @@ public class LevelManager : MonoBehaviour
         if (SpawnStart != null)
             PlacePlayerAtStart();
 
-        if (playLevelMusic)
+        if (AudioManager.Instance != null)
         {
-            if (hasIntroMusic)
-                AudioManager.Instance.PlayIntroThenLoop(introMusic, loopMusic);
-            else
-                AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+            AudioManager.Instance.SetRealm(currentRealm);
+
+            if (playLevelMusic)
+            {
+                if (hasIntroMusic)
+                    AudioManager.Instance.PlayIntroThenLoop(introMusic, loopMusic);
+                else
+                    AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+            }
         }
 
         StartCoroutine(LevelIntroSequence());
@@ -302,7 +315,8 @@ public class LevelManager : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayDeathTheme(0.15f, 0.15f);
-            if (deathSound != null) AudioManager.Instance.PlaySFX(deathSound.clip);
+            if (deathSound != null)
+                AudioManager.Instance.PlaySFX(deathSound.clip);
         }
         else if (deathSound != null)
         {
@@ -336,14 +350,15 @@ public class LevelManager : MonoBehaviour
             fadeCanvas.alpha = 0f;
 
         if (AudioManager.Instance != null)
-            {
-                AudioManager.Instance.ResetDeathThemeState();
+        {
+            AudioManager.Instance.ResetDeathThemeState();
+            AudioManager.Instance.SetRealm(currentRealm);
 
-                if (playLevelMusic)
-                    AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
-                else
-                    AudioManager.Instance.FadeOutMusic(0.05f);
-            }
+            if (playLevelMusic)
+                AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+            else
+                AudioManager.Instance.FadeOutMusic(0.05f);
+        }
 
         if (deathSound != null)
             deathSound.Stop();
@@ -372,17 +387,15 @@ public class LevelManager : MonoBehaviour
         ResolvePlayerRefs();
 
         bool shouldPlayFlyover = playIntroFlyover && levelFlyover != null;
-        bool shouldShowText = showIntroText && !string.IsNullOrWhiteSpace(introText) && introTextSeconds > 0f;
+        bool shouldShowText = showIntroText && !string.IsNullOrWhiteSpace(introText) && introTextSeconds > 0f && dialogueManager != null;
 
-        if (shouldPlayFlyover)
-        {
-            levelFlyover.PrepareForIntro();
-            LockPlayer();
-        }
-        else
+        if (!shouldPlayFlyover && !shouldShowText)
         {
             UnlockPlayer();
+            yield break;
         }
+
+        LockPlayer();
 
         bool flyoverDone = !shouldPlayFlyover;
         bool textDone = !shouldShowText;

@@ -30,6 +30,9 @@ EditorBuildSettings:
     path: Assets/Scenes/2C. Mt. Othrys Infiltration.unity
     guid: f677cd722598040a091edc2e92a9a0f8
   - enabled: 1
+    path: Assets/Scenes/3A. CM 3.unity
+    guid: 82a17af04420c4823aa4781f795e0415
+  - enabled: 1
     path: Assets/Scenes/8. End Credits.unity
     guid: 67dd51af136f84430866ced03905f373
   m_configObjects:

@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour
@@ -68,22 +69,22 @@ public class PlayerController : MonoBehaviour
                 spriteHolder = transform;
         }
 
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
-        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        rb.freezeRotation = true;
+        if (rb != null)
+        {
+            rb.interpolation = RigidbodyInterpolation.Interpolate;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+            rb.freezeRotation = true;
+        }
 
-        moveAction = playerInput.actions["Move"];
-        jumpAction = playerInput.actions["Jump"];
-        sprintAction = playerInput.actions["Sprint"];
-        meleeAction = playerInput.actions["Melee"];
+        CacheActions();
         meleeCallback = _ => Melee();
-
-        if (!cameraTransform && Camera.main)
-            cameraTransform = Camera.main.transform;
+        RefreshCameraReference();
     }
 
     private void Start()
     {
+        RefreshCameraReference();
+
         if (playerShadow)
         {
             playerShadow.SetParent(null);
@@ -93,29 +94,81 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        moveAction.Enable();
-        jumpAction.Enable();
-        sprintAction.Enable();
-        meleeAction.Enable();
-        meleeAction.performed += meleeCallback;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        CacheActions();
+
+        if (moveAction != null) moveAction.Enable();
+        if (jumpAction != null) jumpAction.Enable();
+        if (sprintAction != null) sprintAction.Enable();
+        if (meleeAction != null)
+        {
+            meleeAction.Enable();
+            meleeAction.performed -= meleeCallback;
+            meleeAction.performed += meleeCallback;
+        }
+
+        RefreshCameraReference();
     }
 
     private void OnDisable()
     {
-        meleeAction.performed -= meleeCallback;
-        moveAction.Disable();
-        jumpAction.Disable();
-        sprintAction.Disable();
-        meleeAction.Disable();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        if (meleeAction != null)
+            meleeAction.performed -= meleeCallback;
+
+        if (moveAction != null) moveAction.Disable();
+        if (jumpAction != null) jumpAction.Disable();
+        if (sprintAction != null) sprintAction.Disable();
+        if (meleeAction != null) meleeAction.Disable();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartCoroutine(RefreshCameraNextFrame());
+    }
+
+    private IEnumerator RefreshCameraNextFrame()
+    {
+        yield return null;
+        RefreshCameraReference();
+    }
+
+    private void CacheActions()
+    {
+        if (playerInput == null || playerInput.actions == null)
+            return;
+
+        moveAction = playerInput.actions["Move"];
+        jumpAction = playerInput.actions["Jump"];
+        sprintAction = playerInput.actions["Sprint"];
+        meleeAction = playerInput.actions["Melee"];
+    }
+
+    private void RefreshCameraReference()
+    {
+        if (cameraTransform != null && cameraTransform.gameObject.scene.IsValid())
+            return;
+
+        Camera mainCam = Camera.main;
+        if (mainCam != null)
+            cameraTransform = mainCam.transform;
     }
 
     private void Update()
     {
-        if (isDead || isSinking) return;
+        if (isDead || isSinking)
+            return;
 
-        moveAmt = moveAction.ReadValue<Vector2>();
+        if (moveAction == null)
+            CacheActions();
 
-        if (jumpAction.WasPressedThisFrame() && isGrounded)
+        RefreshCameraReference();
+
+        moveAmt = moveAction != null ? moveAction.ReadValue<Vector2>() : Vector2.zero;
+
+        if (jumpAction != null && jumpAction.WasPressedThisFrame() && isGrounded)
             Jump();
 
         HandleFlip();
@@ -124,7 +177,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isDead || isSinking) return;
+        if (isDead || isSinking)
+            return;
 
         GroundCheck();
         Move();
@@ -133,10 +187,13 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
+        RefreshCameraReference();
+
         if (!isSinking)
             UpdateSpriteRotation();
 
-        if (!playerShadow || isSinking) return;
+        if (!playerShadow || isSinking)
+            return;
 
         Ray ray = new Ray(transform.position + Vector3.up * 0.5f, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 10f, groundMask))
@@ -170,20 +227,26 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        bool isSprinting = sprintAction.IsPressed();
+        bool isSprinting = sprintAction != null && sprintAction.IsPressed();
         float moveSpeed = isSprinting ? sprintSpeed : walkSpeed;
 
         Vector3 desired;
 
-        if (cameraTransform)
+        if (cameraTransform != null)
         {
             Vector3 forward = cameraTransform.forward;
             forward.y = 0f;
-            forward.Normalize();
+            if (forward.sqrMagnitude > 0.0001f)
+                forward.Normalize();
+            else
+                forward = Vector3.forward;
 
             Vector3 right = cameraTransform.right;
             right.y = 0f;
-            right.Normalize();
+            if (right.sqrMagnitude > 0.0001f)
+                right.Normalize();
+            else
+                right = Vector3.right;
 
             desired = (right * moveAmt.x + forward * moveAmt.y);
         }
@@ -216,13 +279,15 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateSpriteRotation()
     {
-        if (!cameraTransform) return;
+        if (!cameraTransform)
+            return;
 
         Vector3 forward = cameraTransform.forward;
         forward.y = 0f;
-        if (forward.sqrMagnitude < 0.0001f) return;
+        if (forward.sqrMagnitude < 0.0001f)
+            return;
 
-        Quaternion faceCam = Quaternion.LookRotation(forward, Vector3.up);
+        Quaternion faceCam = Quaternion.LookRotation(forward.normalized, Vector3.up);
         float flipY = facingRight ? 0f : 180f;
 
         spriteHolder.rotation = faceCam * Quaternion.Euler(0f, flipY, 0f);
@@ -236,25 +301,30 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
     }
 
     private void GroundCheck()
     {
+        if (groundCheck == null)
+            return;
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
     private void AnimateMovement()
     {
-        if (!playerAnim) return;
+        if (!playerAnim)
+            return;
+
         bool isMoving = moveAmt.sqrMagnitude > 0.01f;
         playerAnim.SetBool("isWalking", isMoving);
     }
 
     private void Melee()
     {
-        playerCombat.OnMelee();
+        if (playerCombat != null)
+            playerCombat.OnMelee();
     }
 
     public void SetInputRotation(float degrees)
@@ -275,14 +345,12 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator DrownSequence()
     {
-        Debug.Log("PLAYERCONTROLLER DrownSequence() started");
-
         isSinking = true;
 
-        moveAction.Disable();
-        jumpAction.Disable();
-        sprintAction.Disable();
-        meleeAction.Disable();
+        if (moveAction != null) moveAction.Disable();
+        if (jumpAction != null) jumpAction.Disable();
+        if (sprintAction != null) sprintAction.Disable();
+        if (meleeAction != null) meleeAction.Disable();
 
         rb.velocity = Vector3.zero;
         rb.isKinematic = true;
@@ -305,8 +373,6 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("PLAYERCONTROLLER Die() is calling LevelManager.TriggerPlayerDeath()");
-
         isDead = true;
 
         if (playerShadow)
@@ -317,21 +383,30 @@ public class PlayerController : MonoBehaviour
 
     public void Revive()
     {
-        if (this == null) return;
+        if (this == null)
+            return;
 
         isDead = false;
         isSinking = false;
+        moveAmt = Vector2.zero;
+        moveDirection = Vector3.zero;
 
         if (rb != null)
         {
             rb.isKinematic = false;
             rb.useGravity = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
-        moveAction?.Enable();
-        jumpAction?.Enable();
-        sprintAction?.Enable();
-        meleeAction?.Enable();
+        CacheActions();
+
+        if (moveAction != null) moveAction.Enable();
+        if (jumpAction != null) jumpAction.Enable();
+        if (sprintAction != null) sprintAction.Enable();
+        if (meleeAction != null) meleeAction.Enable();
+
+        RefreshCameraReference();
 
         if (playerShadow)
             playerShadow.gameObject.SetActive(true);

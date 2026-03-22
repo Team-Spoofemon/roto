@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EtchedRock : Interactable
 {
@@ -8,6 +9,7 @@ public class EtchedRock : Interactable
     [SerializeField] private GameObject interactionIndicator;
 
     private bool hasInteracted;
+    private bool isOnCooldown;
 
     protected override void Awake()
     {
@@ -24,6 +26,8 @@ public class EtchedRock : Interactable
 
     public override void Interact()
     {
+        if (isOnCooldown) return;
+
         if (!hasInteracted)
         {
             hasInteracted = true;
@@ -39,10 +43,19 @@ public class EtchedRock : Interactable
             interactor.RunDialogueCoroutine(
                 DialogueManager.Instance.InstructionalText(messageText, displayDuration)
             );
+
+            StartCoroutine(CooldownRoutine());
         }
         else
         {
             Debug.LogError("No PlayerInteractor found in scene!");
         }
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        isOnCooldown = true;
+        yield return new WaitForSeconds(displayDuration + 5f);
+        isOnCooldown = false;
     }
 }

@@ -159,7 +159,8 @@ public class AudioManager : MonoBehaviour
             case RealmType.MountOthrysExt:
                 switch (state)
                 {
-                    case MusicState.LoopA: return profile.mtOthrysExt != null && profile.mtOthrysExt.Length > 0 ? profile.mtOthrysExt[0] : null;
+                    case MusicState.Intro: return profile.mtOthrysExt != null && profile.mtOthrysExt.Length > 0 ? profile.mtOthrysExt[0] : null;
+                    case MusicState.LoopA: return profile.mtOthrysExt != null && profile.mtOthrysExt.Length > 1 ? profile.mtOthrysExt[1] : null;
                 }
                 break;
 
