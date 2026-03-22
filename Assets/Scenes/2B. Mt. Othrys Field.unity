@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1866382083}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1580,7 +1580,7 @@ PrefabInstance:
       objectReference: {fileID: 1955450670}
     - target: {fileID: 7301291508613969461, guid: 0eac05f75457343f8bb2db051163958c, type: 3}
       propertyPath: introMusic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7301291508613969461, guid: 0eac05f75457343f8bb2db051163958c, type: 3}
       propertyPath: playerRoot
@@ -1604,7 +1604,7 @@ PrefabInstance:
       objectReference: {fileID: 2039840839}
     - target: {fileID: 7301291508613969461, guid: 0eac05f75457343f8bb2db051163958c, type: 3}
       propertyPath: hasIntroMusic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7301291508613969461, guid: 0eac05f75457343f8bb2db051163958c, type: 3}
       propertyPath: showIntroText
@@ -2246,7 +2246,6 @@ GameObject:
   - component: {fileID: 866214824}
   - component: {fileID: 866214823}
   - component: {fileID: 866214822}
-  - component: {fileID: 866214820}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -2269,18 +2268,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1136594021}
   m_LocalEulerAnglesHint: {x: -90, y: -16.207, z: -0.133}
---- !u!114 &866214820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 866214818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0675e451018d04bd294cfe9b58fbbb60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &866214822
 MonoBehaviour:
   m_ObjectHideFlags: 0
