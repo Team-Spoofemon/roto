@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7fafe60dbba91406b803f1703158dc12
+guid: dc1369c34718852478e6a788645c7c86
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -108,106 +108,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: earthgiant_walk_spritesheet_0
-      rect:
-        serializedVersion: 2
-        x: 55
-        y: 27
-        width: 151
-        height: 180
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ce0dd22a7bb293844b885f9a5f5fb665
-      internalID: -682597686
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: earthgiant_walk_spritesheet_1
-      rect:
-        serializedVersion: 2
-        x: 316
-        y: 22
-        width: 135
-        height: 191
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f1962a850adc2e44588e4548e850b22b
-      internalID: 249260388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: earthgiant_walk_spritesheet_2
-      rect:
-        serializedVersion: 2
-        x: 571
-        y: 26
-        width: 127
-        height: 186
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5cf82272dbe50c944b6bdf399cbe6ac9
-      internalID: -5588591
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: earthgiant_walk_spritesheet_3
-      rect:
-        serializedVersion: 2
-        x: 824
-        y: 26
-        width: 132
-        height: 179
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 000a9c94f49c2324abe0f76257438dea
-      internalID: 915050768
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 2ec59be16f5f1cf46b45922dea7c7cca
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      earthgiant_walk_spritesheet_0: -682597686
-      earthgiant_walk_spritesheet_1: 249260388
-      earthgiant_walk_spritesheet_2: -5588591
-      earthgiant_walk_spritesheet_3: 915050768
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

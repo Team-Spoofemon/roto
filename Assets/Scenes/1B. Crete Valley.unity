@@ -38602,7 +38602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464752496970192198, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingLayer
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2464752496970192198, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingOrder
@@ -38610,7 +38610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2464752496970192198, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingLayerID
-      value: 982143037
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2571185499915001958, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: sig_Death.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -38706,7 +38706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8260519907141991929, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
       propertyPath: m_SortingLayerID
@@ -38795,9 +38795,7 @@ SceneRoots:
   - {fileID: 1126865259}
   - {fileID: 1510540146}
   - {fileID: 1413879937}
-  - {fileID: 653322826}
   - {fileID: 1661737691}
   - {fileID: 1831278967}
   - {fileID: 1751652646}
-  - {fileID: 152019533}
   - {fileID: 2696167685223926918}
