@@ -27,6 +27,10 @@ MonoBehaviour:
   creteValley:
   - {fileID: 8300000, guid: 8de137b95c1fb4be984f7fef02067a2c, type: 3}
   - {fileID: 8300000, guid: da9ad637e321c4a629a18a825ba808dc, type: 3}
-  mtOthrys: []
-  musicVolume: 1
-  sfxVolume: 1
+  mtOthrysExt:
+  - {fileID: 8300000, guid: b7d57c2afec684aa581f0cbdd84a7d0b, type: 3}
+  - {fileID: 8300000, guid: 6de5ae0cdec864f4896c450bd0e6e475, type: 3}
+  mtOthrysInt:
+  - {fileID: 8300000, guid: 7b76ea00093214a3c9ea8f1b5eb333c5, type: 3}
+  musicVolume: 0.75
+  sfxVolume: 0.65

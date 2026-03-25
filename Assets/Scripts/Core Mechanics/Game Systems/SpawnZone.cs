@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class SpawnZone : MonoBehaviour
 {
-    private SpawnManager _spawnManager;
+    /*private SpawnManager _spawnManager;
     private SphereCollider sphereCollider;
     private bool playerInside = false;
     private bool hasSpawned = false;
@@ -32,5 +32,5 @@ public class SpawnZone : MonoBehaviour
         {
             playerInside = false;
         }
-    }
+    }*/
 }

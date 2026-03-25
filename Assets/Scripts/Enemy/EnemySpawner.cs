@@ -42,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnEnemies()
     {
+        //Creates delay for spawning enemies
         WaitForSeconds Wait = new WaitForSeconds(spawnDelay);
 
         int spawnedEnemies = 0;
@@ -57,9 +58,9 @@ public class EnemySpawner : MonoBehaviour
                 SpawnRandomEnemy();
             }
 
-            spawnedEnemies++;
+            spawnedEnemies++; //spawns one chosen enemy type
 
-            yield return Wait;
+            yield return Wait; //activates delay after spawning in the enemy
         }
     }
 
@@ -88,19 +89,23 @@ public class EnemySpawner : MonoBehaviour
             UnityEngine.AI.NavMeshHit Hit;
             if(UnityEngine.AI.NavMesh.SamplePosition(Triangulation.vertices[vertexIndex], out Hit, 2f, 1))
             {
+                //enemy finds the NavMeshAgent and attaches itself properly
                 enemy.agent.Warp(Hit.position);
+                //the player on the NavMesh has their transform component shared with the enemy movement script's player transform
                 enemy.movement.player = Player;
+                //enemy on NavMeshAgent is enabled
                 enemy.agent.enabled = true;
+                //enemy moves to chase the player
                 enemy.movement.StartChasing();
             }
             else
             {
-                Debug.LogError("Cannot place agent on NavMesh. Attempted {Triangulation.vertices[vertexIndex]}");
+                Debug.LogError("Cannot place agent on NavMesh. Attempted " + Triangulation.vertices[vertexIndex]);
             }
         }
         else
         {
-            Debug.LogError("Unable to fetch enemy type.");
+            Debug.LogError("Unable to fetch enemy of type " + SpawnIndex + " from object pool. Check if you're out of objects.");
         }
     }
 }

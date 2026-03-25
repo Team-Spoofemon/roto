@@ -146,11 +146,24 @@ public class AsyncLoader : MonoBehaviour
             AudioManager.Instance.SetRealm(nextRealm);
 
         if (oldActive.IsValid() && oldActive.isLoaded && oldActive != newScene && oldActive.name != coreSceneName)
-            SceneManager.UnloadSceneAsync(oldActive);
+        {
+            AsyncOperation unloadOld = SceneManager.UnloadSceneAsync(oldActive);
+            if (unloadOld != null)
+                yield return unloadOld;
+        }
 
         Scene menu = SceneManager.GetSceneByName(mainMenuSceneName);
         if (menu.IsValid() && menu.isLoaded && menu != newScene)
-            SceneManager.UnloadSceneAsync(menu);
+        {
+            AsyncOperation unloadMenu = SceneManager.UnloadSceneAsync(menu);
+            if (unloadMenu != null)
+                yield return unloadMenu;
+        }
+
+        yield return null;
+
+        if (LevelManager.Instance != null)
+            LevelManager.Instance.FinalizeSceneLoad();
 
         if (loadingScreen != null)
             loadingScreen.SetActive(false);

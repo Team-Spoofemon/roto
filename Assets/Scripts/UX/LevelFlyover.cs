@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/// <summary>
+/// Runs the level flyover and now supports immediate pre-positioning so the flyover camera is live before the player camera can appear.
+/// </summary>
 public class LevelFlyover : MonoBehaviour
 {
     [Header("Assign These")]
@@ -33,6 +36,7 @@ public class LevelFlyover : MonoBehaviour
     [SerializeField] private Vector3 fallbackUp = Vector3.up;
 
     private bool playing;
+    private bool prepared;
 
     private int originalFlyoverPriority;
     private int originalMainPriority;
@@ -50,6 +54,41 @@ public class LevelFlyover : MonoBehaviour
         public float t;
     }
 
+    private void Awake()
+    {
+        PrepareForIntro();
+    }
+
+    public void PrepareForIntro()
+    {
+        if (prepared)
+            return;
+
+        if (vcamFlyover == null || vcamMain == null || waypointsParent == null)
+            return;
+
+        if (fallbackUp == Vector3.zero)
+            fallbackUp = Vector3.up;
+
+        if (waypointsParent.childCount < 1)
+            return;
+
+        originalFlyoverPriority = vcamFlyover.Priority;
+        originalMainPriority = vcamMain.Priority;
+
+        List<Waypoint> points = BuildPointList();
+        if (points.Count < 1)
+            return;
+
+        vcamFlyover.transform.SetPositionAndRotation(points[0].pos, points[0].rot);
+        vcamFlyover.gameObject.SetActive(true);
+
+        vcamFlyover.Priority = flyoverPriority;
+        vcamMain.Priority = mainPriority;
+
+        prepared = true;
+    }
+
     public void Play(Action onDone)
     {
         if (playing)
@@ -61,25 +100,15 @@ public class LevelFlyover : MonoBehaviour
             return;
         }
 
-        if (fallbackUp == Vector3.zero)
-            fallbackUp = Vector3.up;
-
         if (waypointsParent.childCount < 1)
         {
             onDone?.Invoke();
             return;
         }
 
+        PrepareForIntro();
+
         playing = true;
-
-        originalFlyoverPriority = vcamFlyover.Priority;
-        originalMainPriority = vcamMain.Priority;
-
-        vcamFlyover.gameObject.SetActive(true);
-
-        vcamFlyover.Priority = flyoverPriority;
-        vcamMain.Priority = mainPriority;
-
         StartCoroutine(Fly(onDone));
     }
 
@@ -313,6 +342,7 @@ public class LevelFlyover : MonoBehaviour
         vcamFlyover.gameObject.SetActive(false);
 
         playing = false;
+        prepared = false;
         onDone?.Invoke();
     }
 }

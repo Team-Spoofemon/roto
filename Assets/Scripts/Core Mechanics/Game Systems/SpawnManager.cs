@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    [System.Serializable]
+    /*[System.Serializable]
     public class EnemyPool
     {
         public GameObject enemyPrefab;
@@ -66,5 +66,5 @@ public class SpawnManager : MonoBehaviour
             spawnPos.z = center.z;
             SpawnEnemy(spawnPos);
         }
-    }
+    }*/
 }
