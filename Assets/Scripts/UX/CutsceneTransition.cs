@@ -36,26 +36,66 @@ public class CutsceneTransition : MonoBehaviour
     {
         if (transitioning) return;
 
-        timer += Time.deltaTime;
+        timer += Time.unscaledDeltaTime;
 
-        if (timer >= waitSeconds || Input.GetKeyDown(skipKey))
+        bool skipped = Input.GetKeyDown(skipKey);
+        if (timer >= waitSeconds || skipped)
         {
             transitioning = true;
-            StartCoroutine(LoadNextRoutine());
+            StartCoroutine(LoadNextRoutine(skipped));
         }
     }
 
-    private IEnumerator LoadNextRoutine()
+    private IEnumerator LoadNextRoutine(bool skipped)
     {
-        if (!IsSceneLoaded(coreSceneName))
-            yield return LoadScene(coreSceneName, LoadSceneMode.Additive);
+        if (skipped)
+        {
+            GameObject timelineObject = GameObject.Find("Cutscene Timeline");
+            if (timelineObject != null)
+            {
+                AudioSource[] sources = timelineObject.GetComponents<AudioSource>();
+
+                float fadeTime = 0.75f;
+                float elapsed = 0f;
+                float[] startVolumes = new float[sources.Length];
+
+                for (int i = 0; i < sources.Length; i++)
+                    startVolumes[i] = sources[i] != null ? sources[i].volume : 0f;
+
+                while (elapsed < fadeTime)
+                {
+                    elapsed += Time.unscaledDeltaTime;
+                    float t = Mathf.Clamp01(elapsed / fadeTime);
+
+                    for (int i = 0; i < sources.Length; i++)
+                    {
+                        if (sources[i] != null)
+                            sources[i].volume = Mathf.Lerp(startVolumes[i], 0f, t);
+                    }
+
+                    yield return null;
+                }
+
+                for (int i = 0; i < sources.Length; i++)
+                {
+                    if (sources[i] != null)
+                    {
+                        sources[i].volume = 0f;
+                        sources[i].Stop();
+                    }
+                }
+            }
+        }
 
         if (AsyncLoader.Instance != null)
         {
-            AsyncLoader.Instance.LoadScene(sceneToLoad, nextRealm, true);
+            AsyncLoader.Instance.LoadScene(sceneToLoad, nextRealm, false);
             Destroy(gameObject);
             yield break;
         }
+
+        if (!IsSceneLoaded(coreSceneName))
+            yield return LoadScene(coreSceneName, LoadSceneMode.Additive);
 
         if (AudioManager.Instance != null)
         {

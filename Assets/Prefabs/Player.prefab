@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 2571185499915001958}
   - component: {fileID: 5068724538491514825}
   - component: {fileID: 961605138652531841}
-  - component: {fileID: 5322360964522518022}
+  - component: {fileID: 9103579097803550393}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -379,8 +379,8 @@ MonoBehaviour:
     m_Flags: 0
   walkSpeed: 30
   sprintSpeed: 45
-  jumpForce: 10
-  extraGravity: 20
+  jumpForce: 35
+  extraGravity: 70
   inputRotation: 0
   groundCheck: {fileID: 4897589482079595285}
   groundDistance: 0.4
@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1ce2ce30a7b477fb081836179add10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5322360964522518022
+--- !u!114 &9103579097803550393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7044084108375530469}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c1ce2ce30a7b477fb081836179add10, type: 3}
+  m_Script: {fileID: 11500000, guid: 068536f0cb9be40c9be423f0dc24be09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7736479222707934234

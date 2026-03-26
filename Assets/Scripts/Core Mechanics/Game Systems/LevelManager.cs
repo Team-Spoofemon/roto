@@ -67,6 +67,9 @@ public class LevelManager : MonoBehaviour
 
         Instance = this;
         ResolvePlayerRefs();
+
+        if (playIntroFlyover && levelFlyover != null)
+            levelFlyover.PrepareForIntro();
     }
 
     private void OnDestroy()

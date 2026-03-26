@@ -11,9 +11,13 @@ public class EnemyMovement : MonoBehaviour
 
     private Coroutine followCoroutine;
 
+    private Animator animator;
+    private bool isAttacking;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     //If not currently chasing, begin the process for following the player
@@ -29,6 +33,22 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    public void SetAttacking(bool value)
+    {
+        isAttacking = value;
+        animator.SetBool("isAttacking", value);
+
+        if (value)
+        {
+            agent.isStopped = true;
+            animator.SetBool("isWalking", false);
+        }
+        else
+        {
+            agent.isStopped = false;
+        }
+    }
+
     //Starts process of following the player
     private IEnumerator MoveTowardPlayer()
     {
@@ -36,8 +56,14 @@ public class EnemyMovement : MonoBehaviour
 
         while (enabled)
         {
-            //NavMeshAgent sets destination to the player's position
-            agent.SetDestination(player.transform.position);
+            if (!isAttacking)
+            {
+                //NavMeshAgent sets destination to the player's position
+                agent.SetDestination(player.transform.position);
+
+                bool isMoving = agent.velocity.magnitude > 0.1f;
+                animator.SetBool("isWalking", isMoving);
+            }
 
             yield return Wait;
         }
