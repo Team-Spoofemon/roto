@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        //enemyAnim.SetBool("isPatroling", agent.velocity.magnitude > 0.01f);
+        enemyAnim.SetBool("isPatroling", agent.velocity.magnitude > 0.01f);
     }
 
     //If not currently chasing, begin the process for following the player
