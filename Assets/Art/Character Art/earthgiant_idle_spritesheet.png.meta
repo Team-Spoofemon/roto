@@ -113,12 +113,12 @@ TextureImporter:
       name: earthgiant_idle_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 6
-        width: 221
-        height: 250
+        x: 50
+        y: 18
+        width: 151
+        height: 194
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,12 +134,12 @@ TextureImporter:
       name: earthgiant_idle_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 274
-        y: 6
-        width: 219
-        height: 250
+        x: 309
+        y: 18
+        width: 151
+        height: 194
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: earthgiant_idle_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 530
-        y: 4
-        width: 220
-        height: 252
+        x: 565
+        y: 18
+        width: 151
+        height: 194
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
