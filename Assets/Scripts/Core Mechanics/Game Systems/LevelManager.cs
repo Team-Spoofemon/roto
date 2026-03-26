@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// Manages level flow (intro, death, respawn, completion). Respawn now forces level music to restart at Loop A after death.
-/// </summary>
 public class LevelManager : MonoBehaviour
 {
     public static event Action OnPlayerDeathEvent;
@@ -26,6 +23,9 @@ public class LevelManager : MonoBehaviour
     [Header("Physics Lock")]
     [SerializeField] private Rigidbody playerRigidbody;
 
+    [Header("Spawn")]
+    public Transform SpawnStart;
+
     [Header("Audio")]
     [SerializeField] private AudioSource deathSound;
     [SerializeField] private float levelCompleteFadeOutSeconds = 0.6f;
@@ -39,7 +39,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private MusicState introMusic = MusicState.Intro;
     [SerializeField] private MusicState loopMusic = MusicState.LoopA;
 
-    [Header("Next Level")]
+    [Header("Realm")]
+    [SerializeField] private RealmType currentRealm;
+    public RealmType CurrentRealm => currentRealm;
     [SerializeField] private RealmType nextRealm = RealmType.CreteValley;
 
     [Header("Level Intro Text")]
@@ -61,19 +63,10 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+            Instance.enabled = false;
 
         Instance = this;
-
         ResolvePlayerRefs();
-
-        if (playIntroFlyover && levelFlyover != null)
-            LockPlayer();
-        else
-            UnlockPlayer();
     }
 
     private void OnDestroy()
@@ -89,27 +82,23 @@ public class LevelManager : MonoBehaviour
 
     private void ResolvePlayerRefs()
     {
-        if (playerRoot == null)
-        {
-            GameObject tagged = GameObject.FindGameObjectWithTag("Player");
-            if (tagged != null)
-                playerRoot = tagged;
-        }
+        playerRoot = null;
+        playerController = null;
+        playerCombat = null;
+        playerInput = null;
+        playerRigidbody = null;
+
+        GameObject tagged = GameObject.FindGameObjectWithTag("Player");
+        if (tagged != null)
+            playerRoot = tagged;
 
         if (playerRoot == null)
             return;
 
-        if (playerInput == null)
-            playerInput = playerRoot.GetComponentInChildren<PlayerInput>(true);
-
-        if (playerCombat == null)
-            playerCombat = playerRoot.GetComponentInChildren<PlayerCombat>(true);
-
-        if (playerRigidbody == null)
-            playerRigidbody = playerRoot.GetComponentInChildren<Rigidbody>(true);
-
-        if (playerController == null)
-            playerController = playerRoot.GetComponentInChildren<PlayerController>(true);
+        playerInput = playerRoot.GetComponentInChildren<PlayerInput>(true);
+        playerCombat = playerRoot.GetComponentInChildren<PlayerCombat>(true);
+        playerRigidbody = playerRoot.GetComponentInChildren<Rigidbody>(true);
+        playerController = playerRoot.GetComponentInChildren<PlayerController>(true);
     }
 
     private void FreezePhysics()
@@ -162,10 +151,7 @@ public class LevelManager : MonoBehaviour
         }
 
         if (playerInput.actions.FindActionMap("Player", true) != null)
-        {
             playerInput.SwitchCurrentActionMap("Player");
-            return;
-        }
     }
 
     private void EnsurePlayerActionMap()
@@ -217,25 +203,88 @@ public class LevelManager : MonoBehaviour
             EnsurePlayerActionMap();
             playerInput.ActivateInput();
         }
+        
+        StartCoroutine(DelayedInputReset());
+    }
+
+    private IEnumerator DelayedInputReset()
+    {
+        yield return null;
+        yield return null;
+
+        ResolvePlayerRefs();
+
+        if (playerInput != null)
+        {
+            playerInput.enabled = false;
+            playerInput.enabled = true;
+        }
+    }
+
+    public void FinalizeSceneLoad()
+    {
+        ResolvePlayerRefs();
+
+        if (SpawnStart != null)
+            PlacePlayerAtStart();
+
+        if (!deathSequenceActive && !(playIntroFlyover && levelFlyover != null))
+            UnlockPlayer();
     }
 
     private IEnumerator Initialize()
     {
-        while (AudioManager.Instance == null || DialogueManager.Instance == null)
+        float waitTimer = 0f;
+        const float managerWaitTimeout = 2f;
+
+        while (AudioManager.Instance == null && waitTimer < managerWaitTimeout)
+        {
+            waitTimer += Time.unscaledDeltaTime;
             yield return null;
+        }
 
         dialogueManager = DialogueManager.Instance;
 
-        if (playLevelMusic)
+        ResolvePlayerRefs();
+        yield return null;
+        ResolvePlayerRefs();
+
+        if (SpawnStart != null)
+            PlacePlayerAtStart();
+
+        if (AudioManager.Instance != null)
         {
-            if (hasIntroMusic)
-                AudioManager.Instance.PlayIntroThenLoop(introMusic, loopMusic);
-            else
-                AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+            AudioManager.Instance.SetRealm(currentRealm);
+
+            if (playLevelMusic)
+            {
+                if (hasIntroMusic)
+                    AudioManager.Instance.PlayIntroThenLoop(introMusic, loopMusic);
+                else
+                    AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
+            }
         }
 
         StartCoroutine(LevelIntroSequence());
-        yield break;
+    }
+
+    private void PlacePlayerAtStart()
+    {
+        ResolvePlayerRefs();
+
+        if (SpawnStart == null || playerRoot == null)
+            return;
+
+        if (playerRigidbody != null)
+        {
+            playerRigidbody.position = SpawnStart.position;
+            playerRigidbody.rotation = SpawnStart.rotation;
+            playerRigidbody.velocity = Vector3.zero;
+            playerRigidbody.angularVelocity = Vector3.zero;
+        }
+
+        playerRoot.transform.position = SpawnStart.position;
+        playerRoot.transform.rotation = SpawnStart.rotation;
     }
 
     public static void TriggerPlayerDeath()
@@ -266,7 +315,8 @@ public class LevelManager : MonoBehaviour
         if (AudioManager.Instance != null)
         {
             AudioManager.Instance.PlayDeathTheme(0.15f, 0.15f);
-            if (deathSound != null) AudioManager.Instance.PlaySFX(deathSound.clip);
+            if (deathSound != null)
+                AudioManager.Instance.PlaySFX(deathSound.clip);
         }
         else if (deathSound != null)
         {
@@ -301,6 +351,9 @@ public class LevelManager : MonoBehaviour
 
         if (AudioManager.Instance != null)
         {
+            AudioManager.Instance.ResetDeathThemeState();
+            AudioManager.Instance.SetRealm(currentRealm);
+
             if (playLevelMusic)
                 AudioManager.Instance.PlayIntroThenLoop(loopMusic, loopMusic);
             else
@@ -327,7 +380,6 @@ public class LevelManager : MonoBehaviour
             playerController.Revive();
 
         UnlockPlayer();
-        yield break;
     }
 
     private IEnumerator LevelIntroSequence()
@@ -335,12 +387,15 @@ public class LevelManager : MonoBehaviour
         ResolvePlayerRefs();
 
         bool shouldPlayFlyover = playIntroFlyover && levelFlyover != null;
-        bool shouldShowText = showIntroText && !string.IsNullOrWhiteSpace(introText) && introTextSeconds > 0f;
+        bool shouldShowText = showIntroText && !string.IsNullOrWhiteSpace(introText) && introTextSeconds > 0f && dialogueManager != null;
 
-        if (shouldPlayFlyover)
-            LockPlayer();
-        else
+        if (!shouldPlayFlyover && !shouldShowText)
+        {
             UnlockPlayer();
+            yield break;
+        }
+
+        LockPlayer();
 
         bool flyoverDone = !shouldPlayFlyover;
         bool textDone = !shouldShowText;
@@ -359,8 +414,6 @@ public class LevelManager : MonoBehaviour
 
         if (!deathSequenceActive)
             UnlockPlayer();
-
-        yield break;
     }
 
     public void CompleteLevel()
@@ -418,6 +471,5 @@ public class LevelManager : MonoBehaviour
         }
 
         AsyncLoader.Instance.LoadScene(targetBuildIndex, nextRealm, true);
-        yield break;
     }
 }

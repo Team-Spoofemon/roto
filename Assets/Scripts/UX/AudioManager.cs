@@ -32,6 +32,8 @@ public class AudioManager : MonoBehaviour
     private float MusicVol => profile != null ? profile.musicVolume : 1f;
     private float SfxVol => profile != null ? profile.sfxVolume : 1f;
 
+    private bool isPlayingDeathTheme = false;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -86,13 +88,21 @@ public class AudioManager : MonoBehaviour
     public void PlayDeathTheme(float fadeOutTime = 0.15f, float fadeInTime = 0.15f)
     {
         if (IsFadingOut) return;
+        if (isPlayingDeathTheme) return;
         if (profile == null || profile.deathTheme == null) return;
+
+        isPlayingDeathTheme = true;
 
         if (fadeRoutine != null)
             StopCoroutine(fadeRoutine);
 
         fadeRoutine = StartCoroutine(PlayDeathThemeRoutine(fadeOutTime, fadeInTime));
         currentState = MusicState.None;
+    }
+
+    public void ResetDeathThemeState()
+    {
+        isPlayingDeathTheme = false;
     }
 
     private IEnumerator PlayDeathThemeRoutine(float fadeOutTime, float fadeInTime)
@@ -122,7 +132,7 @@ public class AudioManager : MonoBehaviour
         StopMusicImmediate();
 
         musicSource.clip = profile.deathTheme;
-        musicSource.loop = true;
+        musicSource.loop = false;
         musicSource.volume = 0f;
         musicSource.Play();
 
@@ -146,13 +156,20 @@ public class AudioManager : MonoBehaviour
                 }
                 break;
 
-            case RealmType.MountOthrys:
+            case RealmType.MountOthrysExt:
                 switch (state)
                 {
-                    case MusicState.Intro: return profile.mtOthrys != null && profile.mtOthrys.Length > 0 ? profile.mtOthrys[0] : null;
-                    case MusicState.LoopA: return profile.mtOthrys != null && profile.mtOthrys.Length > 1 ? profile.mtOthrys[1] : null;
+                    case MusicState.Intro: return profile.mtOthrysExt != null && profile.mtOthrysExt.Length > 0 ? profile.mtOthrysExt[0] : null;
+                    case MusicState.LoopA: return profile.mtOthrysExt != null && profile.mtOthrysExt.Length > 1 ? profile.mtOthrysExt[1] : null;
                 }
                 break;
+
+            case RealmType.MountOthrysInt:
+            switch (state)
+            {
+                case MusicState.LoopA: return profile.mtOthrysInt != null && profile.mtOthrysInt.Length > 0 ? profile.mtOthrysInt[0] : null;
+            }
+            break;
 
             case RealmType.cutsceneRealm:
                 switch (state)
