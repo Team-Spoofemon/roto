@@ -6,6 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public Transform Player;
     private GameObject newPlayer;
+    public Collider barrier;
     public float EnemyPerTile =0.5f;
     public int numberOfEnemies = 5;
     public float spawnDelay = 1f;
@@ -35,9 +36,10 @@ public class EnemySpawner : MonoBehaviour
         Triangulation = UnityEngine.AI.NavMesh.CalculateTriangulation();
     }
 
-    private void OnTriggerExit(Collider collider)
+    private void OnTriggerExit(Collider barrier)
     {
         StartCoroutine(SpawnEnemies());
+        Debug.Log("The enemies have spawned by: " + barrier.name);
     }
 
     private IEnumerator SpawnEnemies()
