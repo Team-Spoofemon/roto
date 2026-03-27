@@ -5,6 +5,9 @@ public class CombatManager : MonoBehaviour
 {
     public static CombatManager Instance { get; private set; }
 
+    private const float ThunderDamageMultiplier = 1.5f;
+
+
     private void Start()
     {
         if (Instance != null && Instance != this)
@@ -91,5 +94,23 @@ public class CombatManager : MonoBehaviour
     public void AreaAttack(HealthManager target, float damage, float radius)
     {
         // implement later?
+    }
+
+    public void OnThunderMelee(HealthManager target, float damage, Transform attackerLocation, float force)
+    {
+        float finalDamage = damage * ThunderDamageMultiplier;
+        SingleAttack(target, finalDamage, attackerLocation, force);
+    }
+
+    public void OnThunderBurst(HealthManager target, float damage, Transform attackerLocation, float force)
+    {
+        float finalDamage = damage * ThunderDamageMultiplier;
+        SingleAttack(target, finalDamage, attackerLocation, force);
+    }
+
+    public void OnThunderWheel(HealthManager target, float damage, Transform attackerLocation, float force)
+    {
+        float finalDamage = damage * ThunderDamageMultiplier;
+        SingleAttack(target, finalDamage, attackerLocation, force);
     }
 }
