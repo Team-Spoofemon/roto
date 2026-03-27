@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private Animator enemyAnim;
+    [SerializeField] private SpriteOrientation spriteOrientation;
     public Transform player;
     public float updateSpeed = 0.1f; //Updating the path to player based on their position
     private NavMeshAgent agent;
@@ -20,12 +21,27 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
+
+        if (spriteOrientation == null)
+            spriteOrientation = GetComponentInChildren<SpriteOrientation>();
     }
 
     private void Update()
     {
         enemyAnim.SetBool("isPatroling", agent.velocity.magnitude > 0.01f);
+
+        if (spriteOrientation != null && agent.velocity.sqrMagnitude > 0.01f && Camera.main != null)
+        {
+            Vector3 camRight = Camera.main.transform.right;
+            camRight.y = 0f;
+            camRight.Normalize();
+
+            float horizontal = Vector3.Dot(agent.velocity, camRight);
+
+            if (Mathf.Abs(horizontal) > 0.08f)
+                spriteOrientation.SetFacingRight(horizontal > 0f);
+        }
     }
 
     //If not currently chasing, begin the process for following the player
@@ -44,13 +60,14 @@ public class EnemyMovement : MonoBehaviour
 
     public void SetAttacking(bool value)
     {
+        Debug.Log("SetAttacking: " + value);
         isAttacking = value;
         animator.SetBool("isAttacking", value);
 
         if (value)
         {
             agent.isStopped = true;
-            animator.SetBool("isWalking", false);
+            animator.SetBool("isPatroling", false);
         }
         else
         {
@@ -71,10 +88,22 @@ public class EnemyMovement : MonoBehaviour
                 agent.SetDestination(player.transform.position);
 
                 bool isMoving = agent.velocity.magnitude > 0.1f;
-                animator.SetBool("isWalking", isMoving);
+                animator.SetBool("isPatroling", isMoving);
+
+                if (spriteOrientation != null && agent.velocity.sqrMagnitude > 0.01f && Camera.main != null)
+                {
+                    Vector3 camRight = Camera.main.transform.right;
+                    camRight.y = 0f;
+                    camRight.Normalize();
+
+                    float horizontal = Vector3.Dot(agent.velocity, camRight);
+
+                    if (Mathf.Abs(horizontal) > 0.08f)
+                        spriteOrientation.SetFacingRight(horizontal > 0f);
+                }
             }
 
             yield return Wait;
         }
     }
-}
+} 
