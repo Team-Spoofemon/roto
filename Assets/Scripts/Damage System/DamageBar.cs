@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DamageBar : MonoBehaviour
 {
@@ -7,27 +6,31 @@ public class DamageBar : MonoBehaviour
     private Canvas _barContainer;
 
     [SerializeField]
-    public Slider _healthBar;
+    private SpriteRenderer _spriteRenderer;
 
     [SerializeField]
-    public Slider _flashBar;
+    private Sprite[] healthSprites; // 0 = empty, last = full
 
-    private float _currentHealth;
-    private float _totalHealth;
-    private bool _activeStatus = false;
+    private int maxIndex;
+
+    private void Awake()
+    {
+        if (healthSprites != null && healthSprites.Length > 0)
+            maxIndex = healthSprites.Length - 1;
+    }
 
     public void UpdateHealthSlider(float currentHealth, float totalHealth)
     {
-        if (_healthBar)
-        {
-            // update health status on bar side
-            _currentHealth = currentHealth;
-            _totalHealth = totalHealth;
+        if (_spriteRenderer == null || healthSprites.Length == 0)
+            return;
 
-            // Verify modfier is w/in (0,100]% and bar is within [0,100]
-            if (_healthBar.value >= 0 && _healthBar.value <= 100)
-                _healthBar.value = currentHealth / totalHealth;
-        }
+        float percent = currentHealth / totalHealth;
+        percent = Mathf.Clamp01(percent);
+
+        int index = Mathf.RoundToInt(percent * maxIndex);
+        index = Mathf.Clamp(index, 0, maxIndex);
+
+        _spriteRenderer.sprite = healthSprites[index];
     }
 
     public void SetActiveStatus(bool status)
@@ -38,7 +41,7 @@ public class DamageBar : MonoBehaviour
 
     private void Update()
     {
-        if (_activeStatus)
+        if (_barContainer)
         {
             Quaternion rotation = Camera.main.transform.rotation;
             transform.LookAt(

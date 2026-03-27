@@ -56,7 +56,18 @@ public class LevelFlyover : MonoBehaviour
 
     private void Awake()
     {
+        if (vcamFlyover == null || vcamMain == null || waypointsParent == null)
+            return;
+
+        originalFlyoverPriority = vcamFlyover.Priority;
+        originalMainPriority = vcamMain.Priority;
+
         PrepareForIntro();
+
+        vcamFlyover.gameObject.SetActive(true);
+        vcamFlyover.Priority = flyoverPriority;
+
+        vcamMain.gameObject.SetActive(false);
     }
 
     public void PrepareForIntro()
@@ -331,6 +342,8 @@ public class LevelFlyover : MonoBehaviour
 
     private IEnumerator EndFlyoverRoutine(Action onDone)
     {
+        vcamMain.gameObject.SetActive(true);
+
         vcamFlyover.Priority = mainPriority;
         vcamMain.Priority = flyoverPriority;
 
