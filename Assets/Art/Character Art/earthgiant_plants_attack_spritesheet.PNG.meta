@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,18 +108,106 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: earthgiant_plants_attack_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 31
+        width: 54
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c97cbe352c487497e9aa42f9b45a6f1c
+      internalID: 1655001699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earthgiant_plants_attack_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 30
+        width: 78
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93071c81ad330467684c9eb6c32f00d4
+      internalID: 1101294989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earthgiant_plants_attack_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 28
+        width: 86
+        height: 125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a72bf86b2f594d1fa921a63e3db7704
+      internalID: 1118720146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: earthgiant_plants_attack_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 30
+        width: 78
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ec88b76277df4db383dfe9b7cef07dd
+      internalID: -1390407325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 90de13e5fe0de4ffebcc0c6b124ecd7a
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      earthgiant_plants_attack_spritesheet_0: 1655001699
+      earthgiant_plants_attack_spritesheet_1: 1101294989
+      earthgiant_plants_attack_spritesheet_2: 1118720146
+      earthgiant_plants_attack_spritesheet_3: -1390407325
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
