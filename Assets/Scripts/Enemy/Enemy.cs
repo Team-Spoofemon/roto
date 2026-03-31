@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,44 +6,52 @@ public class Enemy : PoolableObject, IHitHandler
 {
     public EnemyMovement movement;
     public NavMeshAgent agent;
-    //public int health = 100f;
 
-    [SerializeField]
-    private float damage;
-
-    [SerializeField]
-    private float damageKnockback;
+    [SerializeField] private float damage;
+    [SerializeField] private float damageKnockback;
 
     [Header("Earth Giant Attack Setup")]
-    [SerializeField]
-    private Transform player;
+    [SerializeField] private Transform player;
+    [SerializeField] private Transform playerShadowTarget;
+    [SerializeField] private Animator enemyAnimator;
+    [SerializeField] private GameObject targetIndicatorPrefab;
+    [SerializeField] private GameObject rootAttackPrefab;
 
-    [SerializeField]
-    private Animator enemyAnimator;
+    [SerializeField] private float attackRange = 4f;
+    [SerializeField] private float attackCooldown = 2f;
+    [SerializeField] private float telegraphDuration = 1f;
+    [SerializeField] private float rootLifetime = 1f;
 
-    [SerializeField]
-    private GameObject targetIndicatorPrefab;
+    [SerializeField] private Collider playerCollider;
 
-    [SerializeField]
-    private GameObject rootAttackPrefab;
-
-    [SerializeField]
-    private float attackRange = 4f;
-
-    [SerializeField]
-    private float attackCooldown = 2f;
-
-    [SerializeField]
-    private float telegraphDuration = 1f;
-
-    [SerializeField]
-    private float rootLifetime = 1f;
-
-    private Coroutine followCoroutine;
     private bool isAttackSequenceRunning;
     private bool isOnCooldown;
     private bool canDamage;
     private Vector3 lockedTargetPosition;
+
+    private Coroutine attackCoroutine;
+    private GameObject activeIndicator;
+    private GameObject activeRootAttack;
+
+    private void Awake()
+    {
+        if (player == null)
+        {
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+                player = playerObject.transform;
+        }
+
+        if (playerCollider == null && player != null)
+            playerCollider = player.GetComponentInChildren<Collider>();
+
+        if (playerShadowTarget == null && player != null)
+        {
+            Transform shadow = player.Find("ShadowTarget");
+            if (shadow != null)
+                playerShadowTarget = shadow;
+        }
+    }
 
     private void Update()
     {
@@ -61,7 +68,7 @@ public class Enemy : PoolableObject, IHitHandler
         Debug.Log("Earth Giant distance: " + distanceToPlayer);
 
         if (distanceToPlayer <= attackRange)
-            StartCoroutine(AttackSequence());
+            attackCoroutine = StartCoroutine(AttackSequence());
     }
 
     private IEnumerator AttackSequence()
@@ -70,31 +77,47 @@ public class Enemy : PoolableObject, IHitHandler
         isAttackSequenceRunning = true;
         isOnCooldown = true;
 
-        movement.SetAttacking(true);
-        lockedTargetPosition = player.position;
+        if (movement != null)
+            movement.SetAttacking(true);
 
-        GameObject indicator = null;
+        if (playerShadowTarget != null)
+            lockedTargetPosition = playerShadowTarget.position;
+        else if (player != null)
+            lockedTargetPosition = player.position;
+        else if (playerCollider != null)
+            lockedTargetPosition = playerCollider.bounds.center;
+
+        activeIndicator = null;
 
         if (targetIndicatorPrefab != null)
-            indicator = Instantiate(targetIndicatorPrefab, lockedTargetPosition, Quaternion.identity);
+            activeIndicator = Instantiate(targetIndicatorPrefab, lockedTargetPosition, Quaternion.identity);
 
         yield return new WaitForSeconds(telegraphDuration);
 
-        if (indicator != null)
-            Destroy(indicator);
-
-        if (enemyAnimator != null)
-            enemyAnimator.SetTrigger("Attack");
+        if (activeIndicator != null)
+        {
+            Destroy(activeIndicator);
+            activeIndicator = null;
+        }
 
         Vector3 attackDirection = lockedTargetPosition - transform.position;
         attackDirection.y = 0f;
 
+        if (enemyAnimator != null)
+            enemyAnimator.SetTrigger("Attack");
+
         if (attackDirection.sqrMagnitude > 0.001f && rootAttackPrefab != null)
         {
             Quaternion rootRotation = Quaternion.LookRotation(attackDirection.normalized);
-            GameObject rootAttack = Instantiate(rootAttackPrefab, lockedTargetPosition, rootRotation);
+            activeRootAttack = Instantiate(rootAttackPrefab, lockedTargetPosition, rootRotation);
 
-            HitBox hitBox = rootAttack.GetComponentInChildren<HitBox>();
+            Animator spawnedRootsAnimator = activeRootAttack.GetComponentInChildren<Animator>();
+            if (spawnedRootsAnimator != null)
+                spawnedRootsAnimator.SetTrigger("Attack");
+
+            Debug.Log("Spawned Root Attack Position: " + activeRootAttack.transform.position);
+
+            HitBox hitBox = activeRootAttack.GetComponentInChildren<HitBox>();
             if (hitBox != null)
                 hitBox.SetDamageSource(this);
 
@@ -102,8 +125,11 @@ public class Enemy : PoolableObject, IHitHandler
             yield return new WaitForSeconds(rootLifetime);
             canDamage = false;
 
-            if (rootAttack != null)
-                Destroy(rootAttack);
+            if (activeRootAttack != null)
+            {
+                Destroy(activeRootAttack);
+                activeRootAttack = null;
+            }
         }
         else
         {
@@ -112,7 +138,10 @@ public class Enemy : PoolableObject, IHitHandler
 
         yield return new WaitForSeconds(attackCooldown);
 
-        movement.SetAttacking(false);
+        if (movement != null)
+            movement.SetAttacking(false);
+
+        attackCoroutine = null;
         isAttackSequenceRunning = false;
         isOnCooldown = false;
     }
@@ -121,11 +150,32 @@ public class Enemy : PoolableObject, IHitHandler
     {
         base.OnDisable();
 
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
+
+        if (activeIndicator != null)
+        {
+            Destroy(activeIndicator);
+            activeIndicator = null;
+        }
+
+        if (activeRootAttack != null)
+        {
+            Destroy(activeRootAttack);
+            activeRootAttack = null;
+        }
+
         canDamage = false;
         isAttackSequenceRunning = false;
         isOnCooldown = false;
 
-        if (agent != null)
+        if (movement != null)
+            movement.SetAttacking(false);
+
+        if (agent != null && agent.gameObject != null)
             agent.enabled = false;
     }
 
@@ -135,5 +185,21 @@ public class Enemy : PoolableObject, IHitHandler
             return;
 
         CombatManager.Instance.SingleAttack(targetHealth, damage, transform, damageKnockback);
+    }
+
+    public void SetTarget(Transform target, Collider targetCollider)
+    {
+        player = target;
+        playerCollider = targetCollider;
+
+        if (player != null)
+        {
+            Transform shadow = player.Find("ShadowTarget");
+            if (shadow != null)
+                playerShadowTarget = shadow;
+        }
+
+        if (movement != null)
+            movement.player = player;
     }
 }

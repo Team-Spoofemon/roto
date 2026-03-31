@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Key
+  - CameraOrientation
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - EnemyAttack
   - Key
   - Camera Orientation
-  - 
+  - Terrain
   - 
   - 
   - 
