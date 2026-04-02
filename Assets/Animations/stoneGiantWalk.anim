@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: earthAttack
+  m_Name: stoneGiantWalk
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,17 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -1042764161, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - time: 0.3
-      value: {fileID: 1295478828, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - time: 0.6
-      value: {fileID: -2133421107, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - time: 0.9
-      value: {fileID: 974202481, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - time: 1.2
-      value: {fileID: -1714329935, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
+      value: {fileID: -1049290908, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
+    - time: 0.5
+      value: {fileID: 1195747483, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
+    - time: 1
+      value: {fileID: 1752892037, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
     - time: 1.5
-      value: {fileID: -1512966478, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
+      value: {fileID: 515835573, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -54,12 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -1042764161, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - {fileID: 1295478828, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - {fileID: -2133421107, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - {fileID: 974202481, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - {fileID: -1714329935, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
-    - {fileID: -1512966478, guid: 498b07d87475f45e0a91350b7e58affe, type: 3}
+    - {fileID: -1049290908, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
+    - {fileID: 1195747483, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
+    - {fileID: 1752892037, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
+    - {fileID: 515835573, guid: b55c2f5f1aca8434aae68a090adf22d1, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}

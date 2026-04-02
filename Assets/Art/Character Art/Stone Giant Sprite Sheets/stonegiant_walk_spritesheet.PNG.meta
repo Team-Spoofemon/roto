@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 12710fc70f4d34bc1965d171ca2e4749
+guid: b55c2f5f1aca8434aae68a090adf22d1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: earthgiant_plants_attack_spritesheet_0
+      name: stonegiant_walk_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 132
-        y: 31
-        width: 54
-        height: 19
+        x: 30
+        y: 7
+        width: 191
+        height: 219
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c97cbe352c487497e9aa42f9b45a6f1c
-      internalID: 1655001699
+      spriteID: 25e53f8deae794771b8fce745a980903
+      internalID: -1049290908
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: earthgiant_plants_attack_spritesheet_1
+      name: stonegiant_walk_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 389
-        y: 30
-        width: 78
-        height: 94
+        x: 278
+        y: 11
+        width: 209
+        height: 220
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93071c81ad330467684c9eb6c32f00d4
-      internalID: 1101294989
+      spriteID: dff6dfb6ee9324c8688ad80b2f8ed1ff
+      internalID: 1195747483
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: earthgiant_plants_attack_spritesheet_2
+      name: stonegiant_walk_spritesheet_2
       rect:
         serializedVersion: 2
-        x: 642
-        y: 28
-        width: 86
-        height: 125
+        x: 538
+        y: 5
+        width: 196
+        height: 221
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a72bf86b2f594d1fa921a63e3db7704
-      internalID: 1118720146
+      spriteID: 68569163989fa4c3e8c848af4980e568
+      internalID: 1752892037
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: earthgiant_plants_attack_spritesheet_3
+      name: stonegiant_walk_spritesheet_3
       rect:
         serializedVersion: 2
-        x: 901
-        y: 30
-        width: 78
-        height: 94
+        x: 790
+        y: 10
+        width: 209
+        height: 221
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ec88b76277df4db383dfe9b7cef07dd
-      internalID: -1390407325
+      spriteID: ed268134201464c4d85964cd095f3da8
+      internalID: 515835573
       vertices: []
       indices: 
       edges: []
@@ -196,7 +196,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 90de13e5fe0de4ffebcc0c6b124ecd7a
+    spriteID: be4e63b20726945a7b2b46e447b919bf
     internalID: 0
     vertices: []
     indices: 
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      earthgiant_plants_attack_spritesheet_0: 1655001699
-      earthgiant_plants_attack_spritesheet_1: 1101294989
-      earthgiant_plants_attack_spritesheet_2: 1118720146
-      earthgiant_plants_attack_spritesheet_3: -1390407325
+      stonegiant_walk_spritesheet_0: -1049290908
+      stonegiant_walk_spritesheet_1: 1195747483
+      stonegiant_walk_spritesheet_2: 1752892037
+      stonegiant_walk_spritesheet_3: 515835573
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

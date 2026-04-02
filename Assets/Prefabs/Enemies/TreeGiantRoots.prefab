@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1901090385210057503}
   - component: {fileID: 2712061750582531480}
   m_Layer: 0
-  m_Name: EarthGiantRoots
+  m_Name: TreeGiantRoots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

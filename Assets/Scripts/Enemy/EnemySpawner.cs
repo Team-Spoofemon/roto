@@ -17,14 +17,15 @@ public class EnemySpawner : MonoBehaviour
     public int numberOfEnemies = 5;
     public float spawnDelay = 1f;
     public List<Enemy> EnemyPrefabs = new List<Enemy>();
-    public SpawnMethod enemySpawnMethod = SpawnMethod.EarthGiant;
+    public SpawnMethod enemySpawnMethod = SpawnMethod.TreeGiant;
 
     private Dictionary<int, ObjectPool> EnemyObjectPools = new Dictionary<int, ObjectPool>();
     private bool hasSpawned;
 
     public enum SpawnMethod
     {
-        EarthGiant,
+        TreeGiant,
+        StoneGiant,
         Random
     }
 
@@ -85,9 +86,13 @@ public class EnemySpawner : MonoBehaviour
         {
             bool spawned = false;
 
-            if (enemySpawnMethod == SpawnMethod.EarthGiant)
+            if (enemySpawnMethod == SpawnMethod.TreeGiant)
             {
-                spawned = SpawnEarthGiantEnemy(spawnedEnemies, usedSpawnPositions);
+                spawned = DoSpawnEnemy(0, usedSpawnPositions);
+            }
+            else if (enemySpawnMethod == SpawnMethod.StoneGiant)
+            {
+                spawned = DoSpawnEnemy(1, usedSpawnPositions);
             }
             else if (enemySpawnMethod == SpawnMethod.Random)
             {

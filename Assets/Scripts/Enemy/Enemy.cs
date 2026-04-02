@@ -47,7 +47,7 @@ public class Enemy : PoolableObject, IHitHandler
 
         if (playerShadowTarget == null && player != null)
         {
-            Transform shadow = player.Find("ShadowTarget");
+            Transform shadow = player.Find("Player Shadow");
             if (shadow != null)
                 playerShadowTarget = shadow;
         }
@@ -194,7 +194,7 @@ public class Enemy : PoolableObject, IHitHandler
 
         if (player != null)
         {
-            Transform shadow = player.Find("ShadowTarget");
+            Transform shadow = player.Find("Player Shadow");
             if (shadow != null)
                 playerShadowTarget = shadow;
         }
