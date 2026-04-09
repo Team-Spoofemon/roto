@@ -10,15 +10,15 @@ Rise of the Olympians tells the story of Zeus, who was hidden away by his mother
 
 **Genre:** Action-adventure  
 **Platform(s):** PC/Mac  
-**Target Audience:** PG-13, cartoon violence and war themes.  
-**Unique Selling Points (USPs):** Rather than be a real-time strategy game, this game will be a quest-driven action-adventure with RPG components.
+**Target Audience:** E10+ cartoon violence and war themes.  
+**Unique Selling Points (USPs):** Rather than be a real-time strategy game, this game will be a quest-driven action-adventure with RPG components. The 2D sprites will navigate an immersive 3D environment with dynamic gameplay.
 
 ---
 
 ## Core Gameplay
 
 **Game Mechanics:** Moving, jumping, melee attacks, ranged attacks  
-**Player Objectives:** Train as Zeus, free your siblings, aid divine allies, defeat Campe, defeat Cronus  
+**Player Objectives:** Play as Zeus, free your siblings, aid Titan and Olympian allies, defeat Campe, defeat Cronus  
 **Game Loop:** Complete story-driven missions, character upgrades, and boss battles  
 **Progression System:** Gain valuable skills and abilities as the story progresses. During Act II, receive weapons, stat and health upgrades to prepare you for Act III.  
 **Difficulty Curve:** The game will begin with a tutorial teaching the player how to engage in combat in the game. Later, the user will embark on various quests and challenges related to similar combat. The most difficult level will be the final battle with Cronus. There will be three difficulty settings: easy, moderate, & hard. Each successive difficulty level will increase enemy combat and health stats and spawn frequency to make the game more challenging.
@@ -27,11 +27,9 @@ Rise of the Olympians tells the story of Zeus, who was hidden away by his mother
 
 ## Story & Setting
 
-**Cutscene** - Cutscenes will be an after thought, in a sense. Something we can add if we have more time. (If anything, we will add the story as lines to read like Star Wars, rather than actual cutscenes so the player is engaged with the story in some way.)
+**Cutscene** - "Cutscenes will be 2D still images with narration."
 
-**Gameplay** - Actual gameplay that the player will engage in.
-
-**Undecided Gameplay** - Additions to the story that would add depth and complexity, but are not necessarily in the current scope. Anything in red can be replaced with cutscene instead.
+**Gameplay** - /Actual gameplay that the player will engage in./
 
 ---
 
@@ -39,22 +37,19 @@ Rise of the Olympians tells the story of Zeus, who was hidden away by his mother
 
 **ACT I:**  
 "At first there was Chaos, a primordial being that created Gaia, the earth, and Uranus, the sky that blanketed her. Gaia and Uranus had children and, scared that they would overthrow him, Uranus imprisoned them on Gaia. Gaia encouraged her children to overthrow their father, and she gave her son, Cronus, a scythe that he used to castrate his father, ultimately dethroning him. Cronus began his rule over the world, and with his wife Rhea, gave birth to 5 children. Worried that the fate of his father would soon bestow upon him, Cronus imprisoned his children by consuming them. This pained Rhea, and she became pregnant with her sixth child. Upon his birth, she hid him in the mountains of Crete, to be raised by nymphs, and named him Zeus. Rhea wrapped a stone in cloth and presented it to Cronus as the newly born child, and he mistakenly consumed the stone, cloth and all, and he was none the wiser."  
-/We go to Zeus training as an Olympian teen. The Kouretes teach him agility and combat; Almathea teaches him divine strength; and Metis teaches him wisdom and tactics for war. (This will all be summed into a single tutorial for the player). Zeus then embarks on his first quest to free his siblings, igniting the war against the Titans. Zeus quests to Mt. Othrys and, with the help of Metis, disguises himself as one of Cronus’s guards, sneaks into the castle on a stealth mission. Avoiding other guards who may recognize him as not one of them, he reaches Cronus’s throne room and quickly swaps his chalice with a replacement, one containing poison./  
-"Cronus is brought this chalice by one of his servants, and upon drinking, throws up each of Zeus’s siblings: Hades, Poseidon, Hestia, Demeter, and Hera."  
-^Undecided: This action causes Cronus to become aware of Zeus’s existence and ignites an initial boss battle with Cronus. Realizing that Cronus is too powerful, Zeus takes an opportunity to escape to seek help in his battle against Cronus. Once Zeus leaves the throne room, he is met with spawns of Cronus’s titan enemies, and must fight his way out of the castle and out of the immediate area surrounding the castle.^
+/Zeus exits the castle at Crete Valley. There are etched stone tablets throughout the world placed by Rhea, which will guide Zeus on his journey. The final stone tablet in this level warns Zeus 
 
 ---
 
-^**ACT II:**^  
-^All of ACT II was created as an addition to the original story idea. The game would make sense without this act, but would also require Cronus to be defeatable solely with Zeus’s lighting and not rely on other upgrades that Zeus would otherwise receive during this act. I added it to add some potential character development and give a feel of RPG-style gaming.^  
+**ACT II:**
 "Upon leaving the area immediately surrounding Cronus’s castle, Zeus reunites with his siblings. He learns that some of his siblings, namely the goddesses, choose to remain neutral in the battle. During this discussion, in the distance, two large Titans appear. On the defensive, Zeus and his siblings assume the worst. However, it is Themis and her son, Prometheus, who renounce the throne of the Titans and that they wish to support Zeus. They tell of the difficulties of fighting Cronus with Zeus’s current abilities and suggest that they travel to Tartarus to defeat Campe, and free the Cylopes and Hekatonkheires, who were imprisoned there by Uranus. They would be willing to assist Zeus and fight alongside him while providing him with an invaluable resource. Campe was less powerful than Cronus, but was still a formidable foe that would require additional power. Themis brings Zeus to Gaia, who is remorseful for the way that Cronus has ruled."  
 /She sends Zeus on quests to aid Themis, Prometheus, and Metis with various tasks that would each provide Zeus with attack and stats upgrades to help defeat Campe. During his travels, he encounters various spawns of Cronus’s earth giants and must defeat them in random waves. Once Zeus completes these three tasks, he is sent to the coast where a boat lay in the water, placed for him by an unnamed ally (for now). Zeus will use this boat to travel to the Island of Fire./
 
 ---
 
 **ACT III:**  
-/Upon arrival to the Island of Fire, there is an entrance to the underworld, Tartarus. Inside Tartarus, Zeus will encounter Campe, where he will fight and defeat her and free the Cyclopes and Hekatonkheires./  
-"Zeus, the Cyclopes and the Hekatonkheires leave back to Gaia. Thankful and pleased with their new freedom, the Hekatonkheires devote themselves to fight in the war alongside the Olympians, and the Cyclopes, skilled artisans and crafters, craft Zeus’s divide lighting bolt, giving Zeus a profound power to summon lightning bolts, an aerial attack that will be powerful enough to defeat Cronus."  
+/Upon arrival to the Island of Fire, there is an entrance to the underworld, Tartarus. Inside Tartarus, Zeus will encounter Campe, where he will fight and defeat her and free the Cyclopes and Centimaines./  
+"Zeus, the Cyclopes and the Centimaines leave back to Gaia. Thankful and pleased with their new freedom, the Centimaines devote themselves to fight in the war alongside the Olympians, and the Cyclopes, skilled artisans and crafters, craft Zeus’s divide lighting bolt, giving Zeus a profound power to summon lightning bolts, an aerial attack that will be powerful enough to defeat Cronus."  
 /There will be a quick tutorial for using the area-of-effect (AoE) controls for this new power./
 
 ---
@@ -80,15 +75,26 @@ Crete Valley, Mt. Othrys Field, Mt. Othrys Castle Interior, Gaia, Island of Fire
 **Antagonists & Factions:**  
 - **Titans**  
   - Cronus  
-- **Other**  
-  - Cronus’s Earth Giants  
-  - Campe
+- **Monsters**
+- Campe
+- **Earth Giant Elites**
+- Tree Giant Elite
+- Stone Giant Elite
+- Ember Giant Elite
+- **Earth Giants**
+- Tree Giant
+- Stone Giant
+- Ember Giant
+- **Earthlings**
+- Tree Earthling
+- Stone Earthling
+- Ember Earthling
 
 ---
 
 ## Art & Visual Style
 
-**Art Direction:** Cutscenes drawn, no animation with a narrative overlay. Or simple narrative overlay.  
+**Art Direction:** Cutscenes drawn, no animation with a narrative overlay. 
 **Character Design:** 2D character sprites.  
 **Environment Design:** Majestic and mythological 3D world  
 
