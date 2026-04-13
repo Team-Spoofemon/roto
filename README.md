@@ -15,8 +15,9 @@ Rise of the Olympian is a 2.5 action-adventure game featuring a mythological sto
 ## Tech Stack
 - Game Engine: Unity
 - Language: C#
-- Tools: Github, Unity, GoogleDocs
-- Target Platform: PC/Mac, possibly mobile
+- Tools: Github, Unity
+- Target Platform: PC/Mac
+- Hosting: itch.io (development phase); Steam (post-release)
 
 ## Development Team
 
@@ -41,10 +42,15 @@ Work beginning in April 2025. Timeline Goals:
 - Phase III: Final bug fixes, playtesting and polish, cotinued marketing
 - Phase IV: Official Game Release
 
-## Folder Structure (Coming Soon)
+## Folder Structure
 
 - Assets (Main Folder)
+   - Animations
    - Art
+   - Audio
+   - Concept Art
+   - Materials
+   - Prefabs
    - Scenes
    - Scripts
    - Docs
