@@ -50,9 +50,6 @@ public class ObjectPool
         {
             PoolableObject instance = AvailableObjects[0];
             AvailableObjects.RemoveAt(0);
-
-            instance.gameObject.SetActive(true);
-
             return instance;
         }
         else

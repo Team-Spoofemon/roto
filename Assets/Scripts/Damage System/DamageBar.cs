@@ -27,7 +27,7 @@ public class DamageBar : MonoBehaviour
         float percent = currentHealth / totalHealth;
         percent = Mathf.Clamp01(percent);
 
-        int index = Mathf.RoundToInt(percent * maxIndex);
+        int index = Mathf.FloorToInt(percent * maxIndex);
         index = Mathf.Clamp(index, 0, maxIndex);
 
         _spriteRenderer.sprite = healthSprites[index];

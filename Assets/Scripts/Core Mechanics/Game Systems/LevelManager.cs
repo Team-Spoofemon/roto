@@ -346,11 +346,7 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        if (DeathScreenUI.Instance != null)
-            DeathScreenUI.Instance.Hide();
-
-        if (fadeCanvas != null)
-            fadeCanvas.alpha = 0f;
+        LockPlayer();
 
         if (AudioManager.Instance != null)
         {
@@ -366,15 +362,11 @@ public class LevelManager : MonoBehaviour
         if (deathSound != null)
             deathSound.Stop();
 
-        LockPlayer();
-
         if (PlayerRespawn.Instance != null)
             PlayerRespawn.Instance.RespawnPlayer();
 
         while (PlayerRespawn.Instance != null && PlayerRespawn.Instance.IsRespawning)
             yield return null;
-
-        deathSequenceActive = false;
 
         ResolvePlayerRefs();
         yield return null;
@@ -382,6 +374,13 @@ public class LevelManager : MonoBehaviour
         if (playerController != null)
             playerController.Revive();
 
+        if (fadeCanvas != null)
+            fadeCanvas.alpha = 0f;
+
+        if (DeathScreenUI.Instance != null)
+            DeathScreenUI.Instance.Hide();
+
+        deathSequenceActive = false;
         UnlockPlayer();
     }
 

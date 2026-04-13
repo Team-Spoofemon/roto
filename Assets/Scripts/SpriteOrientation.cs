@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpriteOrientation : MonoBehaviour
 {
     [SerializeField] private bool facingRight = true;
+    [SerializeField] private bool allowHorizontalFlip = true;
 
     private Vector3 originalScale;
 
@@ -27,7 +28,12 @@ public class SpriteOrientation : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(forward.normalized, Vector3.up);
 
         Vector3 scale = originalScale;
-        scale.x = Mathf.Abs(originalScale.x) * (facingRight ? 1f : -1f);
+
+        if (allowHorizontalFlip)
+            scale.x = Mathf.Abs(originalScale.x) * (facingRight ? 1f : -1f);
+        else
+            scale.x = Mathf.Abs(originalScale.x);
+
         transform.localScale = scale;
     }
 
