@@ -60,7 +60,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (hasSpawned)
             return;
@@ -107,7 +107,7 @@ public class EnemySpawner : MonoBehaviour
             else
             {
                 Debug.LogWarning(name + " failed to find a valid spawn position.");
-                break;
+                yield return null;
             }
         }
     }
@@ -164,8 +164,7 @@ public class EnemySpawner : MonoBehaviour
             return false;
         }
 
-        enemy.transform.position = spawnPosition;
-
+        poolableObject.gameObject.SetActive(true);
         enemy.agent.enabled = true;
 
         if (!enemy.agent.Warp(spawnPosition))

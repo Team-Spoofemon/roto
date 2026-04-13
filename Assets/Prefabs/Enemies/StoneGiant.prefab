@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &655142002208001933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457118772290954362}
+  m_Layer: 7
+  m_Name: Throw Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457118772290954362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 655142002208001933}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.63, y: -1.18, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2049516592725213386}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2155476754877156236
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,8 +42,8 @@ GameObject:
   - component: {fileID: 4862305130898179146}
   - component: {fileID: 1680188078043537322}
   - component: {fileID: 4309274652567634384}
-  m_Layer: 0
-  m_Name: Health Bar
+  m_Layer: 7
+  m_Name: Stone Giant Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +58,7 @@ RectTransform:
   m_GameObject: {fileID: 2155476754877156236}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 12.5, y: 17.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5567530848245626188}
@@ -78,15 +109,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1361507553, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.3125, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &4309274652567634384
@@ -102,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
+  allowHorizontalFlip: 1
 --- !u!1 &3759946772876367996
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,12 +144,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2049516592725213386}
   - component: {fileID: 3625581245081331488}
-  - component: {fileID: 9205367498368165461}
   - component: {fileID: 34200894521011072}
   - component: {fileID: 4005061102150964979}
   - component: {fileID: 380813190119272534}
+  - component: {fileID: 5965774509164654028}
   - component: {fileID: 4322482385388668305}
-  m_Layer: 0
+  - component: {fileID: 3289374723341008943}
+  m_Layer: 7
   m_Name: StoneGiant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,6 +172,7 @@ Transform:
   m_Children:
   - {fileID: 8221385161065495777}
   - {fileID: 5567530848245626188}
+  - {fileID: 457118772290954362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &3625581245081331488
@@ -168,7 +202,132 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &9205367498368165461
+--- !u!114 &34200894521011072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759946772876367996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5780330be51b419091821913db0362a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 100
+  totalDefense: 0
+  damageInvulnerabilityTime: 0.7
+  currentHealth: 0
+  enablePlayerRegen: 1
+  regenDelay: 10
+  regenAmountPerTick: 10
+  regenTickInterval: 1
+  showHealthBar: 1
+  hasDeathOverride: 0
+  hasDamageOverride: 0
+  sig_TakeDamageOverride:
+    m_PersistentCalls:
+      m_Calls: []
+  sig_DestroyedOverride:
+    m_PersistentCalls:
+      m_Calls: []
+  sig_Death:
+    m_PersistentCalls:
+      m_Calls: []
+  hasDeathAnimation: 1
+  hasDeathAnimationOverride: 0
+  flashOnInvulnerable: 1
+  sig_DeathAnimationOverride:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!195 &4005061102150964979
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759946772876367996}
+  m_Enabled: 0
+  m_AgentTypeID: 658490984
+  m_Radius: 3
+  m_Speed: 15
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 0
+  m_StoppingDistance: 10
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 6
+  m_BaseOffset: 4
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &380813190119272534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759946772876367996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09947f124af35d4a96d39d9b62450e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyAnim: {fileID: 8094208442232964014}
+  rootsAnim: {fileID: 0}
+  spriteOrientation: {fileID: 4204507831009172751}
+  player: {fileID: 1860561865972728697, guid: 53ef0e884d5664ea68dc59a2391538f8, type: 3}
+  updateSpeed: 0.1
+--- !u!114 &5965774509164654028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759946772876367996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ec35c26f1efc742bd50ea6e7b18530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 380813190119272534}
+  agent: {fileID: 4005061102150964979}
+  enemyClass: 0
+  enemyType: 1
+  damage: 30
+  damageKnockback: 30
+  player: {fileID: 0}
+  playerShadowTarget: {fileID: 0}
+  playerCollider: {fileID: 0}
+  enemyAnimator: {fileID: 8094208442232964014}
+  attackRange: 100
+  attackCooldown: 5
+  telegraphDuration: 1
+  targetIndicatorPrefab: {fileID: 3726266595045359356, guid: fe4e1fb4e4db448549a04786d8ca9199, type: 3}
+  eliteMeleeRange: 2
+  stoneArcHeight: 10
+  stoneTravelDuration: 0.8
+  rootAttackPrefab: {fileID: 0}
+  rootLifetime: 1
+  stoneProjectilePrefab: {fileID: 5319362255339020219, guid: caf1fa40bf1d64c0291e87b474e619a6, type: 3}
+  stoneThrowPoint: {fileID: 457118772290954362}
+  stoneThrowDelay: 0.75
+  rockslideProbability: 0.1
+  rockslideLock: 5
+--- !u!210 &4322482385388668305
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3759946772876367996}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+--- !u!65 &3289374723341008943
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -187,93 +346,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &34200894521011072
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3759946772876367996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5780330be51b419091821913db0362a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  totalHealth: 0
-  totalDefense: 0
-  damageInvulnerabilityTime: 0.7
-  currentHealth: 0
-  showHealthBar: 1
-  hasDeathOverride: 0
-  hasDamageOverride: 0
-  sig_TakeDamageOverride:
-    m_PersistentCalls:
-      m_Calls: []
-  sig_DestroyedOverride:
-    m_PersistentCalls:
-      m_Calls: []
-  sig_Death:
-    m_PersistentCalls:
-      m_Calls: []
-  hasDeathAnimation: 0
-  hasDeathAnimationOverride: 0
-  flashOnInvulnerable: 1
-  sig_DeathAnimationOverride:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!195 &4005061102150964979
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3759946772876367996}
-  m_Enabled: 0
-  m_AgentTypeID: 287145453
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &380813190119272534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3759946772876367996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f09947f124af35d4a96d39d9b62450e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAnim: {fileID: 0}
-  rootsAnim: {fileID: 0}
-  spriteOrientation: {fileID: 0}
-  player: {fileID: 0}
-  updateSpeed: 0.1
---- !u!210 &4322482385388668305
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3759946772876367996}
-  m_Enabled: 1
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_Size: {x: 6.734764, y: 6.681938, z: 1.7282959}
+  m_Center: {x: -0.025157928, y: -1.0790871, z: -0.021826172}
 --- !u!1 &4228815527569360722
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,8 +360,8 @@ GameObject:
   - component: {fileID: 195955109466631216}
   - component: {fileID: 8094208442232964014}
   - component: {fileID: 4204507831009172751}
-  m_Layer: 0
-  m_Name: Visual
+  m_Layer: 7
+  m_Name: Stone Giant Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 4228815527569360722}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.08, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -349,7 +423,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1605754034, guid: 4823c9801ceab4eeda8e5e2d442bcf51, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -357,7 +431,7 @@ SpriteRenderer:
   m_Size: {x: 6.71875, y: 6.65625}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &8094208442232964014
@@ -370,7 +444,7 @@ Animator:
   m_GameObject: {fileID: 4228815527569360722}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 68e6fdc633e5e4037911b8de96d8fd66, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -394,6 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
+  allowHorizontalFlip: 1
 --- !u!1 &6421229292556348539
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,8 +481,9 @@ GameObject:
   - component: {fileID: 5351970830580841626}
   - component: {fileID: 2210052814362404383}
   - component: {fileID: 4393522237089195803}
-  m_Layer: 0
-  m_Name: Health UI Canvas
+  - component: {fileID: 1503573782846470343}
+  m_Layer: 7
+  m_Name: Stone Giant Health UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -420,9 +496,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6421229292556348539}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.05, y: 0.02499999, z: 0.02499999}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4862305130898179146}
@@ -430,9 +506,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 3.05}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5351970830580841626
 Canvas:
   m_ObjectHideFlags: 0
@@ -442,7 +518,7 @@ Canvas:
   m_GameObject: {fileID: 6421229292556348539}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -478,7 +554,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4393522237089195803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -496,3 +572,28 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1503573782846470343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6421229292556348539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86563466b0a234f07b590c7f79c90f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barContainer: {fileID: 5351970830580841626}
+  _spriteRenderer: {fileID: 1680188078043537322}
+  healthSprites:
+  - {fileID: -1003861962, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: -1862718343, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: 605248820, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: -657097712, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: 1794077151, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: 223190875, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: -685170634, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: 2007083169, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: 2002033708, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}
+  - {fileID: 1361507553, guid: ca63e3621b30f7642ab7f8adb50b7f22, type: 3}

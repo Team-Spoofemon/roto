@@ -52,7 +52,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5260329584326926340
 MonoBehaviour:
@@ -139,8 +139,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 982143037
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 540151043, guid: 96ff36cd327154b248a369f56e7a3597, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -456,7 +456,7 @@ MonoBehaviour:
   totalDefense: 0
   damageInvulnerabilityTime: 2
   currentHealth: 0
-  showHealthBar: 0
+  showHealthBar: 1
   hasDeathOverride: 0
   hasDamageOverride: 0
   sig_TakeDamageOverride:
@@ -480,7 +480,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  hasDeathAnimation: 0
+  hasDeathAnimation: 1
   hasDeathAnimationOverride: 0
   flashOnInvulnerable: 1
   sig_DeathAnimationOverride:
@@ -523,7 +523,8 @@ GameObject:
   - component: {fileID: 8332098477940843923}
   - component: {fileID: 3380498841347504151}
   - component: {fileID: 7279566250423355361}
-  m_Layer: 6
+  - component: {fileID: 5932934632153480442}
+  m_Layer: 5
   m_Name: Health Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,16 +629,30 @@ MonoBehaviour:
   _barContainer: {fileID: 8275636007562361393}
   _spriteRenderer: {fileID: 8850143914156470277}
   healthSprites:
-  - {fileID: -384254938, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: 1356607860, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: -883123044, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: -1939810733, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: 1069604655, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: -178562420, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: 789018099, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: -1713257790, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
-  - {fileID: -225297780, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
   - {fileID: -2052487283, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: -225297780, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: -1713257790, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: 789018099, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: -178562420, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: 1069604655, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: -1939810733, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: -883123044, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: 1356607860, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+  - {fileID: -384254938, guid: 034557613a3a5244e86bc94dfffa5d1f, type: 3}
+--- !u!114 &5932934632153480442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7701626145450719231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068536f0cb9be40c9be423f0dc24be09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  facingRight: 1
+  allowHorizontalFlip: 0
 --- !u!1 &7736479222707934234
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,8 +778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3308833695051746277}
   - component: {fileID: 8850143914156470277}
-  - component: {fileID: 92348640084761974}
-  m_Layer: 6
+  m_Layer: 5
   m_Name: Health Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,16 +856,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &92348640084761974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8822211907932829222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068536f0cb9be40c9be423f0dc24be09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  facingRight: 1

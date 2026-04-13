@@ -14,6 +14,15 @@ public class HealthManager : MonoBehaviour
     [SerializeField] private float damageInvulnerabilityTime = 0.7f;
 
     [SerializeField] private float currentHealth;
+    
+    [Header("Player Regen")]
+    [SerializeField] private bool enablePlayerRegen = true;
+    [SerializeField] private float regenDelay = 10f;
+    [SerializeField] private float regenAmountPerTick = 10f;
+    [SerializeField] private float regenTickInterval = 1f;
+
+    private Coroutine _regenRoutine;
+
     public float currentDefense { get; private set; }
 
     private bool _damageable = true;
@@ -57,6 +66,13 @@ public class HealthManager : MonoBehaviour
         }
 
         sprites = GetComponentsInChildren<SpriteRenderer>();
+
+        currentDefense = totalDefense;
+
+        if (ShouldUseRegen())
+        {
+            _regenRoutine = StartCoroutine(PlayerRegenCoroutine());
+        }
     }
 
     private void Update()
@@ -90,6 +106,13 @@ public class HealthManager : MonoBehaviour
 
         currentHealth -= actualDamage;
 
+        currentHealth = Mathf.Clamp(currentHealth, 0f, totalHealth);
+        if (ShouldUseRegen())
+        {
+            RestartRegenRoutine();
+        }
+
+
         if (currentHealth > 0f && damageInvulnerabilityTime > 0f)
         {
             if (_invulnRoutine != null)
@@ -113,6 +136,53 @@ public class HealthManager : MonoBehaviour
 
         if (currentHealth <= 0f)
             HandleDestory();
+    }
+
+    private bool ShouldUseRegen()
+    {
+        return enablePlayerRegen && CompareTag("Player");
+    }
+
+    private bool ShouldRegenNow()
+    {
+        return ShouldUseRegen() && !_deathHandled && currentHealth > 0f && currentHealth < totalHealth;
+    }
+
+    private void RestartRegenRoutine()
+    {
+        if (_regenRoutine != null)
+        {
+            StopCoroutine(_regenRoutine);
+            _regenRoutine = null;
+        }    
+
+        _regenRoutine = StartCoroutine(PlayerRegenCoroutine());
+    }
+
+    private IEnumerator PlayerRegenCoroutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(regenDelay);
+
+            while (ShouldRegenNow())
+            {
+                currentHealth += regenAmountPerTick;
+                currentHealth = Mathf.Clamp(currentHealth, 0f, totalHealth);
+
+                if (_damageBar)
+                {
+                    _damageBar.UpdateHealthSlider(currentHealth, totalHealth);
+                }
+
+                if (currentHealth >= totalHealth)
+                {
+                    break;
+                }
+
+                yield return new WaitForSeconds(regenTickInterval);
+            }
+        }
     }
 
     private IEnumerator InvulnerabilityCoroutine(
@@ -211,6 +281,12 @@ public class HealthManager : MonoBehaviour
         {
             StopCoroutine(_invulnRoutine);
             _invulnRoutine = null;
+        }
+
+        if (_regenRoutine != null)
+        {
+            StopCoroutine(_regenRoutine);
+            _regenRoutine = null;
         }
 
         _damageable = false;
@@ -377,6 +453,17 @@ public class HealthManager : MonoBehaviour
                 sr.color = c;
             }
         }
-}
+
+        if (ShouldUseRegen())
+        {
+            if (_regenRoutine != null)
+            {
+                StopCoroutine(_regenRoutine);
+                _regenRoutine = null;
+            }
+
+            _regenRoutine = StartCoroutine(PlayerRegenCoroutine());
+        }
+    }
 
 }

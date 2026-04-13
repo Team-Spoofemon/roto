@@ -86,8 +86,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.765249, y: 5.9977264, z: 0.6}
-  m_Center: {x: -0.005844116, y: -0.0037651062, z: 0}
+  m_Size: {x: 4.765249, y: 5.9977264, z: 1.3098079}
+  m_Center: {x: -0.005844116, y: -0.0037651062, z: -0.042955928}
 --- !u!114 &6127973450099014467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +104,10 @@ MonoBehaviour:
   totalDefense: 0
   damageInvulnerabilityTime: 0.7
   currentHealth: 0
+  enablePlayerRegen: 1
+  regenDelay: 10
+  regenAmountPerTick: 10
+  regenTickInterval: 1
   showHealthBar: 1
   hasDeathOverride: 0
   hasDamageOverride: 0
@@ -175,18 +179,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 3163027204316537704}
   agent: {fileID: 8414923215331412016}
+  enemyClass: 0
+  enemyType: 0
   damage: 20
   damageKnockback: 20
   player: {fileID: 0}
   playerShadowTarget: {fileID: 0}
+  playerCollider: {fileID: 0}
   enemyAnimator: {fileID: 1181695290721298703}
-  targetIndicatorPrefab: {fileID: 3726266595045359356, guid: fe4e1fb4e4db448549a04786d8ca9199, type: 3}
-  rootAttackPrefab: {fileID: 4368661325577185801, guid: 079f47efdcc894cc49f338ac8bbc5df0, type: 3}
-  attackRange: 20
+  attackRange: 200
   attackCooldown: 1
   telegraphDuration: 3
+  targetIndicatorPrefab: {fileID: 3726266595045359356, guid: fe4e1fb4e4db448549a04786d8ca9199, type: 3}
+  eliteMeleeRange: 2
+  stoneArcHeight: 3
+  stoneTravelDuration: 0.8
+  rootAttackPrefab: {fileID: 4368661325577185801, guid: 079f47efdcc894cc49f338ac8bbc5df0, type: 3}
   rootLifetime: 2
-  playerCollider: {fileID: 0}
+  stoneProjectilePrefab: {fileID: 0}
+  stoneThrowPoint: {fileID: 0}
+  stoneThrowDelay: 0.3
+  rockslideProbability: 0.35
+  rockslideLock: 3
 --- !u!210 &6326220641012939094
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -246,6 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
+  allowHorizontalFlip: 1
 --- !u!212 &876842248674369299
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -460,6 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
+  allowHorizontalFlip: 1
 --- !u!1 &9027588329266364699
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,3 +578,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   facingRight: 1
+  allowHorizontalFlip: 1

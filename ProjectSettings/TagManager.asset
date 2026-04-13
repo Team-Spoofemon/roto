@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Key
   - CameraOrientation
+  - Unwalkable
+  - OOB
+  - RockslideZone
   layers:
   - Default
   - TransparentFX
