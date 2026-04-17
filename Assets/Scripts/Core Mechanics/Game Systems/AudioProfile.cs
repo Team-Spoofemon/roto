@@ -42,7 +42,18 @@ public class AudioProfile : ScriptableObject
     [Header("Global SFX")]
     public AudioClip[] swordSounds;
     public AudioClip[] ambienceSounds;
-    public AudioClip[] enemySpawnCalls;
+    public AudioClip attackIndicatorSFX;
+
+    [Header("Tree Giant")]
+    public AudioClip treeGiantSpawnSFX;
+    public AudioClip treeGiantRootAttackSFX;
+    public AudioClip treeGiantWalkSFX;
+
+    [Header("Stone Giant")]
+    public AudioClip stoneGiantSpawnSFX;
+    public AudioClip stoneGiantThrowSFX;
+    public AudioClip stongeGiantRockSmashSFX;
+    public AudioClip stoneGiantWalkSFX;
 
     [Header("Cutscene Realm")]
     public AudioClip[] cutsceneRealm;

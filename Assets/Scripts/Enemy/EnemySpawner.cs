@@ -1,29 +1,38 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public Transform Player;
-    private GameObject newPlayer;
+    private Transform player;
+    private Collider playerCollider;
+    private Collider spawnZoneCollider;
+
+    [SerializeField] private float minSpawnSpacing = 2f;
+    [SerializeField] private int maxSpawnAttemptsPerEnemy = 20;
+
     public Collider barrier;
-    public float EnemyPerTile =0.5f;
+    public float EnemyPerTile = 0.5f;
     public int numberOfEnemies = 5;
     public float spawnDelay = 1f;
     public List<Enemy> EnemyPrefabs = new List<Enemy>();
-    public SpawnMethod enemySpawnMethod = SpawnMethod.EarthGiant;
+    public SpawnMethod enemySpawnMethod = SpawnMethod.TreeGiant;
 
-    public UnityEngine.AI.NavMeshTriangulation Triangulation;
     private Dictionary<int, ObjectPool> EnemyObjectPools = new Dictionary<int, ObjectPool>();
+    private bool hasSpawned;
 
     public enum SpawnMethod
     {
-        EarthGiant,
+        TreeGiant,
+        StoneGiant,
         Random
     }
 
     private void Awake()
     {
+        spawnZoneCollider = GetComponent<Collider>();
+
         for (int i = 0; i < EnemyPrefabs.Count; i++)
         {
             EnemyObjectPools.Add(i, ObjectPool.CreateInstance(EnemyPrefabs[i], numberOfEnemies));
@@ -32,82 +41,193 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        newPlayer = GameObject.FindGameObjectWithTag("Player");
-        Triangulation = UnityEngine.AI.NavMesh.CalculateTriangulation();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+            playerCollider = playerObject.GetComponentInChildren<Collider>();
+            Debug.Log(name + " found player: " + player.name);
+        }
+        else
+        {
+            Debug.LogError(name + " could not find player with tag 'Player'.");
+        }
+
+        if (spawnZoneCollider == null)
+        {
+            Debug.LogError(name + " has no collider on the spawn zone object.");
+        }
     }
 
-    private void OnTriggerExit(Collider barrier)
+    private void OnTriggerEnter(Collider other)
     {
+        if (hasSpawned)
+            return;
+
+        if (!other.CompareTag("Player"))
+            return;
+
+        Debug.Log(name + " OnTriggerExit fired by: " + other.name);
+        hasSpawned = true;
         StartCoroutine(SpawnEnemies());
-        Debug.Log("The enemies have spawned by: " + barrier.name);
     }
 
     private IEnumerator SpawnEnemies()
     {
-        //Creates delay for spawning enemies
-        WaitForSeconds Wait = new WaitForSeconds(spawnDelay);
+        Debug.Log(name + " SpawnEnemies started");
+
+        WaitForSeconds wait = new WaitForSeconds(spawnDelay);
+        List<Vector3> usedSpawnPositions = new List<Vector3>();
 
         int spawnedEnemies = 0;
 
         while (spawnedEnemies < numberOfEnemies)
         {
-            if(enemySpawnMethod == SpawnMethod.EarthGiant)
+            bool spawned = false;
+
+            if (enemySpawnMethod == SpawnMethod.TreeGiant)
             {
-                SpawnEarthGiantEnemy(spawnedEnemies);
+                spawned = DoSpawnEnemy(0, usedSpawnPositions);
             }
-            else if(enemySpawnMethod == SpawnMethod.Random)
+            else if (enemySpawnMethod == SpawnMethod.StoneGiant)
             {
-                SpawnRandomEnemy();
+                spawned = DoSpawnEnemy(1, usedSpawnPositions);
+            }
+            else if (enemySpawnMethod == SpawnMethod.Random)
+            {
+                spawned = SpawnRandomEnemy(usedSpawnPositions);
             }
 
-            spawnedEnemies++; //spawns one chosen enemy type
-
-            yield return Wait; //activates delay after spawning in the enemy
-        }
-    }
-
-    private void SpawnEarthGiantEnemy(int spawnedEnemies)
-    {
-        int SpawnIndex = spawnedEnemies % EnemyPrefabs.Count;
-
-        DoSpawnEnemy(SpawnIndex);
-    }
-
-    private void SpawnRandomEnemy()
-    {
-        DoSpawnEnemy(Random.Range(0, EnemyPrefabs.Count));
-    }
-
-    private void DoSpawnEnemy(int SpawnIndex)
-    {
-        PoolableObject poolableObject = EnemyObjectPools[SpawnIndex].GetObject();
-
-        if(poolableObject != null)
-        {
-            Enemy enemy = poolableObject.GetComponent<Enemy>();
-
-            int vertexIndex = Random.Range(0, Triangulation.vertices.Length);
-
-            UnityEngine.AI.NavMeshHit Hit;
-            if(UnityEngine.AI.NavMesh.SamplePosition(Triangulation.vertices[vertexIndex], out Hit, 2f, 1))
+            if (spawned)
             {
-                //enemy finds the NavMeshAgent and attaches itself properly
-                enemy.agent.Warp(Hit.position);
-                //the player on the NavMesh has their transform component shared with the enemy movement script's player transform
-                enemy.movement.player = Player;
-                //enemy on NavMeshAgent is enabled
-                enemy.agent.enabled = true;
-                //enemy moves to chase the player
-                enemy.movement.StartChasing();
+                spawnedEnemies++;
+                yield return wait;
             }
             else
             {
-                Debug.LogError("Cannot place agent on NavMesh. Attempted " + Triangulation.vertices[vertexIndex]);
+                Debug.LogWarning(name + " failed to find a valid spawn position.");
+                yield return null;
             }
         }
-        else
+    }
+
+    private bool SpawnEarthGiantEnemy(int spawnedEnemies, List<Vector3> usedSpawnPositions)
+    {
+        int spawnIndex = spawnedEnemies % EnemyPrefabs.Count;
+        return DoSpawnEnemy(spawnIndex, usedSpawnPositions);
+    }
+
+    private bool SpawnRandomEnemy(List<Vector3> usedSpawnPositions)
+    {
+        return DoSpawnEnemy(Random.Range(0, EnemyPrefabs.Count), usedSpawnPositions);
+    }
+
+    private bool DoSpawnEnemy(int spawnIndex, List<Vector3> usedSpawnPositions)
+    {
+        if (spawnZoneCollider == null)
         {
-            Debug.LogError("Unable to fetch enemy of type " + SpawnIndex + " from object pool. Check if you're out of objects.");
+            Debug.LogError(name + " has no spawn zone collider.");
+            return false;
         }
+
+        PoolableObject poolableObject = EnemyObjectPools[spawnIndex].GetObject();
+
+        if (poolableObject == null)
+        {
+            Debug.LogError(name + " could not get enemy from pool at index: " + spawnIndex);
+            return false;
+        }
+
+        Enemy enemy = poolableObject.GetComponent<Enemy>();
+
+        if (enemy == null)
+        {
+            Debug.LogError(name + " pooled object does not have an Enemy component.");
+            poolableObject.gameObject.SetActive(false);
+            return false;
+        }
+
+        if (enemy.agent == null)
+        {
+            Debug.LogError(name + " enemy has no NavMeshAgent.");
+            poolableObject.gameObject.SetActive(false);
+            return false;
+        }
+
+        enemy.agent.enabled = false;
+
+        Vector3 spawnPosition;
+        if (!TryGetSpawnPosition(usedSpawnPositions, out spawnPosition))
+        {
+            poolableObject.gameObject.SetActive(false);
+            return false;
+        }
+
+        poolableObject.gameObject.SetActive(true);
+        enemy.agent.enabled = true;
+
+        if (!enemy.agent.Warp(spawnPosition))
+        {
+            Debug.LogWarning(name + " failed to warp enemy to: " + spawnPosition);
+            enemy.agent.enabled = false;
+            poolableObject.gameObject.SetActive(false);
+            return false;
+        }
+
+        enemy.SetTarget(player, playerCollider);
+        enemy.movement.StartChasing();
+
+        usedSpawnPositions.Add(spawnPosition);
+
+        Debug.Log(name + " enemy spawned successfully at: " + spawnPosition);
+        return true;
+    }
+
+    private bool TryGetSpawnPosition(List<Vector3> usedSpawnPositions, out Vector3 validPosition)
+    {
+        Bounds bounds = spawnZoneCollider.bounds;
+
+        for (int attempt = 0; attempt < maxSpawnAttemptsPerEnemy; attempt++)
+        {
+            Vector3 randomPoint = new Vector3(
+                Random.Range(bounds.min.x, bounds.max.x),
+                bounds.center.y,
+                Random.Range(bounds.min.z, bounds.max.z)
+            );
+
+            if (!IsPointInsideSpawnZone(randomPoint))
+                continue;
+
+            NavMeshHit hit;
+            if (!NavMesh.SamplePosition(randomPoint, out hit, 3f, NavMesh.AllAreas))
+                continue;
+
+            if (IsTooCloseToOtherSpawns(hit.position, usedSpawnPositions))
+                continue;
+
+            validPosition = hit.position;
+            return true;
+        }
+
+        validPosition = Vector3.zero;
+        return false;
+    }
+
+    private bool IsPointInsideSpawnZone(Vector3 point)
+    {
+        Vector3 closestPoint = spawnZoneCollider.ClosestPoint(point);
+        return Vector3.Distance(closestPoint, point) < 0.05f;
+    }
+
+    private bool IsTooCloseToOtherSpawns(Vector3 position, List<Vector3> usedSpawnPositions)
+    {
+        for (int i = 0; i < usedSpawnPositions.Count; i++)
+        {
+            if (Vector3.Distance(position, usedSpawnPositions[i]) < minSpawnSpacing)
+                return true;
+        }
+
+        return false;
     }
 }

@@ -100,23 +100,16 @@ public class DeathScreenUI : MonoBehaviour
             return;
 
         if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
-            StartCoroutine(HideAndRespawn());
-    }
-
-    private IEnumerator HideAndRespawn()
-    {
-        canRespawn = false;
-
-        yield return FadeCanvas(0f);
-
-        Hide();
-
-        if (LevelManager.Instance != null)
-            LevelManager.Instance.RespawnFromDeathScreen();
-        else if (PlayerRespawn.Instance != null)
         {
-            Time.timeScale = 1f;
-            PlayerRespawn.Instance.RespawnPlayer();
+            canRespawn = false;
+
+            if (LevelManager.Instance != null)
+                LevelManager.Instance.RespawnFromDeathScreen();
+            else if (PlayerRespawn.Instance != null)
+            {
+                Time.timeScale = 1f;
+                PlayerRespawn.Instance.RespawnPlayer();
+            }
         }
     }
 }

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class HitBox : MonoBehaviour
 {
@@ -12,20 +10,24 @@ public class HitBox : MonoBehaviour
     private void Awake()
     {
         damageSource = GetComponentInParent<IHitHandler>();
+    }
 
-        if (damageSource == null)
-            Debug.LogError($"{name}: Could not find an IHitHandler in parents.");
+    public void SetDamageSource(IHitHandler source)
+    {
+        damageSource = source;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (((1 << other.gameObject.layer) & targetLayer.value) != 0)
-        {
-            HealthManager targetHealth = other.GetComponentInParent<HealthManager>();
-            if ((targetHealth != null) && (damageSource != null))
-            {
-                damageSource.OnHit(targetHealth);
-            }
-        }
+        if (damageSource == null)
+            return;
+
+        if (((1 << other.gameObject.layer) & targetLayer.value) == 0)
+            return;
+
+        HealthManager targetHealth = other.GetComponentInParent<HealthManager>();
+
+        if (targetHealth != null)
+            damageSource.OnHit(targetHealth);
     }
 }

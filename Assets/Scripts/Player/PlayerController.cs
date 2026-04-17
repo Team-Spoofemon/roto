@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     private System.Action<InputAction.CallbackContext> meleeCallback;
     private float initialScale;
     private bool hasInitializedShadow = false;
+    private bool isOnUnwalkable;
 
     private const float FlipHysteresis = 0.08f;
 
@@ -260,6 +261,12 @@ public class PlayerController : MonoBehaviour
 
         moveDirection = desired.sqrMagnitude > 0.0001f ? desired.normalized : Vector3.zero;
 
+        if (isOnUnwalkable)
+        {
+            moveDirection = Vector3.zero;
+            rb.velocity = new Vector3(0f, rb.velocity.y, 0f);
+        }
+
         Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         Vector3 targetVel = moveDirection * moveSpeed;
         Vector3 velChange = targetVel - flatVel;
@@ -289,8 +296,19 @@ public class PlayerController : MonoBehaviour
 
         Quaternion faceCam = Quaternion.LookRotation(forward.normalized, Vector3.up);
         float flipY = facingRight ? 0f : 180f;
+        Quaternion targetRotation = faceCam * Quaternion.Euler(0f, flipY, 0f);
 
-        spriteHolder.rotation = faceCam * Quaternion.Euler(0f, flipY, 0f);
+        spriteHolder.rotation = targetRotation;
+
+        int uiLayer = LayerMask.NameToLayer("UI");
+
+        foreach (Transform child in spriteHolder)
+        {
+            if (child.gameObject.layer == uiLayer)
+                continue;
+
+            child.rotation = targetRotation;
+        }
     }
 
     private void ApplyExtraGravity()
@@ -410,5 +428,20 @@ public class PlayerController : MonoBehaviour
 
         if (playerShadow)
             playerShadow.gameObject.SetActive(true);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Unwalkable"))
+            isOnUnwalkable = true;
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Water") && !isDead && !isSinking)
+            StartCoroutine(DrownSequence());
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Unwalkable"))
+            isOnUnwalkable = false;
     }
 }
