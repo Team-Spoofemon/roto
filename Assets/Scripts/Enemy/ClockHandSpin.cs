@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClockHandSpin : MonoBehaviour
 {
-    //Clock hand will activate during third phase of boss fight
+    //Clock hand will activate when boss health hits half health
     // --> Similar to beams in Jump Showdown in "Fall Guys: Ultimate Knockout"
     //Until activated, the hands will act as platforms in the first two phases
     //Hands will move in delta time, NOT real time
